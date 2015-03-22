@@ -15,7 +15,6 @@ entity decoder is
 			   WE : out STD_LOGIC;
 			   SEL_OUT : out STD_LOGIC_VECTOR(1 downto 0);
 			   MEM_WRITE : out STD_LOGIC;
-				PRINT : out STD_LOGIC;
 				jump_opcode : out STD_LOGIC_VECTOR(13 downto 0);
 				flags_en : out STD_LOGIC_VECTOR(3 downto 0);
 				enable_jump : out STD_LOGIC
@@ -96,8 +95,5 @@ begin
 						
 	MEM_WRITE <= '1' when format = "10" and instruct(10 downto 6) = "01011" else
 			       '0';
-	
-	PRINT <= '1' when instruct = X"2FFF" else
-				'0';
 	
 end Behavioral;

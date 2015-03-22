@@ -19,10 +19,13 @@
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
+--use work.full_memory.all;
 
 entity cpu is
    Port( CLK, TEST1 : in STD_LOGIC;
+			MEMORY : out STD_LOGIC_VECTOR(15 downto 0);
+			INST_NB : out std_LOGIC_VECTOR(15 downto 0);
+			PRINT : out STD_LOGIC;
 			TEST: out STD_LOGIC_VECTOR(15 downto 0));
 end cpu;
 
@@ -46,7 +49,6 @@ architecture Behavioral of cpu is
 			   WE : out STD_LOGIC;
 			   SEL_OUT : out STD_LOGIC_VECTOR(1 downto 0);
 			   MEM_WRITE : out STD_LOGIC;
-				PRINT : out STD_LOGIC;
 				jump_opcode : out STD_LOGIC_VECTOR(13 downto 0);
 				flags_en : out STD_LOGIC_VECTOR(3 downto 0);
 				enable_jump : out STD_LOGIC
@@ -91,10 +93,11 @@ architecture Behavioral of cpu is
 	component rom_instrc
 		port(clk : in std_logic;
 			  we : in std_logic;
+			  --MEM_array : out RamType;
 		     addr_instr : in std_logic_vector(15 downto 0);
 		     addr_dados : in std_logic_vector(15 downto 0);
 		     din : in std_logic_vector(15 downto 0);
-			  print : in std_logic;
+			  print : out std_logic;
 		     dout_instr : out std_logic_vector(15 downto 0);
 		     dout_dados : out std_logic_vector(15 downto 0));
 	end component;
@@ -119,12 +122,8 @@ architecture Behavioral of cpu is
 	end component ProgramCounter;
 	
 	component IF_Regs is
-		Port (Current_PC_in : in  STD_LOGIC_VECTOR (15 downto 0); 
-				Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
-				Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
+		Port (Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
 				Next_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
-				OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
-				OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 				clk : in  STD_LOGIC;
 				enable : in STD_LOGIC);
 	end component IF_Regs;
@@ -186,6 +185,7 @@ architecture Behavioral of cpu is
 			ENABLE_IF_RF : out STD_LOGIC;
 			ENABLE_EX_MEM : out STD_LOGIC;
 			ENABLE_PC : out STD_LOGIC;
+			PRINT : in STD_LOGIC;
 			CLK : in STD_LOGIC
 	);
 	end component FSM_Regs;
@@ -255,8 +255,7 @@ architecture Behavioral of cpu is
 		MEM_WRITE => MEM_EN,
 		jump_opcode => jump_opc,
 		flags_en => fl_en,
-		enable_jump => jpen,
-		print => ram_print
+		enable_jump => jpen
 	);
 
 	Constante : constantes port map(
@@ -324,12 +323,8 @@ architecture Behavioral of cpu is
 	);
 	
 	IF_Registers : IF_Regs port map(
-		Current_PC_in => IFaddr,
-		Current_PC_out => IFaddr_2, 
 		Next_PC_in => PCm1,
 		Next_PC_out => PCm1_2,
-		OPCODE_in => instr,
-		OPCODE_out => instr_2,
 		clk => CLK,
 		enable => en_lvl1
 	);
@@ -386,6 +381,7 @@ architecture Behavioral of cpu is
 	
 	FSM : FSM_Regs port map(
 		START => TEST1,
+		PRINT => ram_print,
 		ENABLE_IF => en_lvl1,
 		ENABLE_IF_RF => en_lvl2,
 		ENABLE_EX_MEM => en_lvl3,
@@ -394,6 +390,8 @@ architecture Behavioral of cpu is
 	);
 	
 	TEST <= writedata;
-	
+	MEMORY <= instr;
+	INST_NB <= IFaddr;
+	PRINT <= ram_print;
 end Behavioral;
 

@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer:
 --
--- Create Date:   03:31:17 03/15/2015
+-- Create Date:   18:40:28 03/22/2015
 -- Design Name:   
--- Module Name:   C:/AAC/AAC_L1_v9/v7/cpu_teste.vhd
+-- Module Name:   C:/AAC/AAC_L1/cpu_Teste.vhd
 -- Project Name:  v7
 -- Target Device:  
 -- Tool versions:  
@@ -27,15 +27,17 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
- 
+use STD.TEXTIO.all;
+use STD.TEXTIO;
+use IEEE.STD_LOGIC_TEXTIO.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
  
-ENTITY cpu_teste IS
-END cpu_teste;
+ENTITY cpu_Teste IS
+END cpu_Teste;
  
-ARCHITECTURE behavior OF cpu_teste IS 
+ARCHITECTURE behavior OF cpu_Teste IS 
  
     -- Component Declaration for the Unit Under Test (UUT)
  
@@ -43,6 +45,9 @@ ARCHITECTURE behavior OF cpu_teste IS
     PORT(
          CLK : IN  std_logic;
          TEST1 : IN  std_logic;
+			PRINT : OUT std_logic;
+         MEMORY : OUT  std_logic_vector(15 downto 0);
+         INST_NB : OUT  std_logic_vector(15 downto 0);
          TEST : OUT  std_logic_vector(15 downto 0)
         );
     END COMPONENT;
@@ -53,18 +58,26 @@ ARCHITECTURE behavior OF cpu_teste IS
    signal TEST1 : std_logic := '0';
 
  	--Outputs
+   signal MEMORY : std_logic_vector(15 downto 0);
+   signal INST_NB : std_logic_vector(15 downto 0);
    signal TEST : std_logic_vector(15 downto 0);
-
-   -- Clock period definitions
+   signal PRINT : std_logic;
+	-- Clock period definitions
    constant CLK_period : time := 10 ns;
- 
+   signal teste2 : std_logic := '0';
+	signal memoria : std_logic_vector(15 downto 0);
+	signal counter : integer := 0;
+	
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: cpu PORT MAP (
           CLK => CLK,
           TEST1 => TEST1,
-          TEST => TEST
+          MEMORY => MEMORY,
+          INST_NB => INST_NB,
+          TEST => TEST,
+			 PRINT => PRINT
         );
 
    -- Clock process definitions
@@ -76,7 +89,9 @@ BEGIN
 		wait for CLK_period/2;
    end process;
  
-
+	--counter <= INST_NB;
+	teste2 <= TEST1;
+	memoria <= MEMORY;
    -- Stimulus process
    stim_proc: process
    begin		
@@ -84,13 +99,28 @@ BEGIN
       wait for 100 ns;	
 
       wait for CLK_period*10;
-
-      -- insert stimulus here 
-
+		
 		TEST1 <= '1' after 10ns;
-
-
+		
       wait;
    end process;
-
+	
+--	process(counter,memoria)
+--	file output: TEXT open write_mode is "ram_out.txt";
+--	variable my_line : LINE;
+--	begin 
+--		if print = '0' then 
+--			write(my_line, counter);
+--			write(my_line, string'(" : "));
+--			write(my_line, memoria);
+--			writeline(output, my_line);
+--		end if;
+--	end process;
+--	
+--	process(clk)
+--	begin
+--		if clk'event and clk = '1' and print = '0' then
+--				counter <= counter + 1;
+--		end if;
+--	end process;
 END;

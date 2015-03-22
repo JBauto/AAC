@@ -1,7 +1,8 @@
 
 --
 -- Initializing Block RAM from external data file
---
+
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
@@ -9,19 +10,22 @@ use STD.TEXTIO.all;
 use STD.TEXTIO;
 use IEEE.STD_LOGIC_TEXTIO.all;
 
+--use work.full_memory.all;
+
 entity rom_instrc is
-	port(print : in std_logic;
-		  clk : in std_logic;
+	port(clk : in std_logic;
+		 -- MEM_array : out RamType;
 	     we : in std_logic;
 		  addr_instr : in std_logic_vector(15 downto 0);
 		  addr_dados : in std_logic_vector(15 downto 0);
 		  din : in std_logic_vector(15 downto 0);
 		  dout_instr : out std_logic_vector(15 downto 0);
-		  dout_dados : out std_logic_vector(15 downto 0));
+		  dout_dados : out std_logic_vector(15 downto 0);
+		  print : out std_logic);
 	end rom_instrc;
 
 architecture Behavioral of rom_instrc is
-   type RamType is array(0 to 65535) of STD_LOGIC_VECTOR(15 downto 0);
+  type RamType is array(0 to 65535) of STD_LOGIC_VECTOR(15 downto 0);
    impure function InitRamFromFile (RamFileName : in string) return RamType is
 		file INFILE : TEXT  is in "rom4.txt";
 		variable DATA_TEMP : STD_LOGIC_VECTOR(15 downto 0);	
@@ -80,6 +84,8 @@ begin
 	
 	dados <= addr_dados(15 downto 0);
 	instr <= addr_instr(15 downto 0);
+	print <= '1' when RAM(conv_integer(instr)) = X"2FFF" else
+				'0';
 	
 --	write_file:
 --    process (print,RAM) is    -- write file_io.out (when done goes to '1')
@@ -94,8 +100,10 @@ begin
 --        --writeline(output, my_line);
 --        --write(my_output_line, string'("output from file_io.vhdl"));
 --        --writeline(my_output, my_output_line);
---        hwrite(my_output_line, RAM(0));    -- or any other stuff
---        writeline(my_output, my_output_line);
+--			for i in 0 to 20 loop
+--				hwrite(my_output_line, RAM(i));    -- or any other stuff
+--				writeline(my_output, my_output_line);
+--			end loop;
 --      end if;
 --    end process write_file;
 	
