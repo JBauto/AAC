@@ -41,12 +41,43 @@
 
 \begin{document}
 	\chapter{Unidade lógico-aritmética (ALU)}
-	Breve descrição da ALU
+	\textsc{Breve descrição da \textbf{ALU}: } Desenhou-se a \textbf{ALU} com três unidades a funcionarem em paralelo, abaixo descritas com maior~detalhe.\\
+	O resultado produzido por estas unidades é introduzido num ``multiplexer'' que escolhe de acordo com sinais provenientes da unidade de descodificação qual o resultado e ``Flags'' a colocar à saída da~\textbf{ALU}.
 	
-	\section{Aritmética}
+	\section{Unidade Aritmética}
+	A unidade Aritmética é responsável pelas operações apresentadas na tabela \ref{tabela:arith}.\\
+		
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+			00000 & \mbox{$C=A+B$}    & add c, a, b    & S,C,Z,V   \\ \hline
+			00001 & \mbox{$C=A+B+1$}  & addinc c, a, b & S,C,Z,V   \\ \hline
+			00011 & \mbox{$C=A+1$}    & inca c, a      & S,C,Z,V   \\ \hline
+			00100 & \mbox{$C=A-B-1$}  & subdec c, a, b & S,C,Z,V   \\ \hline
+			00101 & \mbox{$C=A-B$}    & sub c, a, b    & S,C,Z,V   \\ \hline
+			00110 & \mbox{$C=A-1$}    & deca c, a      & S,C,Z,V   \\ \hline
+		\end{tabular}
+		\caption{Operações aritméticas}
+		\label{tabela:arith}
+	\end{table}
 	
-	\section{Lógica}
+	A unidade aritmética começa por analisar qual a operação a executar de acordo com os dados vindos da unidade de descodificação e em seguida começa por calcular o segundo membro da operação \mbox{$C=A+operB$} em que 
+	\[ operB=\left\{
+		\begin{array}{lr}
+		B & : OP=00000\\
+		B+1 & : OP=00001\\
+		1 & : OP=00011\\
+		-B-1 & : OP=00100\\
+		-B & : OP=00101\\
+		-1 & : OP=00110
+		\end{array}
+		\right.\]
+	De seguida calcula \mbox{$C=A+operB$} e as ``Flags'' correspondentes com base na análise do resultado e dos operandos.
 	
-	\section{Deslocamentos}
+	\section{Unidade Lógica}
+	
+	\section{Unidade de Deslocamentos}
 	
 \end{document}
