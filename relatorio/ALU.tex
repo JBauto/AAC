@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper,titlepage,onecolumn]{report}
+
+% Corrigir margens e paragrafos
+\usepackage[hmarginratio=1:1]{geometry}
+\usepackage{parskip}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage[titletoc]{appendix}
+\usepackage{float}
+\usepackage{pdflscape}
+
+% Definir linguagem portuguesa
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+
+\setlength{\textheight}{21cm}
+\setlength{\voffset}{-0.5cm}
+
+% Incluir packages de cores
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+
+
+\usepackage{indentfirst}
+\parindent=18pt
+
+\usepackage{chngcntr}
+
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Large\bfseries}{\chaptername \ \thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\LARGE\bfseries}
+
+
+%subfigure
+\usepackage[hang,small,bf]{subfigure} 
+
+
+\begin{document}
+	\chapter{Unidade lógico-aritmética (ALU)}
+	Breve descrição da ALU
+	
+	\section{Aritmética}
+	
+	\section{Lógica}
+	
+	\section{Deslocamentos}
+	
+\end{document}
