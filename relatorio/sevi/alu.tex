@@ -67,15 +67,15 @@ A unidade de Deslocamentos é responsável pelas operações apresentadas na tab
 	\begin{tabular}{|c|c|c|c|}
 		\hline
 		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
-		01000 & \mbox{$C=Shift\ Lógico\ Esq.(A)$}    & lsl c, a   & S,C,Z   \\ \hline
-		01001 & \mbox{$C=Shift\ Aritmético\ Dir.(A)$}  & asr c, a & S,C,Z   \\ \hline
+		01000 & \mbox{$C=Shift\ L\acute{o}gico\ Esq.(A)$}    & lsl c, a   & S,C,Z   \\ \hline
+		01001 & \mbox{$C=Shift\ Aritm\acute{e}tico\ Dir.(A)$}  & asr c, a & S,C,Z   \\ \hline
 	\end{tabular}
 	\caption{Operações de Deslocamento}
 	\label{tabela:shift}
 \end{table}
 
 No caso do ``shift'' lógico a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do ``bit0'' com 0.\par
-No caso do ``shift'' aritmético a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do ``bit15'' com o ``bit15'' da entrada.
+No caso do ``shift'' aritmético a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do ``bit15'' com o ``bit15'' da entrada (extensão de sinal).
 
 \section{Cálculo das flags}
 Para o cálculo das \textit{flags} seguimos uma técnica semelhante nas 3 sub-unidades dentro da \textbf{ALU}.
