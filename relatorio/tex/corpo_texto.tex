@@ -1,0 +1,105 @@
+\chapter{Introdução}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam interdum libero a eros posuere porta. Praesent a risus id enim consectetur facilisis. Nulla ut euismod tortor. Cras in ipsum tempus, vestibulum lorem nec, posuere odio. Proin mollis, lectus non lacinia cursus, odio lacus gravida enim, non rutrum turpis dolor eu nunc. Praesent cursus semper lorem, commodo elementum nisi ullamcorper et. Donec eu ligula diam. Ut nunc ante, viverra eget posuere ut, accumsan in diam. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a augue est. Quisque ut neque lorem.
+
+Fusce id neque at urna viverra faucibus a ac enim. Aenean porttitor ex et vehicula fermentum. Praesent sit amet vehicula ex, vitae mattis quam. Praesent sit amet magna a sem suscipit cursus. Ut blandit finibus elit sed interdum. Praesent dignissim nulla ut lacus dictum congue. Quisque maximus nibh nunc, vitae consequat quam eleifend ut. Etiam vel ultrices lectus, sit amet imperdiet eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin consequat justo ut massa imperdiet fermentum. Integer eget velit felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam imperdiet leo.
+
+\chapter{Arquitectura do $\mu$RISC}
+\section{Unidade de descodificação - Decoder}
+
+Por decisão própria, na unidade de descodificação foi efectuado o máximo possível de descodificação de operações, selectores de \textit{multiplexers} e unidades funcionais. Desta forma é nos possível generalizar as restantes unidades funcionais centralizando toda a descodificação numa só unidade. Uma consequência desta metodologia é o aumento da complexidade da unidade e o número de sinais de \textit{output}.
+
+\section{Unidade de Armazenamento - Memória RAM/ROM partilhada}
+
+De forma a facilitar o endereçamento da memória optou-se por uma unidade de armazenamento partilhado. No início da simulação esta é inicializada a partir de um ficheiro .txt graças à utilização de uma \textit{impure function} que introduz as instruções a primeira posição de memória incrementando o endereço para a seguinte instrução. 
+Esta unidade apresenta três entradas, Din para o armazenamento de dados através para instrução \textit{store}, Addr\_Instr que indica o endereço da próxima instrução a ser enviada para o \textit{Decoder} e Addr\_Dados que endereça a posição para onde será feito uma instrução de \textit{load}.
+Como saídas tem-se Dout\_Dados proveniente da instrução \textit{load} e Instr que indica a próxima instrução.
+
+As vantagens deste tipo de memória é a facilidade de endereçamento uma vez que não é necessário fornecer um offset para o caso em que é necessário aceder a um array \textit{por exemplo}. Como desvantagem tem se o facto de o programador necessitar de uma extra atenção às posições de memória onde guarda dos dados podendo substituir futuras instruções.
+
+Com duas memórias independentes seria possível evitar este problema caso ambas as memórias fossem inicializadas com os mesmos dados (instruções e \textit{arrays}).
+
+\section{Unidade lógico-aritmética - ALU}
+
+Desenhou-se a ALU com três unidades a funcionarem em paralelo, abaixo descritas com maior detalhe.
+O resultado produzido por estas unidades é introduzido num \textit{multiplexer} que selecciona de acordo com sinais provenientes da unidade de descodificação qual o resultado e as \textit{Flags} a colocar à saída da ALU.
+
+
+\subsection{Unidade Aritmética}
+A unidade Aritmética é responsável pelas operações apresentadas na tabela~\ref{tabela:arith}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		00000 & \mbox{$C=A+B$}    & add c, a, b    & S,C,Z,V   \\ \hline
+		00001 & \mbox{$C=A+B+1$}  & addinc c, a, b & S,C,Z,V   \\ \hline
+		00011 & \mbox{$C=A+1$}    & inca c, a      & S,C,Z,V   \\ \hline
+		00100 & \mbox{$C=A-B-1$}  & subdec c, a, b & S,C,Z,V   \\ \hline
+		00101 & \mbox{$C=A-B$}    & sub c, a, b    & S,C,Z,V   \\ \hline
+		00110 & \mbox{$C=A-1$}    & deca c, a      & S,C,Z,V   \\ \hline
+	\end{tabular}
+	\caption{Operações Aritméticas}
+	\label{tabela:arith}
+\end{table}
+
+A unidade aritmética começa por analisar qual a operação a executar de acordo com os dados vindos da unidade de descodificação e em seguida começa por calcular o segundo membro da operação \mbox{$C=A+operB$} em que 
+\[ operB=\left\{
+\begin{array}{lr}
+B & : OP=00000\\
+B+1 & : OP=00001\\
+1 & : OP=00011\\
+-B-1 & : OP=00100\\
+-B & : OP=00101\\
+-1 & : OP=00110
+\end{array}
+\right.\]
+De seguida calcula \mbox{$C=A+operB$} e as \textit{Flags} correspondentes com base na análise do resultado e dos operandos.
+
+\subsection{Unidade Lógica}
+
+A unidade Lógica é responsável pelas operações apresentadas na tabela~\ref{tabela:logic}.\\
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		10000 & \mbox{$C=0$}    & zeros c   & Nenhuma  \\ \hline
+		10001 & \mbox{$C=A\&B$}  & and c, a, b & S,Z   \\ \hline
+		10010 & \mbox{$C=!A\&B$}  & andnota c, a, b & S,Z   \\ \hline
+		10011 & \mbox{$C=B$}  & passb c, b &  Nenhuma  \\ \hline
+		10100 & \mbox{$C=A\&!B$}  & andnotb c, a, b & S,Z   \\ \hline
+		10101 & \mbox{$C=A$}  & passa c, a & S,Z   \\ \hline
+		10110 & \mbox{$C=A \oplus B$}  & xor c, a, b & S,Z   \\ \hline
+		10111 & \mbox{$C=A|B$}  & or c, a, b & S,Z   \\ \hline
+		11000 & \mbox{$C=!A\&!B$}  & nor c, a, b & S,Z   \\ \hline
+		11001 & \mbox{$C=!(A \oplus B)$}  & xnor c, a, b & S,Z   \\ \hline
+		11010 & \mbox{$C=!A$}  & passnota c, a & S,Z   \\ \hline
+		11011 & \mbox{$C=!A|B$}  & ornota c, a, b & S,Z   \\ \hline
+		11100 & \mbox{$C=!B$}  & passnotb c, b & S,Z   \\ \hline
+		11101 & \mbox{$C=!A|!B$}  & nand c, a, b & S,Z   \\ \hline
+		11111 & \mbox{$C=1$}  & ones c & Nenhuma   \\ \hline
+	\end{tabular}
+	\caption{Operações de Deslocamento}
+	\label{tabela:logic}
+\end{table}
+
+\subsection{Unidade de Deslocamentos}
+A unidade de Deslocamentos é responsável pelas operações apresentadas na tabela \ref{tabela:shift}.\\
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		01000 & \mbox{$C=Shift Lógico Esq.(A)$}    & lsl c, a   & S,C,Z   \\ \hline
+		01001 & \mbox{$C=Shift Aritmético Dir.(A)$}  & asr c, a & S,C,Z   \\ \hline
+	\end{tabular}
+	\caption{Operações de Deslocamento}
+	\label{tabela:shift}
+\end{table}
+
+No caso do \textit{shift} lógico a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do \textit{bit0} com 0.\\
+No caso do \textit{shift} aritmético a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do \textit{bit15} com o \textit{bit15} da entrada.\\
