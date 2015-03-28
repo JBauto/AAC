@@ -6,4 +6,6 @@
 \contentsline {section}{\numberline {2.3}Unidade l\IeC {\'o}gico-aritm\IeC {\'e}tica - ALU}{3}
 \contentsline {subsection}{\numberline {2.3.1}Unidade Aritm\IeC {\'e}tica}{4}
 \contentsline {subsection}{\numberline {2.3.2}Unidade L\IeC {\'o}gica}{4}
-\contentsline {subsection}{\numberline {2.3.3}Unidade de Deslocamentos}{4}
+\contentsline {subsection}{\numberline {2.3.3}Unidade de Deslocamentos}{5}
+\contentsline {section}{\numberline {2.4}Unidade de Constantes}{5}
+\contentsline {section}{\numberline {2.5}Unidade de controlo de saltos e \textit {flags}}{6}
