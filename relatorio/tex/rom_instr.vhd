@@ -1,8 +1,4 @@
 
---
--- Initializing Block RAM from external data file
-
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
@@ -10,11 +6,10 @@ use STD.TEXTIO.all;
 use STD.TEXTIO;
 use IEEE.STD_LOGIC_TEXTIO.all;
 
---use work.full_memory.all;
 
 entity rom_instrc is
 	port(clk : in std_logic;
-		 -- MEM_array : out RamType;
+
 	     we : in std_logic;
 		  addr_instr : in std_logic_vector(15 downto 0);
 		  addr_dados : in std_logic_vector(15 downto 0);
@@ -47,24 +42,6 @@ architecture Behavioral of rom_instrc is
 	return RAM;
    end function;
 	
---	impure function InitRamToFile (ram : in RamType) return integer is
---		file my_output : TEXT open WRITE_MODE is "ram_out.txt";
---      -- above declaration should be in architecture declarations for multiple
---      variable my_line : LINE;
---      variable my_output_line : LINE;
---		variable i : integer := 0;
---		
---		begin
---      if print='1' then
---		  --write(my_line, string'("writing file"));
---        --writeline(output, my_line);
---        --write(my_output_line, string'("output from file_io.vhdl"));
---        --writeline(my_output, my_output_line);
---        hwrite(my_output_line, ram(0));    -- or any other stuff
---        writeline(my_output, my_output_line);
---      end if;
---	return 0;
---   end function;
 	
 signal RAM : RamType := InitRamFromFile("demo_lab1_3.txt");
 --signal teste : integer := InitRamToFile(RAM);
@@ -86,25 +63,5 @@ begin
 	instr <= addr_instr(15 downto 0);
 	print <= '1' when RAM(conv_integer(instr)) = X"2FFF" else
 				'0';
-	
---	write_file:
---    process (print,RAM) is    -- write file_io.out (when done goes to '1')
---      file my_output : TEXT open WRITE_MODE is "ram_out.txt";
---      -- above declaration should be in architecture declarations for multiple
---      variable my_line : LINE;
---      variable my_output_line : LINE;
---		variable i : integer := 0;
---    begin
---      if print='1' then
---		  --write(my_line, string'("writing file"));
---        --writeline(output, my_line);
---        --write(my_output_line, string'("output from file_io.vhdl"));
---        --writeline(my_output, my_output_line);
---			for i in 0 to 20 loop
---				hwrite(my_output_line, RAM(i));    -- or any other stuff
---				writeline(my_output, my_output_line);
---			end loop;
---      end if;
---    end process write_file;
-	
+
 end Behavioral;
