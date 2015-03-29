@@ -75,7 +75,6 @@ architecture Behavioral of cpu is
 	component rom_instrc
 		port(clk : in std_logic;
 			  we : in std_logic;
-			  --MEM_array : out RamType;
 		     addr_instr : in std_logic_vector(15 downto 0);
 		     addr_dados : in std_logic_vector(15 downto 0);
 		     din : in std_logic_vector(15 downto 0);
@@ -206,7 +205,7 @@ architecture Behavioral of cpu is
 	signal PCm1 : STD_LOGIC_VECTOR(15 downto 0);
 	signal PCm1_2 : STD_LOGIC_VECTOR(15 downto 0);
 	signal PCm1_3 : STD_LOGIC_VECTOR(15 downto 0);
-	signal PCm1_4 : STD_LOGIC_VECTOR(15 downto 0);	--alterado
+	signal PCm1_4 : STD_LOGIC_VECTOR(15 downto 0);	
 	signal addr : STD_LOGIC_VECTOR(15 downto 0);
 	signal fl_en : STD_LOGIC_VECTOR(3 downto 0);
 	signal fl_en_2 : STD_LOGIC_VECTOR(3 downto 0);
@@ -215,7 +214,6 @@ architecture Behavioral of cpu is
 	signal IFaddr : STD_LOGIC_VECTOR(15 downto 0);
 	signal IFaddr_2 : STD_LOGIC_VECTOR(15 downto 0);
 	signal IFaddr_3 : STD_LOGIC_VECTOR(15 downto 0);
-	--alterado
 	signal en_lvl1 : STD_LOGIC;
 	signal en_lvl2 : STD_LOGIC;
 	signal en_lvl3 : STD_LOGIC;
@@ -270,8 +268,8 @@ architecture Behavioral of cpu is
 		ALU => Alu_S_2,
 		MEM => mem_dados,
 		Consts => consts_2,
-		PC => PCm1_4,		-- alterado
-		Sel_WB => MUXWB_3,	-- change	-->	MUXWB
+		PC => PCm1_4,		
+		Sel_WB => MUXWB_3,	
 		C => writedata
 	);
 	RAM : rom_instrc port map(
@@ -347,8 +345,8 @@ architecture Behavioral of cpu is
 	EX_MEM_Registers : EX_MEM_Regs port map(
 		WE_in => wenable_2, 
 		WE_out => wenable_3,
-		Next_PC_in => PCm1_3,	--alterado
-		Next_PC_out => PCm1_4,	--alterado
+		Next_PC_in => PCm1_3,	
+		Next_PC_out => PCm1_4,	
 		C_in => consts,
 		C_out => consts_2,
 		S_in => Alu_S,

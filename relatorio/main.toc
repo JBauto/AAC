@@ -15,12 +15,12 @@
 \contentsline {section}{\numberline {4.1}Unidade de Descodifica\IeC {\c c}\IeC {\~a}o}{9}
 \contentsline {section}{\numberline {4.2}Unidade l\IeC {\'o}gico-aritm\IeC {\'e}tica}{11}
 \contentsline {subsection}{\numberline {4.2.1}Unidade Aritm\IeC {\'e}tica}{11}
-\contentsline {subsection}{\numberline {4.2.2}Unidade L\IeC {\'o}gica}{13}
+\contentsline {subsection}{\numberline {4.2.2}Unidade L\IeC {\'o}gica}{12}
 \contentsline {subsection}{\numberline {4.2.3}Unidade Deslocamento}{14}
 \contentsline {section}{\numberline {4.3}Unidade de Constantes}{15}
 \contentsline {section}{\numberline {4.4}Unidade de Controlo de saltos e \textit {flags}}{15}
 \contentsline {section}{\numberline {4.5}\textit {Program Counter}}{17}
-\contentsline {section}{\numberline {4.6}Unidade de Constantes}{18}
+\contentsline {section}{\numberline {4.6}Unidade de Constantes}{17}
 \contentsline {section}{\numberline {4.7}Unidade de Armazenamento Partilhada}{18}
 \contentsline {section}{\numberline {4.8}Multiplexer de Selec\IeC {\c c}\IeC {\~a}o de sa\IeC {\'\i }da}{20}
 \contentsline {section}{\numberline {4.9}Registos do N\IeC {\'\i }vel ID}{21}

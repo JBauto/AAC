@@ -44,7 +44,6 @@ architecture Behavioral of rom_instrc is
 	
 	
 signal RAM : RamType := InitRamFromFile("demo_lab1_3.txt");
---signal teste : integer := InitRamToFile(RAM);
 signal dados : STD_LOGIC_VECTOR(15 downto 0);
 signal instr: STD_LOGIC_VECTOR(15 downto 0);
 begin
@@ -54,13 +53,13 @@ begin
 			if we ='1' then 
 				RAM(conv_integer(dados)) <= din;
 			end if;
-         dout_instr <= RAM(conv_integer(instr)); -- REVER
-			dout_dados <= RAM(conv_integer(dados)); -- REVER
+         dout_instr <= RAM(conv_integer(instr)); 
+			dout_dados <= RAM(conv_integer(dados)); 
       end if;
    end process;
 	
-	dados <= addr_dados(15 downto 0);
-	instr <= addr_instr(15 downto 0);
+	dados <= '0' & addr_dados(14 downto 0);
+	instr <= '0' & addr_instr(14 downto 0);
 	print <= '1' when RAM(conv_integer(instr)) = X"2FFF" else
 				'0';
 
