@@ -8,4 +8,22 @@
 \contentsline {subsection}{\numberline {2.3.2}Unidade L\IeC {\'o}gica}{4}
 \contentsline {subsection}{\numberline {2.3.3}Unidade de Deslocamentos}{5}
 \contentsline {section}{\numberline {2.4}Unidade de Constantes}{5}
-\contentsline {section}{\numberline {2.5}Unidade de controlo de saltos e \textit {flags}}{6}
+\contentsline {section}{\numberline {2.5}Unidade de Controlo de saltos e \textit {flags}}{6}
+\contentsline {section}{\numberline {2.6}Esquema da Arquitectura}{7}
+\contentsline {chapter}{\numberline {3}Anexos}{8}
+\contentsline {section}{\numberline {3.1}Unidade de Descodifica\IeC {\c c}\IeC {\~a}o}{8}
+\contentsline {section}{\numberline {3.2}Unidade l\IeC {\'o}gico-aritm\IeC {\'e}tica}{10}
+\contentsline {subsection}{\numberline {3.2.1}Unidade Aritm\IeC {\'e}tica}{10}
+\contentsline {subsection}{\numberline {3.2.2}Unidade L\IeC {\'o}gica}{12}
+\contentsline {subsection}{\numberline {3.2.3}Unidade Deslocamento}{13}
+\contentsline {section}{\numberline {3.3}Unidade de Constantes}{14}
+\contentsline {section}{\numberline {3.4}Unidade de Controlo de saltos e \textit {flags}}{14}
+\contentsline {section}{\numberline {3.5}\textit {Program Counter}}{16}
+\contentsline {section}{\numberline {3.6}Unidade de Constantes}{17}
+\contentsline {section}{\numberline {3.7}Unidade de Armazenamento Partilhada}{17}
+\contentsline {section}{\numberline {3.8}Multiplexer de Selec\IeC {\c c}\IeC {\~a}o de sa\IeC {\'\i }da}{19}
+\contentsline {section}{\numberline {3.9}Registos do N\IeC {\'\i }vel ID}{20}
+\contentsline {section}{\numberline {3.10}Registos do N\IeC {\'\i }vel ID RD}{20}
+\contentsline {section}{\numberline {3.11}Registos do N\IeC {\'\i }vel EX MEM}{22}
+\contentsline {section}{\numberline {3.12}Finite State Machine - FSM}{23}
+\contentsline {section}{\numberline {3.13}Arquitectura $\mu $RISC}{26}

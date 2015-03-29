@@ -11,7 +11,6 @@
 \usepackage{float}
 \usepackage{pdflscape}
 \pdfoptionpdfminorversion 6
-
 \usepackage{wrapfig}
 
 
@@ -61,21 +60,39 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{
-  language=C,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breakatwhitespace=true, 
-  tabsize=3
+\lstset{frame=tb,
+	language=VHDL,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=true,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	frame = none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true, 
+	tabsize=3
 }
+
+%\lstset{
+%  language=C,
+%  aboveskip=3mm,
+%  belowskip=3mm,
+%  showstringspaces=false,
+%  columns=flexible,
+%  basicstyle={\small\ttfamily},
+%  numbers=none,
+%  numberstyle=\tiny\color{gray},
+%  keywordstyle=\color{blue},
+%  commentstyle=\color{dkgreen},
+%  stringstyle=\color{mauve},
+%  breakatwhitespace=true, 
+%  tabsize=3
+%}
 % Documento %
 
 \begin{document}
@@ -88,4 +105,5 @@
     \newpage
 
     \include{tex/corpo_texto}
+    \include{tex/codigo}
 \end{document}
