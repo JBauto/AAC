@@ -7,7 +7,8 @@ Fusce id neque at urna viverra faucibus a ac enim. Aenean porttitor ex et vehicu
 \chapter{Arquitectura do $\mu$RISC}
 \section{Unidade de descodificação - Decoder}
 
-Por decisão própria, na unidade de descodificação foi efectuado o máximo possível de descodificação de operações, selectores de \textit{multiplexers} e unidades funcionais. Desta forma é nos possível generalizar as restantes unidades funcionais centralizando toda a descodificação numa só unidade. Uma consequência desta metodologia é o aumento da complexidade da unidade e o número de sinais de \textit{output}.
+Por decisão própria, na unidade de descodificação foi efectuado o máximo possível de descodificação de operações, selectores de \textit{multiplexers} e unidades funcionais. Desta forma é nos possível generalizar as restantes unidades funcionais centralizando toda a descodificação numa só unidade. Uma consequência desta metodologia é o aumento da complexidade da unidade e o número de sinais de \textit{output}.\par O mesmo método foi aplicado para as instruções de \textit{jump}. Uma descodificação parcial é feita no \textit{decoder} permitindo diminuir a lógica aplicada à unidade funcional de saltos.
+
 
 \section{Unidade de Armazenamento - Memória RAM/ROM partilhada}
 
@@ -118,9 +119,9 @@ A unidade de Constantes é responsável pelas operações apresentadas na tabela
 	\label{tabela:constantes}
 \end{table}
 
-Optámos por separar estas operações das restantes da \textbf{ALU} de modo a facilitar a descodificação das instruções por parte do \textit{decoder}.
+Optámos por separar estas operações das restantes da ALU de modo a facilitar a descodificação das instruções por parte do \textit{Decoder} e uma vez que o caminho crítico é devido à elevada complexidade da ALU a separação desta unidade funcional da ALU não tem qualquer tipo de influência na frequência de relógio.
 
-\section{Unidade de controlo de saltos e \textit{flags}}
+\section{Unidade de Controlo de saltos e \textit{flags}}
 Desenhou-se a unidade de modo a controlar o próximo endereço a enviar ao \textit{Program Counter} (PC). Esta unidade guarda os valores das \textit{flags} provenientes da ALU em registos e depois usa esses registos para calcular as condições de salto.\par
 Juntámos os registos das \textit{flags} com a unidade de controlo de saltos de modo a que consoante a condição de salto vinda do \textit{Decoder} se pudesse calcular se se deveria executar um salto ou se permitíamos que o valor do \textit{PC} fosse incrementado normalmente.\par
 O cálculo do próximo endereço do \textit{PC} é feito em 4 fases.
@@ -167,3 +168,13 @@ Jump\ Address & : & enable\_jump=1\ \cdot\ (\text{Condição} \oplus OP(0))=1\\
 Jump\ Address & : & enable\_jump=1\ \cdot\ OP(1)=1\\
 PC+1 & : & others
 \end{array}\right.\]
+
+\section{Esquema da Arquitectura}
+
+\begin{figure}[H]
+	\begin{center}
+		\makebox[\textwidth][c]{\includegraphics[clip, keepaspectratio=true, scale=0.42]{./images/CPU.png}}
+		\caption{Arquitectura $\mu$RISC.}
+		\label{arquit}
+	\end{center}
+\end{figure}
