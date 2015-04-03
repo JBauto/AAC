@@ -110,7 +110,7 @@ architecture Behavioral of cpu is
 			  output_address : out  STD_LOGIC_VECTOR (15 downto 0));
 		end component Flags;
 	
-	component ProgramCounter is
+	component ProgramCounter 
 		port(next_PC : in  STD_LOGIC_VECTOR (15 downto 0);
 			  enable_pc : in  STD_LOGIC;
 			  PC : out  STD_LOGIC_VECTOR (15 downto 0);
@@ -118,18 +118,18 @@ architecture Behavioral of cpu is
 			  clk : in  STD_LOGIC);
 	end component ProgramCounter;
 	
-	component IF_Regs is
-		Port (Current_PC_in : in  STD_LOGIC_VECTOR (15 downto 0); 
-				Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
+	component IF_Regs 
+		Port (--Current_PC_in : in  STD_LOGIC_VECTOR (15 downto 0); 
+				--Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 				Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
 				Next_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
-				OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
-				OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
+				--OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
+				--OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 				clk : in  STD_LOGIC;
 				enable : in STD_LOGIC);
 	end component IF_Regs;
 	
-	component ID_RF_Regs is 
+	component ID_RF_Regs 
 		Port (Current_PC_in : in  STD_LOGIC_VECTOR (15 downto 0); 
 				Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 				Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
@@ -142,6 +142,10 @@ architecture Behavioral of cpu is
 				UNIT_SEL_out : out  STD_LOGIC_VECTOR (1 downto 0); 
 				DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 				DA_out : out  STD_LOGIC_VECTOR (2 downto 0); 
+				AA_in : in  STD_LOGIC_VECTOR (2 downto 0);
+				AA_out : out  STD_LOGIC_VECTOR (2 downto 0);
+				BA_in : in  STD_LOGIC_VECTOR (2 downto 0);
+				BA_out : out  STD_LOGIC_VECTOR (2 downto 0);
 				A_in : in  STD_LOGIC_VECTOR (15 downto 0);
 				A_out : out  STD_LOGIC_VECTOR (15 downto 0);
 			   B_in : in  STD_LOGIC_VECTOR (15 downto 0);
@@ -155,14 +159,16 @@ architecture Behavioral of cpu is
 				jump_opcode_in : in  STD_LOGIC_VECTOR (13 downto 0);
 				jump_opcode_out : out  STD_LOGIC_VECTOR (13 downto 0); 
 				flags_en_in : in  STD_LOGIC_VECTOR (3 downto 0);
-				flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0); 
+				flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0);
+				format_in : in STD_LOGIC_VECTOR(1 downto 0);
+			   format_out : out STD_LOGIC_VECTOR(1 downto 0);
 				enable_jump_in : in  STD_LOGIC;
 				enable_jump_out : out  STD_LOGIC;
 				clk : in  STD_LOGIC;
 				enable : in STD_LOGIC);
 	end component ID_RF_Regs;
 		
-	component EX_MEM_Regs is 
+	component EX_MEM_Regs  
 		Port (Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0); 
 			Next_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 			C_in : in  STD_LOGIC_VECTOR (15 downto 0);
@@ -174,13 +180,15 @@ architecture Behavioral of cpu is
 			DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 			DA_out : out  STD_LOGIC_VECTOR (2 downto 0);
 			MUX_WB_in : in STD_LOGIC_VECTOR(1 downto 0);
-			MUX_WB_out : out STD_LOGIC_VECTOR(1 downto 0);			
+			MUX_WB_out : out STD_LOGIC_VECTOR(1 downto 0);
+			INSTR_dataHazard_in : in STD_LOGIC_VECTOR(9 downto 0);
+			INSTR_dataHazard_out : out STD_LOGIC_VECTOR(9 downto 0);		
 			clk : in  STD_LOGIC;
 			enable : in STD_LOGIC
-			);
+		);
 	end component EX_MEM_regs;
 	
-	component FSM_Regs is
+	component FSM_Regs 
 		Port( START : in STD_LOGIC;
 			ENABLE_IF : out STD_LOGIC;
 			ENABLE_IF_RF : out STD_LOGIC;
@@ -189,6 +197,18 @@ architecture Behavioral of cpu is
 			CLK : in STD_LOGIC
 	);
 	end component FSM_Regs;
+	
+	component DataHazardUnit 
+	Port (OPCODE : in  STD_LOGIC_VECTOR (9 downto 0);
+			OPCODE_EXMEM : in  STD_LOGIC_VECTOR (9 downto 0);
+			OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
+			DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
+			AA : in STD_LOGIC_VECTOR(2 downto 0);
+			BA : in STD_LOGIC_VECTOR(2 downto 0);
+			MUX_ALU_A : out STD_LOGIC;
+			MUX_ALU_B : out STD_LOGIC
+			);
+	end component DataHazardUnit;
 		
 	signal opcde : STD_LOGIC_VECTOR(4 downto 0);
 	signal opcde_2 : STD_LOGIC_VECTOR(4 downto 0);
@@ -239,7 +259,15 @@ architecture Behavioral of cpu is
 	signal en_lvl3 : STD_LOGIC;
 	signal en_pc : STD_LOGIC;
 	signal ram_print : STD_LOGIC;
-	
+	signal MUX_ALU_A : STD_LOGIC;
+	signal MUX_ALU_B : STD_LOGIC;
+	signal entrada_alu_a : STD_LOGIC_VECTOR(15 downto 0);
+	signal entrada_alu_b : STD_LOGIC_VECTOR(15 downto 0);
+	signal format_out_2 : STD_LOGIC_VECTOR(1 downto 0);
+	signal instr_exmem : STD_LOGIC_VECTOR(9 downto 0);
+	signal aa_dh : STD_LOGIC_VECTOR(2 downto 0);
+	signal ba_dh : STD_LOGIC_VECTOR(2 downto 0);
+	signal tmp : STD_LOGIC_VECTOR(9 downto 0);
 	begin
 
 	Decoder_Inst: decoder port map(
@@ -279,8 +307,8 @@ architecture Behavioral of cpu is
 
 	ALU_OP : alu port map(
 		OP_SEL => opcde_2,
-		A => a_v_2,
-		B => b_v_2,
+		A => entrada_alu_a,
+		B => entrada_alu_b,
 		S => Alu_S,
 		Flags => Flags_alu
 	);
@@ -324,12 +352,12 @@ architecture Behavioral of cpu is
 	);
 	
 	IF_Registers : IF_Regs port map(
-		Current_PC_in => IFaddr,
-		Current_PC_out => IFaddr_2, 
+		--Current_PC_in => IFaddr,
+		--Current_PC_out => IFaddr_2, 
 		Next_PC_in => PCm1,
 		Next_PC_out => PCm1_2,
-		OPCODE_in => instr,
-		OPCODE_out => instr_2,
+		--OPCODE_in => instr,
+		--OPCODE_out => instr_2,
 		clk => CLK,
 		enable => en_lvl1
 	);
@@ -346,7 +374,11 @@ architecture Behavioral of cpu is
 		UNIT_SEL_in => sel_unid,
 		UNIT_SEL_out => sel_unid_2, 
 		DA_in => da1,
-		DA_out => da1_2, 
+		DA_out => da1_2,
+		AA_in => aa1,
+		AA_out => aa_dh,
+		BA_out => ba_dh,
+		BA_in => ba1,
    	A_in => a_v,
 		A_out => a_v_2,
 		B_in => b_v,
@@ -363,6 +395,8 @@ architecture Behavioral of cpu is
 		flags_en_out => fl_en_2,
 		enable_jump_in => jpen,
 		enable_jump_out => jpen_2,
+		format_in => instr(15 downto 14),
+		format_out => format_out_2,
 		clk => CLK,
 		enable => en_lvl2	
 	);
@@ -380,6 +414,8 @@ architecture Behavioral of cpu is
 		DA_out => da1_3,
 		MUX_WB_in => MUXWB_2,
 		MUX_WB_out => MUXWB_3,
+		INSTR_dataHazard_in => tmp,
+		INSTR_dataHazard_out => instr_exmem,
 		clk => CLK,
 		enable => en_lvl3
 	);
@@ -393,7 +429,25 @@ architecture Behavioral of cpu is
 		CLK => CLK
 	);
 	
+	DataHazard : DataHazardUnit port map(
+		OPCODE => tmp,
+		OPCODE_EXMEM => instr_exmem,
+		OPCODE_WB => (others =>'0'),
+		DA_WB => (others=>'0'),
+		AA => aa_dh, 
+		BA => ba_dh,
+		MUX_ALU_A => MUX_ALU_A,
+		MUX_ALU_B => MUX_ALU_B
+	);
+	
 	TEST <= writedata;
+	
+	entrada_alu_a <= a_v_2 when MUX_ALU_A = '0' else
+						  Alu_S_2;
+	entrada_alu_b <= b_v_2 when MUX_ALU_B = '0' else
+						  Alu_S_2;
+	tmp <= format_out_2 & da1_2 & opcde_2;
+	
 	
 end Behavioral;
 

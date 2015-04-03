@@ -42,6 +42,10 @@ entity ID_RF_Regs is
 			UNIT_SEL_out : out  STD_LOGIC_VECTOR (1 downto 0); 
 			DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 			DA_out : out  STD_LOGIC_VECTOR (2 downto 0); 
+			AA_in : in  STD_LOGIC_VECTOR (2 downto 0);
+			AA_out : out  STD_LOGIC_VECTOR (2 downto 0);
+			BA_in : in  STD_LOGIC_VECTOR (2 downto 0);
+			BA_out : out  STD_LOGIC_VECTOR (2 downto 0);
 			A_in : in  STD_LOGIC_VECTOR (15 downto 0);
 			A_out : out  STD_LOGIC_VECTOR (15 downto 0);
 			B_in : in  STD_LOGIC_VECTOR (15 downto 0);
@@ -55,7 +59,9 @@ entity ID_RF_Regs is
 			jump_opcode_in : in  STD_LOGIC_VECTOR (13 downto 0);
 			jump_opcode_out : out  STD_LOGIC_VECTOR (13 downto 0); 
 			flags_en_in : in  STD_LOGIC_VECTOR (3 downto 0);
-			flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0); 
+			flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0);
+			format_in : in STD_LOGIC_VECTOR(1 downto 0);
+			format_out : out STD_LOGIC_VECTOR(1 downto 0);
 			enable_jump_in : in  STD_LOGIC;
 			enable_jump_out : out  STD_LOGIC;
 			clk : in  STD_LOGIC;
@@ -82,7 +88,10 @@ begin
 			flags_en_out <= flags_en_in;
 			enable_jump_out <= enable_jump_in;
 			DA_out <= DA_in;
-		end if;
+			AA_out <= AA_in;
+			BA_out <= BA_in;
+			format_out <= format_in;
+ 		end if;
    end if;
 end process;
 end Behavioral;

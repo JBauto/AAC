@@ -89,7 +89,7 @@ begin
 				
 			when IF_RF_level => 
 				ENABLE_IF <= '1';
-				ENABLE_PC <= '0';
+				ENABLE_PC <= '1';
 				ENABLE_IF_RF <= '0';
 				ENABLE_EX_MEM <= '0';
 				
@@ -98,7 +98,7 @@ begin
 			when EX_MEM_level =>
 				
 				ENABLE_IF <= '0';
-				ENABLE_PC <= '0';
+				ENABLE_PC <= '1';
 				ENABLE_IF_RF <= '1';
 				ENABLE_EX_MEM <= '0';
 				
@@ -106,7 +106,7 @@ begin
 				
 			when WB_level =>
 				ENABLE_IF <= '0';
-				ENABLE_PC <= '0';
+				ENABLE_PC <= '1';
 				ENABLE_IF_RF <= '0';
 				ENABLE_EX_MEM <= '1';
 				

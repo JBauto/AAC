@@ -43,6 +43,8 @@ entity EX_MEM_Regs is
 			MUX_WB_in : in STD_LOGIC_VECTOR(1 downto 0);
 			MUX_WB_out : out STD_LOGIC_VECTOR(1 downto 0);
 			clk : in  STD_LOGIC;
+			INSTR_dataHazard_in : in STD_LOGIC_VECTOR(9 downto 0);
+			INSTR_dataHazard_out : out STD_LOGIC_VECTOR(9 downto 0);
 			enable : in STD_LOGIC
 			);
 end EX_MEM_Regs;
@@ -60,6 +62,7 @@ process (clk)
 			S_out <= S_in;
 			DA_out <= DA_in;
 			MUX_WB_out <= MUX_WB_in;
+			INSTR_dataHazard_out <= INSTR_dataHazard_in;
 		end if;
    end if;
 end process;
