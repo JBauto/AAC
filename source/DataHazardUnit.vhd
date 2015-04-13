@@ -21,9 +21,9 @@ architecture Behavioral of DataHazardUnit is
 	signal DA_EXMEM1, DA_WB1, DA : STD_LOGIC_VECTOR(2 downto 0);
 	signal instr_ID_val : STD_LOGIC;
 	signal instr_EX_val : STD_LOGIC;
-	signal validade_op_ID : STD_LOGIC; -- verifica se é uma operaçao valida
-	signal validade_op_EX : STD_LOGIC; -- verifica se é uma operaçao valida
-	signal igual_op : STD_LOGIC; -- indica se as instruções entre andares sao validas
+	signal validade_op_ID : STD_LOGIC; -- verifica se Ã© uma operaÃ§ao valida
+	signal validade_op_EX : STD_LOGIC; -- verifica se Ã© uma operaÃ§ao valida
+	signal igual_op : STD_LOGIC; -- indica se as instruÃ§Å‘es entre andares sao validas
 	signal validade_dest_a : STD_LOGIC_VECTOR(2 downto 0);
 	signal validade_dest_b : STD_LOGIC_VECTOR(2 downto 0);
 	signal igual_dest_a : STD_LOGIC;
@@ -44,9 +44,9 @@ begin
 	OP_EXMEM <= OPCODE_EXMEM(4 downto 0);
 	OP_WB <= OPCODE_WB(4 downto 0);
 	
-	validade_format <= format(9) and not(format(8));
-	validade_format_EXMEM <= format_EXMEM(9) and not(format_EXMEM(8));
-	validade_format_WB <= format_WB(9) and not(format_WB(8));
+	validade_format <= format(1) and not(format(0));
+	validade_format_EXMEM <= format_EXMEM(1) and not(format_EXMEM(0));
+	validade_format_WB <= format_WB(1) and not(format_WB(0));
 	
 	
 	validade_op_ID <= ((not(OP(3)) and not(OP(1))) or 
