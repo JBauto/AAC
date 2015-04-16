@@ -172,6 +172,8 @@ architecture Behavioral of cpu is
 				-- forw_alu_mem_a_out : out STD_LOGIC;
 				-- forw_alu_mem_b_in : in STD_LOGIC;
 				-- forw_alu_mem_b_out : out STD_LOGIC;
+				current_inst_in : in STD_LOGIC_VECTOR(15 downto 0);
+				current_inst_out : out STD_LOGIC_VECTOR(15 downto 0);
 				enable_jump_in : in  STD_LOGIC;
 				enable_jump_out : out  STD_LOGIC;
 				control_bits_in : in STD_LOGIC_VECTOR(1 downto 0);
@@ -353,6 +355,9 @@ architecture Behavioral of cpu is
 	
 	signal tmp_3 : STD_LOGIC_VECTOR(9 downto 0); 
 	
+	---- instrucao
+	signal instrucao : STD_LOGIC_VECTOR(15 downto 0);
+	
 	--control hazard
 	signal cntjump_en : STD_LOGIC;
 	signal cntjump_dest : STD_LOGIC_VECTOR (15 downto 0);
@@ -381,7 +386,7 @@ architecture Behavioral of cpu is
 
 	Constante : constantes port map(
 		Const => imediato_2,
-		C_in => mux_const,
+		C_in => a_v_2,
 		C => consts,
 		OP_SEL => sel_unid_2
 	);
@@ -518,6 +523,8 @@ architecture Behavioral of cpu is
 --		forw_alu_mem_a_out => mux_sel_alu_mem_a_2,
 --		forw_alu_mem_b_in => mux_sel_alu_mem_b,
 --		forw_alu_mem_b_out => mux_sel_alu_mem_b_2,
+		current_inst_in => instr,
+		current_inst_out => instrucao,
 		control_bits_in => cnt_bits,
 		control_bits_out => cnt_bits2,
 		clk => CLK,
@@ -595,7 +602,8 @@ architecture Behavioral of cpu is
 	
 	TEST <= writedata;
 	
-	--PC next value
+	-------------
+	-- PC next value
 	addr <= addr_from_flag when flagoverride='1' else
 			  cntjump_dest when cntjump_en='1' else
 			  PCm1;
@@ -614,18 +622,6 @@ architecture Behavioral of cpu is
 	tmp <= format_out_2 & da1_2 & opcde_2;
 	tmp_2 <= instr(15 downto 14) & da1 & opcde;
 	
-	mux_const <= consts when mux_sel_const_2 ='1' else
-					 Alu_S when mux_sel_const_alu_2 ='1' else
-					 mem_dados when mux_sel_const_mem_2 = '1' else
-					 a_v;
-	
-	mux_mem_const_a <= consts when mux_sel_mem_const_a_2 = '1' else
-							 Alu_S when mux_sel_mem_alu_a_2 = '1' else
-							 a_v;
-	
-	mux_mem_const_d <= consts when mux_sel_mem_const_d_2='1' else
-							 Alu_S when mux_sel_mem_alu_d_2 = '1' else
-							 IFaddr;
 	
 end Behavioral;
 

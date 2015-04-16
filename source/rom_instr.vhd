@@ -37,7 +37,7 @@ architecture Behavioral of rom_instrc is
 					RAM(index) := DATA_TEMP;
 					index := index + 1;
 			  end loop;
-			  for index in index to index + 2 loop
+			  for index in index to 65535 loop
 					RAM(index) := X"0000";
 			  end loop;
 	return RAM;
@@ -62,7 +62,7 @@ architecture Behavioral of rom_instrc is
 --	return 0;
 --   end function;
 	
-signal RAM : RamType := InitRamFromFile("demo3.txt");
+signal RAM : RamType := InitRamFromFile("rom4.txt");
 --signal teste : integer := InitRamToFile(RAM);
 signal dados : STD_LOGIC_VECTOR(15 downto 0);
 signal instr: STD_LOGIC_VECTOR(15 downto 0);
