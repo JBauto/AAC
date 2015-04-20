@@ -4,12 +4,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity DataHazardUnit is
 	Port (OPCODE : in  STD_LOGIC_VECTOR (9 downto 0);
 			OPCODE_EXMEM : in  STD_LOGIC_VECTOR (9 downto 0);
-			OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
-			DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
+			--OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
+			--DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
 			AA : in STD_LOGIC_VECTOR(2 downto 0);
 			BA : in STD_LOGIC_VECTOR(2 downto 0);
 			MUX_ALU_A : out STD_LOGIC;
-			MUX_ALU_B : out STD_LOGIC
+			MUX_ALU_B : out STD_LOGIC;
+			FORWARD_CONST : out STD_LOGIC
 			);
 end DataHazardUnit;
 
@@ -21,8 +22,10 @@ architecture Behavioral of DataHazardUnit is
 	signal DA_EXMEM1, DA_WB1, DA : STD_LOGIC_VECTOR(2 downto 0);
 	signal instr_ID_val : STD_LOGIC;
 	signal instr_EX_val : STD_LOGIC;
-	signal validade_op_ID : STD_LOGIC; -- verifica se é uma operaçao valida
-	signal validade_op_EX : STD_LOGIC; -- verifica se é uma operaçao valida
+	signal validade_op_ID : STD_LOGIC; -- verifica se e uma operaçao valida
+	signal validade_op_EX : STD_LOGIC; -- verifica se e uma operaçao valida
+	--signal validade_const_ID : STD_LOGIC; -- verifica se e uma operaçao valida
+	--signal validade_const_EX : STD_LOGIC; -- verifica se e uma operaçao valida
 	signal igual_op : STD_LOGIC; -- indica se as instruçőes entre andares sao validas
 	signal validade_dest_a : STD_LOGIC_VECTOR(2 downto 0);
 	signal validade_dest_b : STD_LOGIC_VECTOR(2 downto 0);
@@ -31,19 +34,28 @@ architecture Behavioral of DataHazardUnit is
 	signal validade_format : STD_LOGIC;
 	signal validade_format_exmem : STD_LOGIC;
 	signal validade_format_wb : STD_LOGIC;
-		
+	
+	signal form_const : STD_LOGIC;
+	signal form_const_EX : STD_LOGIC;
+	signal val_form_const : STD_LOGIC;
+	signal val_const : STD_LOGIC_VECTOR(2 downto 0);
+	signal const_reg : STD_LOGIC_VECTOR(2 downto 0);
+	signal forw_const : STD_LOGIC;
+	
 begin
 
 	format <= OPCODE(9 downto 8);
 	format_EXMEM <= OPCODE_EXMEM(9 downto 8);
-	format_WB <= OPCODE_WB(9 downto 8);
+	--format_WB <= OPCODE_WB(9 downto 8);
 	DA_EXMEM1 <= OPCODE_EXMEM(7 downto 5);
-	DA_WB1 <= DA_WB; 
+	--DA_WB1 <= DA_WB; 
 	DA <= OPCODE(7 downto 5);
 	OP <= OPCODE(4 downto 0);
 	OP_EXMEM <= OPCODE_EXMEM(4 downto 0);
-	OP_WB <= OPCODE_WB(4 downto 0);
+	--OP_WB <= OPCODE_WB(4 downto 0);
 	
+	
+	-- FORWARDING ALU-ALU
 	validade_format <= format(1) and not(format(0));
 	validade_format_EXMEM <= format_EXMEM(1) and not(format_EXMEM(0));
 	validade_format_WB <= format_WB(1) and not(format_WB(0));
@@ -59,8 +71,6 @@ begin
 							 not(OP_EXMEM(2)) OR OP_EXMEM(4)) and
 							 validade_format_WB;
 							 
-	--validade_op_WB <=
-
 	igual_op <= validade_op_ID and validade_op_EX;
 	
 	validade_dest_a(0) <= AA(0) and DA_EXMEM1(0);
@@ -77,6 +87,22 @@ begin
 
 	MUX_ALU_A <= igual_op and igual_dest_a;
 	MUX_ALU_B <= igual_op and igual_dest_b;
+	
+	--FORWARDING CONSTANTE-CONSTANTE
+	
+	form_const <= OPCODE(8);
+	form_const_EX <= OPCODE_EXMEM(8);
+	
+	val_form_const <= form_const and form_const_EX;
+	const_reg <= DA_EXMEM1;
+	
+	val_const(0) <= AA(0) and const_reg(0);
+	val_const(1) <= AA(0) and const_reg(1);
+	val_const(2) <= AA(0) and const_reg(2);
 
+	forw_const <= val_form_const and val_const(0) and val_const(1) and val_const(2);
+	
+	FORWARD_CONST <= forw_const;
+	
 end Behavioral;
 

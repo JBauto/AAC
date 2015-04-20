@@ -201,12 +201,13 @@ architecture Behavioral of cpu is
 	component DataHazardUnit 
 	Port (OPCODE : in  STD_LOGIC_VECTOR (9 downto 0);
 			OPCODE_EXMEM : in  STD_LOGIC_VECTOR (9 downto 0);
-			OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
-			DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
+			--OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
+			--DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
 			AA : in STD_LOGIC_VECTOR(2 downto 0);
 			BA : in STD_LOGIC_VECTOR(2 downto 0);
 			MUX_ALU_A : out STD_LOGIC;
-			MUX_ALU_B : out STD_LOGIC
+			MUX_ALU_B : out STD_LOGIC;
+			FORWARD_CONST : out STD_LOGIC
 			);
 	end component DataHazardUnit;
 		
@@ -259,6 +260,7 @@ architecture Behavioral of cpu is
 	signal en_lvl3 : STD_LOGIC;
 	signal en_pc : STD_LOGIC;
 	signal ram_print : STD_LOGIC;
+	--forward alu-alu
 	signal MUX_ALU_A : STD_LOGIC;
 	signal MUX_ALU_B : STD_LOGIC;
 	signal entrada_alu_a : STD_LOGIC_VECTOR(15 downto 0);
@@ -268,6 +270,12 @@ architecture Behavioral of cpu is
 	signal aa_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal ba_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal tmp : STD_LOGIC_VECTOR(9 downto 0);
+	--forward constantes
+	signal mux_sel_const : STD_LOGIC;
+	signal mux_const : STD_LOGIC_VECTOR(15 downto 0);
+	
+	
+	
 	begin
 
 	Decoder_Inst: decoder port map(
@@ -289,7 +297,7 @@ architecture Behavioral of cpu is
 
 	Constante : constantes port map(
 		Const => imediato_2,
-		C_in => a_v,
+		C_in => mux_const,
 		C => consts,
 		OP_SEL => sel_unid_2
 	);
@@ -432,12 +440,13 @@ architecture Behavioral of cpu is
 	DataHazard : DataHazardUnit port map(
 		OPCODE => tmp,
 		OPCODE_EXMEM => instr_exmem,
-		OPCODE_WB => (others =>'0'),
-		DA_WB => (others=>'0'),
+		--OPCODE_WB => (others =>'0'),
+		--DA_WB => (others=>'0'),
 		AA => aa_dh, 
 		BA => ba_dh,
 		MUX_ALU_A => MUX_ALU_A,
-		MUX_ALU_B => MUX_ALU_B
+		MUX_ALU_B => MUX_ALU_B,
+		FORWARD_CONST => mux_sel_const
 	);
 	
 	TEST <= writedata;
@@ -448,6 +457,8 @@ architecture Behavioral of cpu is
 						  Alu_S_2;
 	tmp <= format_out_2 & da1_2 & opcde_2;
 	
+	mux_const <= consts_2 when mux_sel_const ='1' else
+					 a_v_2;
 	
 end Behavioral;
 
