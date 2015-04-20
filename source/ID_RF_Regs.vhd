@@ -70,12 +70,15 @@ end ID_RF_Regs;
 
 architecture Behavioral of ID_RF_Regs is
 begin
+
+	Next_PC_out <= Next_PC_in when enable = '1';
+
 	process (clk)
 	begin
    if clk'event and clk='1' then
 		if enable = '1' then
 			Current_PC_out <= Current_PC_in;
-			Next_PC_out <= Next_PC_in;
+			--Next_PC_out <= Next_PC_in;
 			OPCODE_out <= OPCODE_in;
 			IMM_out <= IMM_in;
 			UNIT_SEL_out <= UNIT_SEL_in;

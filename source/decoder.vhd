@@ -18,6 +18,7 @@ entity decoder is
 				PRINT : out STD_LOGIC;
 				jump_opcode : out STD_LOGIC_VECTOR(13 downto 0);
 				flags_en : out STD_LOGIC_VECTOR(3 downto 0);
+				--PC_enable : out STD_LOGIC;
 				enable_jump : out STD_LOGIC
 		      );
 end decoder;
@@ -93,6 +94,9 @@ begin
 	
 	enable_jump <= '1' when instruct(15 downto 14)="00" else
 						'0';
+						
+--	PC_enable <= '0' when enable_jump='1' else
+--					 '1';
 						
 	MEM_WRITE <= '1' when format = "10" and instruct(10 downto 6) = "01011" else
 			       '0';

@@ -52,11 +52,14 @@ end EX_MEM_Regs;
 architecture Behavioral of EX_MEM_Regs is
 
 begin
+
+	Next_PC_out <= Next_PC_in when enable = '1';
+
 process (clk)
 	begin
    if clk'event and clk='1' then
 		if enable = '1' then
-			Next_PC_out <= Next_PC_in;	--alterado
+			--Next_PC_out <= Next_PC_in;
 			C_out <= C_in;
 			WE_out <= WE_in;
 			S_out <= S_in;

@@ -58,6 +58,8 @@ begin
 							(not(OP_EXMEM(3)) and not(OP_EXMEM(0))) or 
 							 not(OP_EXMEM(2)) OR OP_EXMEM(4)) and
 							 validade_format_WB;
+							 
+	--validade_op_WB <=
 
 	igual_op <= validade_op_ID and validade_op_EX;
 	
@@ -65,7 +67,7 @@ begin
 	validade_dest_a(1) <= AA(1) and DA_EXMEM1(1);
 	validade_dest_a(2) <= AA(2) and DA_EXMEM1(2);
 
-	igual_dest_b <= validade_dest_a(2) and validade_dest_a(1) and validade_dest_a(0);
+	igual_dest_a <= validade_dest_a(2) and validade_dest_a(1) and validade_dest_a(0);
 
 	validade_dest_b(0) <= BA(0) and DA_EXMEM1(0);
 	validade_dest_b(1) <= BA(1) and DA_EXMEM1(1);
@@ -73,8 +75,8 @@ begin
 
 	igual_dest_b <= validade_dest_b(2) and validade_dest_b(1) and validade_dest_b(0);
 
-	MUX_ALU_B <= igual_op and igual_dest_b;
 	MUX_ALU_A <= igual_op and igual_dest_a;
+	MUX_ALU_B <= igual_op and igual_dest_b;
 
 end Behavioral;
 

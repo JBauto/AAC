@@ -62,52 +62,52 @@ begin
 		
 		case curr_state is 
 			when INIT =>
-				ENABLE_IF <= '0';
+				ENABLE_IF <= '1';
 				ENABLE_PC <= '0';
-				ENABLE_IF_RF <= '0';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_IF_RF <= '1';
+				ENABLE_EX_MEM <= '1';
 				
 				if START = '1' then
 					next_state <= IF_level;
 				end if;
 			
 			when IF_level =>
-				ENABLE_IF <= '0';
-				ENABLE_PC <= '0';
-				ENABLE_IF_RF <= '0';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_IF <= '1';
+				ENABLE_PC <= '1';
+				ENABLE_IF_RF <= '1';
+				ENABLE_EX_MEM <= '1';
 				
 				next_state <= IF_RF_level;
 				
 			when IF2_level =>
-				ENABLE_IF <= '0';
+				ENABLE_IF <= '1';
 				ENABLE_PC <= '1';
-				ENABLE_IF_RF <= '0';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_IF_RF <= '1';
+				ENABLE_EX_MEM <= '1';
 				
 				next_state <= IF_RF_level;
 				
 			when IF_RF_level => 
 				ENABLE_IF <= '1';
 				ENABLE_PC <= '1';
-				ENABLE_IF_RF <= '0';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_IF_RF <= '1';
+				ENABLE_EX_MEM <= '1';
 				
 				next_state <= EX_MEM_level;
 				
 			when EX_MEM_level =>
 				
-				ENABLE_IF <= '0';
+				ENABLE_IF <= '1';
 				ENABLE_PC <= '1';
 				ENABLE_IF_RF <= '1';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_EX_MEM <= '1';
 				
 				next_state <= WB_level;
 				
 			when WB_level =>
-				ENABLE_IF <= '0';
+				ENABLE_IF <= '1';
 				ENABLE_PC <= '1';
-				ENABLE_IF_RF <= '0';
+				ENABLE_IF_RF <= '1';
 				ENABLE_EX_MEM <= '1';
 				
 				next_state <= IF2_level;
