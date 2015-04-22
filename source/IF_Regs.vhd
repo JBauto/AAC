@@ -44,8 +44,8 @@ end IF_Regs;
 architecture Behavioral of IF_Regs is
 begin
 
-	Next_PC_out <= Next_PC_in when enable = '1';
-
+	Next_PC_out <= Next_PC_in when enable = '1' else
+						(others =>'0');
 --	process (clk)
 --	begin
 ----   if clk'event and clk='1' then

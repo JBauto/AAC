@@ -4,13 +4,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity DataHazardUnit is
 	Port (OPCODE : in  STD_LOGIC_VECTOR (9 downto 0);
 			OPCODE_EXMEM : in  STD_LOGIC_VECTOR (9 downto 0);
-			--OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
-			--DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
+			OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
+			DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
 			AA : in STD_LOGIC_VECTOR(2 downto 0);
 			BA : in STD_LOGIC_VECTOR(2 downto 0);
 			MUX_ALU_A : out STD_LOGIC;
 			MUX_ALU_B : out STD_LOGIC;
-			FORWARD_CONST : out STD_LOGIC
+			FORWARD_CONST : out STD_LOGIC;
+			FORWARD_CONST_ALU : out STD_LOGIC;
+			FORWARD_ALU_CONST_A : out STD_LOGIC;
+			FORWARD_ALU_CONST_B : out STD_LOGIC
 			);
 end DataHazardUnit;
 
@@ -34,28 +37,43 @@ architecture Behavioral of DataHazardUnit is
 	signal validade_format : STD_LOGIC;
 	signal validade_format_exmem : STD_LOGIC;
 	signal validade_format_wb : STD_LOGIC;
-	
+	--const-const
 	signal form_const : STD_LOGIC;
 	signal form_const_EX : STD_LOGIC;
 	signal val_form_const : STD_LOGIC;
 	signal val_const : STD_LOGIC_VECTOR(2 downto 0);
 	signal const_reg : STD_LOGIC_VECTOR(2 downto 0);
 	signal forw_const : STD_LOGIC;
-	
+	--const-alu
+	signal form_const_alu : STD_LOGIC;
+	signal form_const_alu_EX : STD_LOGIC;
+	signal val_form_const_alu : STD_LOGIC;
+	signal alu_reg : STD_LOGIC_VECTOR(2 downto 0);
+	signal val_const_alu : STD_LOGIC_VECTOR(2 downto 0);
+	signal forw_const_alu : STD_LOGIC;
+	--alu-const
+	signal form_alu_const : STD_LOGIC;
+	signal form_alu_const_EX : STD_LOGIC;
+	signal val_form_alu_const : STD_LOGIC;
+	signal val_alu_const_a : STD_LOGIC_VECTOR(2 downto 0);
+	signal forw_alu_const_a : STD_LOGIC;
+	signal val_alu_const_b : STD_LOGIC_VECTOR(2 downto 0);
+	signal forw_alu_const_b : STD_LOGIC;
 begin
 
 	format <= OPCODE(9 downto 8);
 	format_EXMEM <= OPCODE_EXMEM(9 downto 8);
-	--format_WB <= OPCODE_WB(9 downto 8);
+	format_WB <= OPCODE_WB(9 downto 8);
 	DA_EXMEM1 <= OPCODE_EXMEM(7 downto 5);
-	--DA_WB1 <= DA_WB; 
+	DA_WB1 <= DA_WB; 
 	DA <= OPCODE(7 downto 5);
 	OP <= OPCODE(4 downto 0);
 	OP_EXMEM <= OPCODE_EXMEM(4 downto 0);
-	--OP_WB <= OPCODE_WB(4 downto 0);
+	OP_WB <= OPCODE_WB(4 downto 0);
 	
 	
-	-- FORWARDING ALU-ALU
+	-- FORWARDING ALU-ALU / ALU-CONST
+	
 	validade_format <= format(1) and not(format(0));
 	validade_format_EXMEM <= format_EXMEM(1) and not(format_EXMEM(0));
 	validade_format_WB <= format_WB(1) and not(format_WB(0));
@@ -69,9 +87,10 @@ begin
 	validade_op_EX <= ((not(OP_EXMEM(3)) and not(OP_EXMEM(1))) or 
 							(not(OP_EXMEM(3)) and not(OP_EXMEM(0))) or 
 							 not(OP_EXMEM(2)) OR OP_EXMEM(4)) and
-							 validade_format_WB;
+							 validade_format_EXMEM;
 							 
-	igual_op <= validade_op_ID and validade_op_EX;
+	igual_op <= validade_op_ID and validade_op_EX; -- alu alu
+	val_form_alu_const <= validade_op_ID and form_const; -- alu const
 	
 	validade_dest_a(0) <= AA(0) and DA_EXMEM1(0);
 	validade_dest_a(1) <= AA(1) and DA_EXMEM1(1);
@@ -88,6 +107,12 @@ begin
 	MUX_ALU_A <= igual_op and igual_dest_a;
 	MUX_ALU_B <= igual_op and igual_dest_b;
 	
+	forw_alu_const_b <= val_form_alu_const and igual_dest_b;
+	FORWARD_ALU_CONST_B <= forw_alu_const_b;
+	
+	forw_alu_const_a <= val_form_alu_const and igual_dest_a;
+	FORWARD_ALU_CONST_A <= forw_alu_const_a;
+	
 	--FORWARDING CONSTANTE-CONSTANTE
 	
 	form_const <= OPCODE(8);
@@ -103,6 +128,18 @@ begin
 	forw_const <= val_form_const and val_const(0) and val_const(1) and val_const(2);
 	
 	FORWARD_CONST <= forw_const;
+	
+	--FORWARDING CONSTANTE-ALU
+	
+	form_const_alu <= validade_op_EX and form_const;
+	
+	val_const_alu(0) <= const_reg(0) and DA_EXMEM1(0);
+	val_const_alu(1) <= const_reg(1) and DA_EXMEM1(1);
+	val_const_alu(2) <= const_reg(2) and DA_EXMEM1(2);
+
+	forw_const_alu <= form_const_alu and val_const_alu(0) and val_const_alu(1) and val_const_alu(2);
+	
+	FORWARD_CONST_ALU <= forw_const_alu;
 	
 end Behavioral;
 

@@ -162,6 +162,18 @@ architecture Behavioral of cpu is
 				flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0);
 				format_in : in STD_LOGIC_VECTOR(1 downto 0);
 			   format_out : out STD_LOGIC_VECTOR(1 downto 0);
+				forw_const_const_in : in  STD_LOGIC;
+				forw_const_const_out : out  STD_LOGIC;
+				forw_alu_alu_a_in : in  STD_LOGIC;
+				forw_alu_alu_a_out : out  STD_LOGIC;
+				forw_alu_alu_b_in : in  STD_LOGIC;
+				forw_alu_alu_b_out : out  STD_LOGIC;
+				forw_const_alu_in : in  STD_LOGIC;
+				forw_const_alu_out : out  STD_LOGIC;
+				forw_alu_const_a_in : in  STD_LOGIC;
+				forw_alu_const_a_out : out  STD_LOGIC;
+				forw_alu_const_b_in : in  STD_LOGIC;
+				forw_alu_const_b_out : out  STD_LOGIC;
 				enable_jump_in : in  STD_LOGIC;
 				enable_jump_out : out  STD_LOGIC;
 				clk : in  STD_LOGIC;
@@ -201,13 +213,16 @@ architecture Behavioral of cpu is
 	component DataHazardUnit 
 	Port (OPCODE : in  STD_LOGIC_VECTOR (9 downto 0);
 			OPCODE_EXMEM : in  STD_LOGIC_VECTOR (9 downto 0);
-			--OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
-			--DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
+			OPCODE_WB : in  STD_LOGIC_VECTOR (9 downto 0);
+			DA_WB : in STD_LOGIC_VECTOR(2 downto 0);
 			AA : in STD_LOGIC_VECTOR(2 downto 0);
 			BA : in STD_LOGIC_VECTOR(2 downto 0);
 			MUX_ALU_A : out STD_LOGIC;
 			MUX_ALU_B : out STD_LOGIC;
-			FORWARD_CONST : out STD_LOGIC
+			FORWARD_CONST : out STD_LOGIC;
+			FORWARD_CONST_ALU : out STD_LOGIC;
+			FORWARD_ALU_CONST_A : out STD_LOGIC;
+			FORWARD_ALU_CONST_B : out STD_LOGIC
 			);
 	end component DataHazardUnit;
 		
@@ -272,10 +287,19 @@ architecture Behavioral of cpu is
 	signal tmp : STD_LOGIC_VECTOR(9 downto 0);
 	--forward constantes
 	signal mux_sel_const : STD_LOGIC;
+	signal mux_sel_const_2 : STD_LOGIC;
+	signal mux_alu_a_2 : STD_LOGIC;
+	signal mux_alu_b_2 : STD_LOGIC;
 	signal mux_const : STD_LOGIC_VECTOR(15 downto 0);
-	
-	
-	
+	--forward constantes - alu
+	signal mux_sel_const_alu : STD_LOGIC;
+	signal mux_sel_const_alu_2 : STD_LOGIC;
+	signal mux_const_alu : STD_LOGIC;
+	--forward alu - constantes
+	signal mux_sel_alu_const_a : STD_LOGIC;
+	signal mux_sel_alu_const_b : STD_LOGIC;	
+	signal mux_sel_alu_const_a_2 : STD_LOGIC;
+	signal mux_sel_alu_const_b_2 : STD_LOGIC;	
 	begin
 
 	Decoder_Inst: decoder port map(
@@ -405,6 +429,18 @@ architecture Behavioral of cpu is
 		enable_jump_out => jpen_2,
 		format_in => instr(15 downto 14),
 		format_out => format_out_2,
+		forw_alu_alu_a_in => MUX_ALU_A,
+		forw_alu_alu_b_in => MUX_ALU_B,
+		forw_alu_alu_b_out => mux_alu_b_2,
+		forw_alu_alu_a_out => mux_alu_a_2,
+		forw_const_const_in => mux_sel_const,
+		forw_const_const_out => mux_sel_const_2,
+		forw_const_alu_in => mux_sel_const_alu,
+		forw_const_alu_out => mux_sel_const_alu_2,
+		forw_alu_const_a_in => mux_sel_alu_const_a,
+		forw_alu_const_b_in => mux_sel_alu_const_b,
+		forw_alu_const_a_out => mux_sel_alu_const_a_2,
+		forw_alu_const_b_out => mux_sel_alu_const_b_2,
 		clk => CLK,
 		enable => en_lvl2	
 	);
@@ -440,25 +476,33 @@ architecture Behavioral of cpu is
 	DataHazard : DataHazardUnit port map(
 		OPCODE => tmp,
 		OPCODE_EXMEM => instr_exmem,
-		--OPCODE_WB => (others =>'0'),
-		--DA_WB => (others=>'0'),
-		AA => aa_dh, 
-		BA => ba_dh,
+		OPCODE_WB => (others =>'0'),
+		DA_WB => (others=>'0'),
+		AA => aa1, 
+		BA => ba1,
 		MUX_ALU_A => MUX_ALU_A,
 		MUX_ALU_B => MUX_ALU_B,
-		FORWARD_CONST => mux_sel_const
+		FORWARD_CONST => mux_sel_const,
+		FORWARD_CONST_ALU => mux_sel_const_alu,
+		FORWARD_ALU_CONST_A => mux_sel_alu_const_a,
+		FORWARD_ALU_CONST_B => mux_sel_alu_const_b
 	);
 	
 	TEST <= writedata;
 	
-	entrada_alu_a <= a_v_2 when MUX_ALU_A = '0' else
-						  Alu_S_2;
-	entrada_alu_b <= b_v_2 when MUX_ALU_B = '0' else
-						  Alu_S_2;
+	entrada_alu_a <= Alu_S_2 when mux_alu_a_2 = '1' else
+						  consts_2 when mux_sel_alu_const_a_2 = '1' else
+						  a_v_2;
+						  
+	entrada_alu_b <= Alu_S_2 when mux_alu_b_2 = '1' else
+						  consts_2 when mux_sel_alu_const_b_2 = '1' else
+						  b_v_2;
+						  
 	tmp <= format_out_2 & da1_2 & opcde_2;
 	
-	mux_const <= consts_2 when mux_sel_const ='1' else
+	mux_const <= consts_2 when mux_sel_const_2 ='1' else
+					 Alu_S_2 when mux_sel_const_alu_2 ='1' else
 					 a_v_2;
-	
+		
 end Behavioral;
 

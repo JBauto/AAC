@@ -37,7 +37,7 @@ architecture Behavioral of rom_instrc is
 					RAM(index) := DATA_TEMP;
 					index := index + 1;
 			  end loop;
-			  for index in index to 65535 loop
+			  for index in index to index + 2 loop
 					RAM(index) := X"0000";
 			  end loop;
 	return RAM;

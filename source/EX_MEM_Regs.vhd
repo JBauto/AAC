@@ -53,7 +53,8 @@ architecture Behavioral of EX_MEM_Regs is
 
 begin
 
-	Next_PC_out <= Next_PC_in when enable = '1';
+	Next_PC_out <= Next_PC_in when enable = '1' else
+						(others =>'0');
 
 process (clk)
 	begin

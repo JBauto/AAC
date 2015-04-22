@@ -62,6 +62,18 @@ entity ID_RF_Regs is
 			flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0);
 			format_in : in STD_LOGIC_VECTOR(1 downto 0);
 			format_out : out STD_LOGIC_VECTOR(1 downto 0);
+			forw_const_const_in : in  STD_LOGIC;
+			forw_const_const_out : out  STD_LOGIC;
+			forw_alu_alu_a_in : in  STD_LOGIC;
+			forw_alu_alu_a_out : out  STD_LOGIC;
+			forw_alu_alu_b_in : in  STD_LOGIC;
+			forw_alu_alu_b_out : out  STD_LOGIC;
+			forw_const_alu_in : in  STD_LOGIC;
+			forw_const_alu_out : out  STD_LOGIC;
+			forw_alu_const_a_in : in  STD_LOGIC;
+			forw_alu_const_a_out : out  STD_LOGIC;
+			forw_alu_const_b_in : in  STD_LOGIC;
+			forw_alu_const_b_out : out  STD_LOGIC;
 			enable_jump_in : in  STD_LOGIC;
 			enable_jump_out : out  STD_LOGIC;
 			clk : in  STD_LOGIC;
@@ -71,7 +83,8 @@ end ID_RF_Regs;
 architecture Behavioral of ID_RF_Regs is
 begin
 
-	Next_PC_out <= Next_PC_in when enable = '1';
+	Next_PC_out <= Next_PC_in when enable = '1' else
+						(others =>'0');
 
 	process (clk)
 	begin
@@ -94,6 +107,12 @@ begin
 			AA_out <= AA_in;
 			BA_out <= BA_in;
 			format_out <= format_in;
+			forw_alu_alu_a_out <= forw_alu_alu_a_in;
+			forw_alu_alu_b_out <= forw_alu_alu_b_in;
+			forw_const_const_out <= forw_const_const_in;
+			forw_const_alu_out <= forw_const_alu_in;
+			forw_alu_const_a_out <= forw_alu_const_a_in;
+			forw_alu_const_b_out <= forw_alu_const_b_in;
  		end if;
    end if;
 end process;
