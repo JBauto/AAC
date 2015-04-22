@@ -13,7 +13,14 @@ entity DataHazardUnit is
 			FORWARD_CONST : out STD_LOGIC;
 			FORWARD_CONST_ALU : out STD_LOGIC;
 			FORWARD_ALU_CONST_A : out STD_LOGIC;
-			FORWARD_ALU_CONST_B : out STD_LOGIC
+			FORWARD_ALU_CONST_B : out STD_LOGIC;
+			FORWARD_CONST_MEM : out STD_LOGIC;
+			FORWARD_MEM_CONST_ADDRESS : out STD_LOGIC;
+			FORWARD_MEM_CONST_DATA : out STD_LOGIC;
+			FORWARD_MEM_ALU_ADDRESS : out STD_LOGIC;
+			FORWARD_MEM_ALU_DATA : out STD_LOGIC;
+			FORWARD_ALU_MEM_DATA_A : out STD_LOGIC;
+			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC
 			);
 end DataHazardUnit;
 
@@ -59,6 +66,26 @@ architecture Behavioral of DataHazardUnit is
 	signal forw_alu_const_a : STD_LOGIC;
 	signal val_alu_const_b : STD_LOGIC_VECTOR(2 downto 0);
 	signal forw_alu_const_b : STD_LOGIC;
+	--const-memoria
+	signal form_const_mem : STD_LOGIC;
+	signal form_const_mem_EX : STD_LOGIC;
+	signal val_form_const_mem : STD_LOGIC;
+	signal mem_reg : STD_LOGIC_VECTOR(2 downto 0);
+	signal val_const_mem : STD_LOGIC;
+	--memoria-const
+	signal form_mem_const : STD_LOGIC;
+	signal form_mem_const_EX : STD_LOGIC;
+	signal val_form_mem_const : STD_LOGIC;
+	signal val_address : STD_LOGIC;
+	signal val_data : STD_LOGIC;
+	--memoria-au
+	signal val_alu_address : STD_LOGIC;
+	signal val_alu_data : STD_LOGIC;
+	--alu-memoria
+	signal val_alu_mem : STD_LOGIC;
+	signal val_reg_a : STD_LOGIC;
+	signal val_reg_b : STD_LOGIC;
+	
 begin
 
 	format <= OPCODE(9 downto 8);
@@ -140,6 +167,53 @@ begin
 	forw_const_alu <= form_const_alu and val_const_alu(0) and val_const_alu(1) and val_const_alu(2);
 	
 	FORWARD_CONST_ALU <= forw_const_alu;
+	
+	--FORWARDING CONSTANTE-MEMORIA
+	
+	form_const_mem <= form_const;
+	form_const_mem_EX <= '1' when OP_EXMEM = "01010" else
+								'0';
+								
+	val_form_const_mem <= form_const_mem and form_const_mem_EX;
+	
+	mem_reg <= DA_EXMEM1;
+	
+	FORWARD_CONST_MEM <= '1' when mem_reg=AA and val_form_const_mem = '1' else
+						      '0';
+	
+	--FORWARD MEMORIA-CONSTANTE ADDRESS/DATA
+	
+	val_form_mem_const <= '1' when OP(3 downto 0) = "0101"  and format_EXMEM(0) = '1' else
+								 '0';
+								 
+	val_address <= '1' when DA_EXMEM1 = AA else
+						'0';
+						
+	val_data <= '1' when DA_EXMEM1 = BA and OP = "01011" else
+					'0';
+	
+	FORWARD_MEM_CONST_ADDRESS <= val_form_mem_const and val_address;
+	FORWARD_MEM_CONST_DATA <= val_form_mem_const and val_data;
+	
+	--FORWARD MEMORIA-ALU ADDRESS/DATA
+	
+	val_alu_address <= '1' when OP(3 downto 0) = "0101" else
+							 '0';
+	
+	FORWARD_MEM_ALU_ADDRESS <= validade_op_EX and val_alu_address and val_address;
+	FORWARD_MEM_ALU_DATA <= validade_op_EX and val_data;
+	
+	--FORWARD ALU-MEMORIA DATA
+	
+	val_alu_mem <= '1' when OP_EXMEM = "01011" and validade_op_EX = '1' else
+						'0';
+						
+	val_reg_a <= igual_dest_a and val_alu_mem;
+	val_reg_b <= igual_dest_b and val_alu_mem;
+	
+	FORWARD_ALU_MEM_DATA_A <= val_reg_a;
+	FORWARD_ALU_MEM_DATA_B <= val_reg_b;
+	
 	
 end Behavioral;
 
