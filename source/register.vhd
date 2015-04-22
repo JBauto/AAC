@@ -55,14 +55,14 @@ begin
 			R6 when BA="110" else
 			R7;
 		
-		R0 <= DATA when DA="000" and WE='1' and falling_edge(clk);
-		R1 <= DATA when DA="001" and WE='1' and falling_edge(clk);
-		R2 <= DATA when DA="010" and WE='1' and falling_edge(clk);
-		R3 <= DATA when DA="011" and WE='1' and falling_edge(clk);
-		R4 <= DATA when DA="100" and WE='1' and falling_edge(clk);
-		R5 <= DATA when DA="101" and WE='1' and falling_edge(clk);
-		R6 <= DATA when DA="110" and WE='1' and falling_edge(clk);
-		R7 <= DATA when DA="111" and WE='1' and falling_edge(clk);
+		R0 <= DATA when DA="000" and WE='1' and rising_edge(clk);
+		R1 <= DATA when DA="001" and WE='1' and rising_edge(clk);
+		R2 <= DATA when DA="010" and WE='1' and rising_edge(clk);
+		R3 <= DATA when DA="011" and WE='1' and rising_edge(clk);
+		R4 <= DATA when DA="100" and WE='1' and rising_edge(clk);
+		R5 <= DATA when DA="101" and WE='1' and rising_edge(clk);
+		R6 <= DATA when DA="110" and WE='1' and rising_edge(clk);
+		R7 <= DATA when DA="111" and WE='1' and rising_edge(clk);
 
 end Behavioral;
 

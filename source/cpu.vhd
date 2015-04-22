@@ -306,6 +306,8 @@ architecture Behavioral of cpu is
 	signal aa_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal ba_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal tmp : STD_LOGIC_VECTOR(9 downto 0);
+	signal tmp_2 : STD_LOGIC_VECTOR(9 downto 0);
+
 	--forward constantes
 	signal mux_sel_const : STD_LOGIC;
 	signal mux_sel_const_2 : STD_LOGIC;
@@ -515,7 +517,7 @@ architecture Behavioral of cpu is
 		MUX_WB_in => MUXWB_2,
 		MUX_WB_out => MUXWB_3,
 		INSTR_dataHazard_in => tmp,
-		INSTR_dataHazard_out => instr_exmem,
+		INSTR_dataHazard_out => tmp_2,
 		clk => CLK,
 		enable => en_lvl3
 	);
@@ -531,7 +533,7 @@ architecture Behavioral of cpu is
 	
 	DataHazard : DataHazardUnit port map(
 		OPCODE => tmp,
-		OPCODE_EXMEM => instr_exmem,
+		OPCODE_EXMEM => tmp_2,
 		OPCODE_WB => (others =>'0'),
 		DA_WB => (others=>'0'),
 		AA => aa1, 
@@ -564,6 +566,7 @@ architecture Behavioral of cpu is
 						  b_v_2;
 						  
 	tmp <= format_out_2 & da1_2 & opcde_2;
+	--tmp_2 <= instr(15 downto 14) & da1 & opcde;
 	
 	mux_const <= consts_2 when mux_sel_const_2 ='1' else
 					 Alu_S_2 when mux_sel_const_alu_2 ='1' else
