@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/AAC/AAC_L2/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/public.SCDEEC.000/Desktop/LAB/AAC/cpu_teste_isim_beh1.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -182,11 +182,6 @@
       <wvobject fp_name="/cpu_teste/uut/RegFile/r4" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">r4[15:0]</obj_property>
          <obj_property name="ObjectShortName">r4[15:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/cpu_teste/uut/RegFile/r3" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">r3[15:0]</obj_property>
-         <obj_property name="ObjectShortName">r3[15:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/RegFile/r5" type="array" db_ref_id="1">

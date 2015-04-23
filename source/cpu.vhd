@@ -558,9 +558,9 @@ architecture Behavioral of cpu is
 	
 	TEST <= writedata;
 	
-	entrada_alu_a <= Alu_S when mux_alu_a = '1' or mux_sel_mem_alu_a = '1' else
+	entrada_alu_a <= Alu_S when mux_alu_a = '1' or mux_sel_mem_alu_a = '1' or mux_sel_const_alu = '1' else
 						  consts when mux_sel_alu_const_a = '1' or mux_sel_mem_const_a = '1' or mux_sel_const ='1' else
-						  mem_dados when mux_sel_alu_mem_a = '1' else
+						  mem_dados when mux_sel_alu_mem_a = '1' or mux_sel_const_mem = '1' else
 						  a_v;
 						  
 	entrada_alu_b <= Alu_S when mux_alu_b = '1' or mux_sel_mem_alu_d = '1' else
