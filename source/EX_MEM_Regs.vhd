@@ -79,7 +79,7 @@ process (clk,enable)
 end process;
 
 		C_out <= C_out_2;
-		WE_out <= WE_in;
+		WE_out <= WE_out_2;
 		S_out <= S_out_2;
 		DA_out <= DA_out_2;
 		MUX_WB_out <= MUX_WB_out_2;
