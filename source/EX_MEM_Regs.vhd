@@ -38,6 +38,8 @@ entity EX_MEM_Regs is
 			WE_out : out  STD_LOGIC;
 			S_in : in  STD_LOGIC_VECTOR (15 downto 0);
 			S_out : out  STD_LOGIC_VECTOR (15 downto 0);
+			MEM_in : in STD_LOGIC_VECTOR (15 downto 0);
+			MEM_out : out STD_LOGIC_VECTOR (15 downto 0);			
 			DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 			DA_out : out  STD_LOGIC_VECTOR (2 downto 0);
 			MUX_WB_in : in STD_LOGIC_VECTOR(1 downto 0);
@@ -56,7 +58,7 @@ signal S_out_2 :  STD_LOGIC_VECTOR(15 downto 0):= (others => '0');
 signal DA_out_2 :  STD_LOGIC_VECTOR(2 downto 0):= (others => '0');
 signal MUX_WB_out_2 :  STD_LOGIC_VECTOR(1 downto 0):= (others => '0');
 signal INSTR_dataHazard_out_2 :  STD_LOGIC_VECTOR(9 downto 0):= (others => '0');
-
+signal MEM_out_2 : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
 
 begin
 
@@ -74,6 +76,7 @@ process (clk,enable)
 			DA_out_2 <= DA_in;
 			MUX_WB_out_2 <= MUX_WB_in;
 			INSTR_dataHazard_out_2 <= INSTR_dataHazard_in;
+			MEM_out_2 <= MEM_in;
 		end if;
    end if;
 end process;
@@ -84,6 +87,7 @@ end process;
 		DA_out <= DA_out_2;
 		MUX_WB_out <= MUX_WB_out_2;
 		INSTR_dataHazard_out <= INSTR_dataHazard_out_2;
+		MEM_out <= MEM_out_2;
 
 end Behavioral;
 

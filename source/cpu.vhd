@@ -205,6 +205,8 @@ architecture Behavioral of cpu is
 			S_out : out  STD_LOGIC_VECTOR (15 downto 0);
 			DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 			DA_out : out  STD_LOGIC_VECTOR (2 downto 0);
+			MEM_in : in STD_LOGIC_VECTOR (15 downto 0);
+			MEM_out : out STD_LOGIC_VECTOR (15 downto 0);	
 			MUX_WB_in : in STD_LOGIC_VECTOR(1 downto 0);
 			MUX_WB_out : out STD_LOGIC_VECTOR(1 downto 0);
 			INSTR_dataHazard_in : in STD_LOGIC_VECTOR(9 downto 0);
@@ -394,7 +396,7 @@ architecture Behavioral of cpu is
 
 	WB_Mux : writeback_mux port map(
 		ALU => Alu_S_2,
-		MEM => mem_dados,
+		MEM => mem_dados_2,
 		Consts => consts_2,
 		PC => PCm1_4,		-- alterado
 		Sel_WB => MUXWB_3,	-- change	-->	MUXWB
@@ -519,6 +521,8 @@ architecture Behavioral of cpu is
 		DA_out => da1_3,
 		MUX_WB_in => MUXWB_2,
 		MUX_WB_out => MUXWB_3,
+		MEM_in => mem_dados,
+		MEM_out => mem_dados_2,
 		INSTR_dataHazard_in => tmp,
 		INSTR_dataHazard_out => tmp_3,
 		clk => CLK,
