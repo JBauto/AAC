@@ -17,7 +17,8 @@ entity targetbuff is
 end targetbuff;
 
 architecture Behavioral of targetbuff is
-	type ram_type is array(0 to (2**btb_bits)-1) of STD_LOGIC_VECTOR(33-btb_bits downto 0);	--15-btb_bits + 16 + 2
+																						--15-btb_bits + 16 + 2
+	type ram_type is array(0 to (2**btb_bits)-1) of STD_LOGIC_VECTOR(33-btb_bits downto 0);
 	signal BTB : ram_type;
 	signal data : STD_LOGIC_VECTOR(33-btb_bits downto 0);
 	signal pred_bits : STD_LOGIC_VECTOR (1 downto 0);
