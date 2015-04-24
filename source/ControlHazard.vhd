@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_SIGNED.ALL;
 
-entity ControlHazard is
+entity ControlHazardUnit is
     generic ( btb_bits: integer :=7);	--if changed also change in BTB.vhd
 	 Port ( clk : in STD_LOGIC;
            PC : in  STD_LOGIC_VECTOR (15 downto 0);
@@ -20,9 +20,9 @@ entity ControlHazard is
 			  flag_predbits : in STD_LOGIC_VECTOR(1 downto 0);
 			  flag_true_jumpaddr : in  STD_LOGIC_VECTOR (15 downto 0);
 			  bits : out STD_LOGIC_VECTOR(1 downto 0));
-end ControlHazard;
+end ControlHazardUnit;
 
-architecture Behavioral of ControlHazard is
+architecture Behavioral of ControlHazardUnit is
 	component targetbuff is
 		Port ( clk : in STD_LOGIC;
 				 LSB : in  STD_LOGIC_VECTOR (btb_bits-1 downto 0);
@@ -46,13 +46,12 @@ architecture Behavioral of ControlHazard is
 	signal formato, OP, current_bits, update_bits : STD_LOGIC_VECTOR (1 downto 0);
 	signal prediction, we_notfound : STD_LOGIC;
 	signal MSB, TAG : STD_LOGIC_VECTOR (15-btb_bits downto 0);
-	signal LSB : STD_LOGIC_VECTOR (btb_bits-1 downto 0);
 	signal newjumpInfo, flagcorrection : STD_LOGIC_VECTOR(33-btb_bits downto 0);
 begin
 
 	BTB: targetbuff port map(
 		clk => clk,
-		LSB => LSB,
+		LSB => PC(btb_bits-1 downto 0),
 		TAG => TAG,
 		jump_addr => BTB_jump_address,
 		branch_pred => current_bits,
@@ -74,7 +73,6 @@ begin
 	formato <= Opcode(15 downto 14);
 	OP <= Opcode(13 downto 12);
 	MSB <= PC(15 downto btb_bits);
-	LSB <= PC(btb_bits-1 downto 0);
 	destino <= Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11 downto 0) when OP="10" else
 				  Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & 
 			Opcode(7) & Opcode(7 downto 0);

@@ -12,7 +12,8 @@ entity Flags is
            jump_info : in  STD_LOGIC_VECTOR (13 downto 0);
 			  PCm1 : in STD_LOGIC_VECTOR (15 downto 0);
 			  RB : in STD_LOGIC_VECTOR (15 downto 0);
-           output_address : out  STD_LOGIC_VECTOR (15 downto 0));
+           output_address : out  STD_LOGIC_VECTOR (15 downto 0);
+			  jump_override : out  STD_LOGIC);
 end Flags;
 
 architecture Behavioral of Flags is
