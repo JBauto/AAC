@@ -117,19 +117,12 @@ begin
 							 validade_format_EXMEM;
 							 
 	igual_op <= validade_op_ID and validade_op_EX; -- alu alu
-	val_form_alu_const <= validade_op_ID and form_const; -- alu const
+	val_form_alu_const <= validade_op_ID and form_const_EX; -- alu const
 	
-	validade_dest_a(0) <= AA(0) and DA_EXMEM1(0);
-	validade_dest_a(1) <= AA(1) and DA_EXMEM1(1);
-	validade_dest_a(2) <= AA(2) and DA_EXMEM1(2);
-
-	igual_dest_a <= validade_dest_a(2) and validade_dest_a(1) and validade_dest_a(0);
-
-	validade_dest_b(0) <= BA(0) and DA_EXMEM1(0);
-	validade_dest_b(1) <= BA(1) and DA_EXMEM1(1);
-	validade_dest_b(2) <= BA(2) and DA_EXMEM1(2);
-
-	igual_dest_b <= validade_dest_b(2) and validade_dest_b(1) and validade_dest_b(0);
+	igual_dest_a <= '1' when AA = DA_EXMEM1 else
+						 '0';
+	igual_dest_b <= '1' when BA = DA_EXMEM1 else
+						 '0';
 
 	MUX_ALU_A <= igual_op and igual_dest_a;
 	MUX_ALU_B <= igual_op and igual_dest_b;
@@ -148,23 +141,17 @@ begin
 	val_form_const <= form_const and form_const_EX;
 	const_reg <= DA_EXMEM1;
 	
-	val_const(0) <= AA(0) and const_reg(0);
-	val_const(1) <= AA(0) and const_reg(1);
-	val_const(2) <= AA(0) and const_reg(2);
+	forw_const <= '1' when AA = const_reg and val_form_const = '1' else
+					  '0';
 
-	forw_const <= val_form_const and val_const(0) and val_const(1) and val_const(2);
-	
 	FORWARD_CONST <= forw_const;
 	
 	--FORWARDING CONSTANTE-ALU
 	
 	form_const_alu <= validade_op_EX and form_const;
 	
-	val_const_alu(0) <= const_reg(0) and DA_EXMEM1(0);
-	val_const_alu(1) <= const_reg(1) and DA_EXMEM1(1);
-	val_const_alu(2) <= const_reg(2) and DA_EXMEM1(2);
-
-	forw_const_alu <= form_const_alu and val_const_alu(0) and val_const_alu(1) and val_const_alu(2);
+	forw_const_alu <= '1' when DA_EXMEM1 = const_reg and form_const_alu = '1' else
+				         '0';
 	
 	FORWARD_CONST_ALU <= forw_const_alu;
 	

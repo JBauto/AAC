@@ -73,13 +73,14 @@ begin
 			if we ='1' then 
 				RAM(conv_integer(dados)) <= din;
 			end if;
-         dout_instr <= RAM(conv_integer(instr)); -- REVER
-			dout_dados <= RAM(conv_integer(dados)); -- REVER
       end if;
    end process;
 	
 	dados <= addr_dados(15 downto 0);
 	instr <= addr_instr(15 downto 0);
+	
+	dout_instr <= RAM(conv_integer(instr)); -- REVER
+	dout_dados <= RAM(conv_integer(dados)); -- REVER
 	
 --	write_file:
 --    process (print,RAM) is    -- write file_io.out (when done goes to '1')
