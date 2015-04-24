@@ -89,7 +89,9 @@ architecture Behavioral of cpu is
 			  PCm1 : in STD_LOGIC_VECTOR (15 downto 0);
 			  RB : in STD_LOGIC_VECTOR (15 downto 0);
 			  output_address : out  STD_LOGIC_VECTOR (15 downto 0);
-			  jump_override : out  STD_LOGIC);
+			  predbits : in STD_LOGIC_VECTOR (1 downto 0);
+			  jump_override : out  STD_LOGIC;
+			  taken : out STD_LOGIC);
 		end component Flags;
 	
 	component ProgramCounter 
@@ -353,7 +355,7 @@ architecture Behavioral of cpu is
 	signal cnt_flag_write : STD_LOGIC;
 	signal cnt_flag_predbits : STD_LOGIC_VECTOR(1 downto 0);
 	signal cnt_flag_true_jumpaddr : STD_LOGIC_VECTOR (15 downto 0);
-	signal cnt_bits : STD_LOGIC_VECTOR(1 downto 0);
+	signal cnt_bits, cnt_bits2 : STD_LOGIC_VECTOR(1 downto 0);
 	
 	begin
 
@@ -428,7 +430,9 @@ architecture Behavioral of cpu is
 		PCm1 => PCm1_3,
 		RB => b_v,
 		output_address => addr_from_flag,
-		jump_override => flagoverride
+		predbits => cnt_bits2,
+		jump_override => flagoverride,
+		taken => cnt_flag_taken
 	);
 	
 	PC : ProgramCounter port map(
@@ -574,11 +578,11 @@ architecture Behavioral of cpu is
 		jump_en => cntjump_en,
 		jump_dest => cntjump_dest,
 		----to/from flags----
-		flag_addr => cnt_flag_addr,
+		flag_addr => IFaddr_3,
 		flag_taken => cnt_flag_taken,
-		flag_write => cnt_flag_write,
+		flag_write => flagoverride,
 		flag_predbits => cnt_flag_predbits,
-		flag_true_jumpaddr => cnt_flag_true_jumpaddr,
+		flag_true_jumpaddr => addr_from_flag,
 		bits => cnt_bits
 	);
 	
