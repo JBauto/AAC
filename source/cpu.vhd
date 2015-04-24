@@ -107,8 +107,8 @@ architecture Behavioral of cpu is
 				Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 				Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
 				Next_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
---				OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
---				OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
+				--OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
+				--OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0);
 				clk : in  STD_LOGIC;
 				enable : in STD_LOGIC);
 	end component IF_Regs;
@@ -146,34 +146,36 @@ architecture Behavioral of cpu is
 				flags_en_out : out  STD_LOGIC_VECTOR (3 downto 0);
 				format_in : in STD_LOGIC_VECTOR(1 downto 0);
 			   format_out : out STD_LOGIC_VECTOR(1 downto 0);
-				forw_const_const_in : in  STD_LOGIC;
-				forw_const_const_out : out  STD_LOGIC;
-				forw_alu_alu_a_in : in  STD_LOGIC;
-				forw_alu_alu_a_out : out  STD_LOGIC;
-				forw_alu_alu_b_in : in  STD_LOGIC;
-				forw_alu_alu_b_out : out  STD_LOGIC;
-				forw_const_alu_in : in  STD_LOGIC;
-				forw_const_alu_out : out  STD_LOGIC;
-				forw_alu_const_a_in : in  STD_LOGIC;
-				forw_alu_const_a_out : out  STD_LOGIC;
-				forw_alu_const_b_in : in  STD_LOGIC;
-				forw_alu_const_b_out : out  STD_LOGIC;
-				forw_const_mem_in : in  STD_LOGIC;
-				forw_const_mem_out : out  STD_LOGIC;
-				forw_mem_const_a_in : in  STD_LOGIC;
-				forw_mem_const_a_out : out  STD_LOGIC;
-				forw_mem_const_d_in : in  STD_LOGIC;
-				forw_mem_const_d_out : out  STD_LOGIC;
-				forw_mem_alu_d_in : in  STD_LOGIC;
-				forw_mem_alu_d_out : out  STD_LOGIC;
-				forw_mem_alu_a_in : in  STD_LOGIC;
-				forw_mem_alu_a_out : out  STD_LOGIC;
-				forw_alu_mem_a_in : in STD_LOGIC;
-				forw_alu_mem_a_out : out STD_LOGIC;
-				forw_alu_mem_b_in : in STD_LOGIC;
-				forw_alu_mem_b_out : out STD_LOGIC;
+				-- forw_const_const_in : in  STD_LOGIC;
+				-- forw_const_const_out : out  STD_LOGIC;
+				-- forw_alu_alu_a_in : in  STD_LOGIC;
+				-- forw_alu_alu_a_out : out  STD_LOGIC;
+				-- forw_alu_alu_b_in : in  STD_LOGIC;
+				-- forw_alu_alu_b_out : out  STD_LOGIC;
+				-- forw_const_alu_in : in  STD_LOGIC;
+				-- forw_const_alu_out : out  STD_LOGIC;
+				-- forw_alu_const_a_in : in  STD_LOGIC;
+				-- forw_alu_const_a_out : out  STD_LOGIC;
+				-- forw_alu_const_b_in : in  STD_LOGIC;
+				-- forw_alu_const_b_out : out  STD_LOGIC;
+				-- forw_const_mem_in : in  STD_LOGIC;
+				-- forw_const_mem_out : out  STD_LOGIC;
+				-- forw_mem_const_a_in : in  STD_LOGIC;
+				-- forw_mem_const_a_out : out  STD_LOGIC;
+				-- forw_mem_const_d_in : in  STD_LOGIC;
+				-- forw_mem_const_d_out : out  STD_LOGIC;
+				-- forw_mem_alu_d_in : in  STD_LOGIC;
+				-- forw_mem_alu_d_out : out  STD_LOGIC;
+				-- forw_mem_alu_a_in : in  STD_LOGIC;
+				-- forw_mem_alu_a_out : out  STD_LOGIC;
+				-- forw_alu_mem_a_in : in STD_LOGIC;
+				-- forw_alu_mem_a_out : out STD_LOGIC;
+				-- forw_alu_mem_b_in : in STD_LOGIC;
+				-- forw_alu_mem_b_out : out STD_LOGIC;
 				enable_jump_in : in  STD_LOGIC;
 				enable_jump_out : out  STD_LOGIC;
+				control_bits_in : in STD_LOGIC_VECTOR(1 downto 0);
+				control_bits_out : out STD_LOGIC_VECTOR(1 downto 0);
 				clk : in  STD_LOGIC;
 				enable : in STD_LOGIC);
 	end component ID_RF_Regs;
@@ -189,6 +191,8 @@ architecture Behavioral of cpu is
 			S_out : out  STD_LOGIC_VECTOR (15 downto 0);
 			DA_in : in  STD_LOGIC_VECTOR (2 downto 0);
 			DA_out : out  STD_LOGIC_VECTOR (2 downto 0);
+			MEM_in : in STD_LOGIC_VECTOR (15 downto 0);
+			MEM_out : out STD_LOGIC_VECTOR (15 downto 0);	
 			MUX_WB_in : in STD_LOGIC_VECTOR(1 downto 0);
 			MUX_WB_out : out STD_LOGIC_VECTOR(1 downto 0);
 			INSTR_dataHazard_in : in STD_LOGIC_VECTOR(9 downto 0);
@@ -310,6 +314,7 @@ architecture Behavioral of cpu is
 	signal aa_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal ba_dh : STD_LOGIC_VECTOR(2 downto 0);
 	signal tmp : STD_LOGIC_VECTOR(9 downto 0);
+	signal tmp_2 : STD_LOGIC_VECTOR(9 downto 0);
 	--forward constantes
 	signal mux_sel_const : STD_LOGIC;
 	signal mux_sel_const_2 : STD_LOGIC;
@@ -345,16 +350,14 @@ architecture Behavioral of cpu is
 	signal mux_sel_alu_mem_a_2 : STD_LOGIC;
 	signal mux_sel_alu_mem_b : STD_LOGIC;
 	signal mux_sel_alu_mem_b_2 : STD_LOGIC;
+	
+	signal tmp_3 : STD_LOGIC_VECTOR(9 downto 0); 
+	
 	--control hazard
-	signal cntRB : STD_LOGIC_VECTOR (15 downto 0);
 	signal cntjump_en : STD_LOGIC;
 	signal cntjump_dest : STD_LOGIC_VECTOR (15 downto 0);
 	--control hazard to/from flags
-	signal cnt_flag_addr : STD_LOGIC_VECTOR (15 downto 0);
 	signal cnt_flag_taken : STD_LOGIC;
-	signal cnt_flag_write : STD_LOGIC;
-	signal cnt_flag_predbits : STD_LOGIC_VECTOR(1 downto 0);
-	signal cnt_flag_true_jumpaddr : STD_LOGIC_VECTOR (15 downto 0);
 	signal cnt_bits, cnt_bits2 : STD_LOGIC_VECTOR(1 downto 0);
 	
 	begin
@@ -406,8 +409,8 @@ architecture Behavioral of cpu is
 		ALU => Alu_S_2,
 		MEM => mem_dados,
 		Consts => consts_2,
-		PC => PCm1_4,		-- alterado
-		Sel_WB => MUXWB_3,	-- change	-->	MUXWB
+		PC => PCm1_4,
+		Sel_WB => MUXWB_3,
 		C => writedata
 	);
 	RAM : rom_instrc port map(
@@ -448,8 +451,8 @@ architecture Behavioral of cpu is
 		Current_PC_out => IFaddr_2, 
 		Next_PC_in => PCm1,
 		Next_PC_out => PCm1_2,
---		OPCODE_in => instr,
---		OPCODE_out => instr_2,
+		--OPCODE_in => instr,
+		--OPCODE_out => instr_2,
 		clk => CLK,
 		enable => en_lvl1
 	);
@@ -471,9 +474,9 @@ architecture Behavioral of cpu is
 		AA_out => aa_dh,
 		BA_out => ba_dh,
 		BA_in => ba1,
-   	A_in => a_v,
+   	A_in => entrada_alu_a,
 		A_out => a_v_2,
-		B_in => b_v,
+		B_in => entrada_alu_b,
 		B_out => b_v_2,
 		WE_in => wenable,
 		WE_out => wenable_2,
@@ -489,32 +492,34 @@ architecture Behavioral of cpu is
 		enable_jump_out => jpen_2,
 		format_in => instr(15 downto 14),
 		format_out => format_out_2,
-		forw_alu_alu_a_in => MUX_ALU_A,
-		forw_alu_alu_b_in => MUX_ALU_B,
-		forw_alu_alu_b_out => mux_alu_b_2,
-		forw_alu_alu_a_out => mux_alu_a_2,
-		forw_const_const_in => mux_sel_const,
-		forw_const_const_out => mux_sel_const_2,
-		forw_const_alu_in => mux_sel_const_alu,
-		forw_const_alu_out => mux_sel_const_alu_2,
-		forw_alu_const_a_in => mux_sel_alu_const_a,
-		forw_alu_const_b_in => mux_sel_alu_const_b,
-		forw_alu_const_a_out => mux_sel_alu_const_a_2,
-		forw_alu_const_b_out => mux_sel_alu_const_b_2,
-		forw_const_mem_in => mux_sel_const_mem,
-		forw_const_mem_out => mux_sel_const_mem_2,
-		forw_mem_const_a_in => mux_sel_mem_const_a,
-		forw_mem_const_a_out => mux_sel_mem_const_a_2,
-		forw_mem_const_d_in => mux_sel_mem_const_d,
-		forw_mem_const_d_out => mux_sel_mem_const_d_2,
-		forw_mem_alu_a_in =>	mux_sel_mem_alu_a,
-		forw_mem_alu_a_out => mux_sel_mem_alu_a_2,
-		forw_mem_alu_d_in => mux_sel_mem_alu_d,
-		forw_mem_alu_d_out => mux_sel_mem_alu_d_2,
-		forw_alu_mem_a_in => mux_sel_alu_mem_a,
-		forw_alu_mem_a_out => mux_sel_alu_mem_a_2,
-		forw_alu_mem_b_in => mux_sel_alu_mem_b,
-		forw_alu_mem_b_out => mux_sel_alu_mem_b_2,
+--		forw_alu_alu_a_in => MUX_ALU_A,
+--		forw_alu_alu_b_in => MUX_ALU_B,
+--		forw_alu_alu_b_out => mux_alu_b_2,
+--		forw_alu_alu_a_out => mux_alu_a_2,
+--		forw_const_const_in => mux_sel_const,
+--		forw_const_const_out => mux_sel_const_2,
+--		forw_const_alu_in => mux_sel_const_alu,
+--		forw_const_alu_out => mux_sel_const_alu_2,
+--		forw_alu_const_a_in => mux_sel_alu_const_a,
+--		forw_alu_const_b_in => mux_sel_alu_const_b,
+--		forw_alu_const_a_out => mux_sel_alu_const_a_2,
+--		forw_alu_const_b_out => mux_sel_alu_const_b_2,
+--		forw_const_mem_in => mux_sel_const_mem,
+--		forw_const_mem_out => mux_sel_const_mem_2,
+--		forw_mem_const_a_in => mux_sel_mem_const_a,
+--		forw_mem_const_a_out => mux_sel_mem_const_a_2,
+--		forw_mem_const_d_in => mux_sel_mem_const_d,
+--		forw_mem_const_d_out => mux_sel_mem_const_d_2,
+--		forw_mem_alu_a_in =>	mux_sel_mem_alu_a,
+--		forw_mem_alu_a_out => mux_sel_mem_alu_a_2,
+--		forw_mem_alu_d_in => mux_sel_mem_alu_d,
+--		forw_mem_alu_d_out => mux_sel_mem_alu_d_2,
+--		forw_alu_mem_a_in => mux_sel_alu_mem_a,
+--		forw_alu_mem_a_out => mux_sel_alu_mem_a_2,
+--		forw_alu_mem_b_in => mux_sel_alu_mem_b,
+--		forw_alu_mem_b_out => mux_sel_alu_mem_b_2,
+		control_bits_in => cnt_bits,
+		control_bits_out => cnt_bits2,
 		clk => CLK,
 		enable => en_lvl2	
 	);
@@ -532,8 +537,10 @@ architecture Behavioral of cpu is
 		DA_out => da1_3,
 		MUX_WB_in => MUXWB_2,
 		MUX_WB_out => MUXWB_3,
+		MEM_in => mem_dados,
+		MEM_out => mem_dados_2,
 		INSTR_dataHazard_in => tmp,
-		INSTR_dataHazard_out => instr_exmem,
+		INSTR_dataHazard_out => tmp_3,
 		clk => CLK,
 		enable => en_lvl3
 	);
@@ -548,8 +555,8 @@ architecture Behavioral of cpu is
 	);
 	
 	DataHazard : DataHazardUnit port map(
-		OPCODE => tmp,
-		OPCODE_EXMEM => instr_exmem,
+		OPCODE => tmp_2,
+		OPCODE_EXMEM => tmp,
 		OPCODE_WB => (others =>'0'),
 		DA_WB => (others=>'0'),
 		AA => aa1, 
@@ -574,14 +581,14 @@ architecture Behavioral of cpu is
 		PC => IFaddr_2,
 		PCm1 => PCm1_2,
 		Opcode => instr,
-		RB => cntRB,
+		RB => entrada_alu_b,
 		jump_en => cntjump_en,
 		jump_dest => cntjump_dest,
 		----to/from flags----
 		flag_addr => IFaddr_3,
 		flag_taken => cnt_flag_taken,
 		flag_write => flagoverride,
-		flag_predbits => cnt_flag_predbits,
+		flag_predbits => cnt_bits2,
 		flag_true_jumpaddr => addr_from_flag,
 		bits => cnt_bits
 	);
@@ -593,30 +600,31 @@ architecture Behavioral of cpu is
 			  cntjump_dest when cntjump_en='1' else
 			  PCm1;
 	
-	entrada_alu_a <= Alu_S_2 when mux_alu_a_2 = '1' else
-						  consts_2 when mux_sel_alu_const_a_2 = '1' else
-						  mem_dados when mux_sel_alu_mem_a_2 = '1' else
-						  a_v_2;
+	entrada_alu_a <= Alu_S when mux_alu_a = '1' or mux_sel_mem_alu_a = '1' or mux_sel_const_alu = '1' else
+						  consts when mux_sel_alu_const_a = '1' or mux_sel_mem_const_a = '1' or mux_sel_const ='1' else
+						  mem_dados when mux_sel_alu_mem_a = '1' or mux_sel_const_mem = '1' else
+						  a_v;
 						  
-	entrada_alu_b <= Alu_S_2 when mux_alu_b_2 = '1' else
-						  consts_2 when mux_sel_alu_const_b_2 = '1' else
-						  mem_dados when mux_sel_alu_mem_b_2 = '1' else
-						  b_v_2;
+	entrada_alu_b <= Alu_S when mux_alu_b = '1' or mux_sel_mem_alu_d = '1' else
+						  consts when mux_sel_alu_const_b = '1' or mux_sel_mem_const_d='1' else
+						  mem_dados when mux_sel_alu_mem_b = '1' else
+						  b_v;
 						  
 	tmp <= format_out_2 & da1_2 & opcde_2;
+	tmp_2 <= instr(15 downto 14) & da1 & opcde;
 	
-	mux_const <= consts_2 when mux_sel_const_2 ='1' else
-					 Alu_S_2 when mux_sel_const_alu_2 ='1' else
-					 mem_dados when mux_sel_const_mem_2 = '1' else
-					 a_v_2;
+--	mux_const <= consts when mux_sel_const_2 ='1' else
+--					 Alu_S when mux_sel_const_alu_2 ='1' else
+--					 mem_dados when mux_sel_const_mem_2 = '1' else
+--					 a_v;
 	
-	mux_mem_const_a <= consts_2 when mux_sel_mem_const_a_2 = '1' else
-							 Alu_S_2 when mux_sel_mem_alu_a_2 = '1' else
-							 a_v_2;
-	
-	mux_mem_const_d <= consts_2 when mux_sel_mem_const_d_2='1' else
-							 Alu_S_2 when mux_sel_mem_alu_d_2 = '1' else
-							 IFaddr;
+--	mux_mem_const_a <= consts when mux_sel_mem_const_a_2 = '1' else
+--							 Alu_S when mux_sel_mem_alu_a_2 = '1' else
+--							 a_v;
+--	
+--	mux_mem_const_d <= consts when mux_sel_mem_const_d_2='1' else
+--							 Alu_S when mux_sel_mem_alu_d_2 = '1' else
+--							 IFaddr;
 	
 end Behavioral;
 

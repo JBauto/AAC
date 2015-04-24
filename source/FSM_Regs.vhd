@@ -64,8 +64,8 @@ begin
 			when INIT =>
 				ENABLE_IF <= '1';
 				ENABLE_PC <= '0';
-				ENABLE_IF_RF <= '0';
-				ENABLE_EX_MEM <= '0';
+				ENABLE_IF_RF <= '1';
+				ENABLE_EX_MEM <= '1';
 				
 				if START = '1' then
 					next_state <= IF_level;

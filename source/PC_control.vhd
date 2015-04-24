@@ -57,8 +57,8 @@ begin
 				  PCm1;
 	
 	tken <= '1' when OP(1)='1' else
-				'1' when enable_jump='1' and (Cond_Status xnor OP(0))='1' else
-				'0';
+			  '1' when enable_jump='1' and (Cond_Status xnor OP(0))='1' else
+			  '0';
 	
 	taken <= tken;
 	
