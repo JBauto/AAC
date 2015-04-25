@@ -399,15 +399,15 @@ architecture Behavioral of cpu is
 
 	ALU_OP : alu port map(
 		OP_SEL => opcde_2,
-		A => entrada_alu_a,
-		B => entrada_alu_b,
+		A => a_v_2,
+		B => b_v_2,
 		S => Alu_S,
 		Flags => Flags_alu
 	);
 
 	WB_Mux : writeback_mux port map(
 		ALU => Alu_S_2,
-		MEM => mem_dados,
+		MEM => mem_dados_2,
 		Consts => consts_2,
 		PC => PCm1_4,
 		Sel_WB => MUXWB_3,
@@ -416,8 +416,8 @@ architecture Behavioral of cpu is
 	RAM : rom_instrc port map(
 		clk => CLK,
 	   we =>MEM_EN_2,
-	   addr_instr => mux_mem_const_d,
-	   addr_dados => mux_mem_const_a,
+	   addr_instr => IFaddr,
+	   addr_dados => a_v_2,
 	   din => b_v_2,
 	   dout_instr => instr,
 	   dout_dados => mem_dados,
@@ -599,6 +599,7 @@ architecture Behavioral of cpu is
 	addr <= addr_from_flag when flagoverride='1' else
 			  cntjump_dest when cntjump_en='1' else
 			  PCm1;
+	---------------
 	
 	entrada_alu_a <= Alu_S when mux_alu_a = '1' or mux_sel_mem_alu_a = '1' or mux_sel_const_alu = '1' else
 						  consts when mux_sel_alu_const_a = '1' or mux_sel_mem_const_a = '1' or mux_sel_const ='1' else
@@ -613,18 +614,18 @@ architecture Behavioral of cpu is
 	tmp <= format_out_2 & da1_2 & opcde_2;
 	tmp_2 <= instr(15 downto 14) & da1 & opcde;
 	
---	mux_const <= consts when mux_sel_const_2 ='1' else
---					 Alu_S when mux_sel_const_alu_2 ='1' else
---					 mem_dados when mux_sel_const_mem_2 = '1' else
---					 a_v;
+	mux_const <= consts when mux_sel_const_2 ='1' else
+					 Alu_S when mux_sel_const_alu_2 ='1' else
+					 mem_dados when mux_sel_const_mem_2 = '1' else
+					 a_v;
 	
---	mux_mem_const_a <= consts when mux_sel_mem_const_a_2 = '1' else
---							 Alu_S when mux_sel_mem_alu_a_2 = '1' else
---							 a_v;
---	
---	mux_mem_const_d <= consts when mux_sel_mem_const_d_2='1' else
---							 Alu_S when mux_sel_mem_alu_d_2 = '1' else
---							 IFaddr;
+	mux_mem_const_a <= consts when mux_sel_mem_const_a_2 = '1' else
+							 Alu_S when mux_sel_mem_alu_a_2 = '1' else
+							 a_v;
+	
+	mux_mem_const_d <= consts when mux_sel_mem_const_d_2='1' else
+							 Alu_S when mux_sel_mem_alu_d_2 = '1' else
+							 IFaddr;
 	
 end Behavioral;
 
