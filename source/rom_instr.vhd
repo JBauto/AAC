@@ -23,7 +23,7 @@ entity rom_instrc is
 architecture Behavioral of rom_instrc is
    type RamType is array(0 to 65535) of STD_LOGIC_VECTOR(15 downto 0);
    impure function InitRamFromFile (RamFileName : in string) return RamType is
-		file INFILE : TEXT  is in "rom6.txt";
+		file INFILE : TEXT  is in "rom4.txt";
 		variable DATA_TEMP : STD_LOGIC_VECTOR(15 downto 0);	
 		variable IN_LINE: LINE;
 		variable RAM : RamType;
@@ -37,7 +37,7 @@ architecture Behavioral of rom_instrc is
 					RAM(index) := DATA_TEMP;
 					index := index + 1;
 			  end loop;
-			  for index in index to 65535 loop
+			  for index in index to index + 2 loop
 					RAM(index) := X"0000";
 			  end loop;
 	return RAM;

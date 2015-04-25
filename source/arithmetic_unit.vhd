@@ -36,13 +36,6 @@ architecture Behavioral of arithmetic_unit is
 	signal C_extra : STD_LOGIC_VECTOR (16 downto 0);
 	signal operB, operB2, Cin : STD_LOGIC_VECTOR (15 downto 0);
 begin
-	-- C_extra <= A+B when OP="000" else
-			   -- A+B+1 when OP="001" else
-			   -- A+1 when OP="011" else
-			   -- A-B-1 when OP="100" else 
-			   -- A-B when OP="101" else
-			   -- A-1;
-	
 	operB <= B when OP(2 downto 1)="00" else
 				-B when OP(2 downto 1)="10" else
 				(others=>'0');

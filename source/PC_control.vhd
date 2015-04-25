@@ -12,7 +12,10 @@ entity Flags is
            jump_info : in  STD_LOGIC_VECTOR (13 downto 0);
 			  PCm1 : in STD_LOGIC_VECTOR (15 downto 0);
 			  RB : in STD_LOGIC_VECTOR (15 downto 0);
-           output_address : out  STD_LOGIC_VECTOR (15 downto 0));
+           output_address : out  STD_LOGIC_VECTOR (15 downto 0);
+			  predbits : in STD_LOGIC_VECTOR (1 downto 0);
+			  jump_override : out  STD_LOGIC;
+			  taken : out  STD_LOGIC);
 end Flags;
 
 architecture Behavioral of Flags is
@@ -23,6 +26,7 @@ architecture Behavioral of Flags is
 	signal Destino : STD_LOGIC_VECTOR(15 downto 0):= (others=>'0'); 
 	signal address : STD_LOGIC_VECTOR(15 downto 0) := (others=>'0');
 	signal offset : STD_LOGIC_VECTOR(15 downto 0):= (others=>'0');
+	signal tken : STD_LOGIC := '0';
 begin
 	
 	-- Flag Registers
@@ -51,6 +55,16 @@ begin
 	address <= Destino when enable_jump='1' and (Cond_Status xnor OP(0))='1' else
 				  Destino when enable_jump='1' and OP(1)='1' else
 				  PCm1;
+	
+	tken <= '1' when OP(1)='1' else
+			  '1' when enable_jump='1' and (Cond_Status xnor OP(0))='1' else
+			  '0';
+	
+	taken <= tken;
+	
+	jump_override <= '0' when OP(1)='1' else
+						  '1' when tken/=predbits(1) else
+						  '0';
 	
 	output_address <= address;
 	
