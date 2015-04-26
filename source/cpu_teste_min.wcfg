@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/AAC/AAC_L2/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="G:/IST/AAC/2604 - 19h38/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -108,7 +108,11 @@
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/output_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">output_address[15:0]</obj_property>
          <obj_property name="ObjectShortName">output_address[15:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/jump_override" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jump_override</obj_property>
+         <obj_property name="ObjectShortName">jump_override</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/offset" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">offset[15:0]</obj_property>

@@ -46,19 +46,20 @@ architecture Behavioral of ControlHazardUnit is
 	signal formato, OP, current_bits, update_bits : STD_LOGIC_VECTOR (1 downto 0);
 	signal prediction, we_notfound : STD_LOGIC;
 	signal MSB, TAG : STD_LOGIC_VECTOR (15-btb_bits downto 0);
+	signal LSB, flagLSB : STD_LOGIC_VECTOR (btb_bits-1 downto 0);
 	signal newjumpInfo, flagcorrection : STD_LOGIC_VECTOR(33-btb_bits downto 0);
 begin
 
 	BTB: targetbuff port map(
 		clk => clk,
-		LSB => PC(btb_bits-1 downto 0),
+		LSB => LSB,
 		TAG => TAG,
 		jump_addr => BTB_jump_address,
 		branch_pred => current_bits,
 		we1 => we_notfound,
 		data1 => newjumpInfo,
 		we2 => flag_write,
-		addr2 => flag_addr(btb_bits-1 downto 0),
+		addr2 => flagLSB,
 		data2 => flagcorrection
 	);
 	
@@ -73,6 +74,8 @@ begin
 	formato <= Opcode(15 downto 14);
 	OP <= Opcode(13 downto 12);
 	MSB <= PC(15 downto btb_bits);
+	LSB <= PC(btb_bits-1 downto 0);
+	flagLSB <= flag_addr(btb_bits-1 downto 0);
 	destino <= Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11 downto 0) when OP="10" else
 				  Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & 
 			Opcode(7) & Opcode(7 downto 0);
