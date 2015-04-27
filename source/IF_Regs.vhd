@@ -11,7 +11,8 @@ entity IF_Regs is
 			OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
 			OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 			clk : in  STD_LOGIC;
-			enable : in STD_LOGIC
+			enable : in STD_LOGIC;
+			reset : in STD_LOGIC
 			);
 end IF_Regs;
 
@@ -27,6 +28,11 @@ begin
 			Current_PC_out <= Current_PC_in;
 			Next_PC_out <= Next_PC_in;
 			OPCODE_out <= OPCODE_in;
+		end if;
+		if reset = '1' then 
+			Current_PC_out <= (others => '0');
+			Next_PC_out <= (others => '0');
+			OPCODE_out <= (others => '0');
 		end if;
    end if;
 	end process;

@@ -20,7 +20,9 @@ entity DataHazardUnit is
 			FORWARD_MEM_ALU_ADDRESS : out STD_LOGIC;
 			FORWARD_MEM_ALU_DATA : out STD_LOGIC;
 			FORWARD_ALU_MEM_DATA_A : out STD_LOGIC;
-			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC
+			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC;
+			FORWARD_JUMP_OTHER : out STD_LOGIC;
+			FORWARD_OTHER_JUMP : out STD_LOGIC
 			);
 end DataHazardUnit;
 
@@ -86,6 +88,15 @@ architecture Behavioral of DataHazardUnit is
 	signal val_reg_a : STD_LOGIC;
 	signal val_reg_b : STD_LOGIC;
 	
+	--jumps
+	signal val_jump_id : STD_LOGIC;
+	signal val_op_exmem : STD_LOGIC;
+	signal val_op_id : STD_LOGIC;
+	signal val_mem_exmem : STD_LOGIC;
+	signal val_mem_id : STD_LOGIC;
+	signal forw_jump_other : STD_LOGIC;
+	signal forw_other_jump : STD_LOGIC;
+	signal val_jump_exmem : STD_LOGIC;
 begin
 
 	format <= OPCODE(9 downto 8);
@@ -206,6 +217,35 @@ begin
 	FORWARD_ALU_MEM_DATA_A <= val_reg_a;
 	FORWARD_ALU_MEM_DATA_B <= val_reg_b;
 	
+	--FORWARD JUMP AND LINK / JUMP REGISTER - OTHER
+	
+	val_jump_id <= '1' when format = "00" and OP(4 downto 2) = "11" else
+						'0';
+	
+	val_mem_exmem <= '1' when format_EXMEM = "10" and OP_EXMEM(4 downto 1) = "0101" else
+						  '0';
+	
+	val_op_exmem <= validade_op_EX or form_const_EX or val_mem_exmem;
+	
+	forw_jump_other <= '1' when val_op_exmem = '1' and val_jump_id = '1' and BA = DA_EXMEM1 else
+							 '0';
+	
+	FORWARD_JUMP_OTHER <= forw_jump_other;
+	
+	-- FORWARD OTHER - JUMP AND LINK 
+	
+	val_jump_exmem <= '1' when format_EXMEM = "00" and OP_EXMEM(4 downto 1) = "110" else
+						   '0';
+	
+	val_mem_id <= '1' when format = "10" and OP(4 downto 1) = "0101" else
+					  '0';
+	
+	val_op_id <= validade_op_ID or form_const or val_mem_id;
+
+	forw_other_jump <= '1' when val_op_id = '1' and BA = DA_EXMEM1 and val_jump_exmem = '1' else
+							 '0';
+							 
+	FORWARD_OTHER_JUMP <= forw_other_jump;				 
 	
 end Behavioral;
 

@@ -110,7 +110,9 @@ architecture Behavioral of cpu is
 				OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
 				OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0);
 				clk : in  STD_LOGIC;
-				enable : in STD_LOGIC);
+				enable : in STD_LOGIC;
+				reset : in STD_LOGIC
+			);
 	end component IF_Regs;
 	
 	component ID_RF_Regs 
@@ -233,7 +235,9 @@ architecture Behavioral of cpu is
 			FORWARD_MEM_ALU_ADDRESS : out STD_LOGIC;
 			FORWARD_MEM_ALU_DATA : out STD_LOGIC;
 			FORWARD_ALU_MEM_DATA_A : out STD_LOGIC;
-			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC
+			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC;
+			FORWARD_JUMP_OTHER : out STD_LOGIC;
+			FORWARD_OTHER_JUMP : out STD_LOGIC;
 			);
 	end component DataHazardUnit;
 	
@@ -352,7 +356,10 @@ architecture Behavioral of cpu is
 	signal mux_sel_alu_mem_a_2 : STD_LOGIC;
 	signal mux_sel_alu_mem_b : STD_LOGIC;
 	signal mux_sel_alu_mem_b_2 : STD_LOGIC;
-	
+	--forward jump-other
+	signal mux_sel_jump_other : STD_LOGIC;
+	signal mux_sel_jump_other_2 : STD_LOGIC;
+
 	signal tmp_3 : STD_LOGIC_VECTOR(9 downto 0); 
 	
 	---- instrucao
@@ -364,7 +371,7 @@ architecture Behavioral of cpu is
 	--control hazard to/from flags
 	signal cnt_flag_taken : STD_LOGIC;
 	signal cnt_bits, cnt_bits2 : STD_LOGIC_VECTOR(1 downto 0);
-	
+		
 	begin
 
 	Decoder_Inst: decoder port map(
@@ -459,7 +466,8 @@ architecture Behavioral of cpu is
 		OPCODE_in => instr,
 		OPCODE_out => instr_2,
 		clk => CLK,
-		enable => en_lvl1
+		enable => en_lvl1,
+		reset => flagoverride
 	);
 	
 	ID_RF_Registers : ID_RF_Regs port map(
@@ -495,7 +503,7 @@ architecture Behavioral of cpu is
 		flags_en_out => fl_en_2,
 		enable_jump_in => jpen,
 		enable_jump_out => jpen_2,
-		format_in => instr(15 downto 14),
+		format_in => instr_2(15 downto 14),
 		format_out => format_out_2,
 --		forw_alu_alu_a_in => MUX_ALU_A,
 --		forw_alu_alu_b_in => MUX_ALU_B,
@@ -523,7 +531,7 @@ architecture Behavioral of cpu is
 --		forw_alu_mem_a_out => mux_sel_alu_mem_a_2,
 --		forw_alu_mem_b_in => mux_sel_alu_mem_b,
 --		forw_alu_mem_b_out => mux_sel_alu_mem_b_2,
-		current_inst_in => instr,
+		current_inst_in => instr_2,
 		current_inst_out => instrucao,
 		control_bits_in => cnt_bits,
 		control_bits_out => cnt_bits2,
@@ -580,7 +588,8 @@ architecture Behavioral of cpu is
 		FORWARD_MEM_ALU_ADDRESS => mux_sel_mem_alu_a,
 		FORWARD_MEM_ALU_DATA => mux_sel_mem_alu_d,
 		FORWARD_ALU_MEM_DATA_A => mux_sel_alu_mem_a,
-		FORWARD_ALU_MEM_DATA_B => mux_sel_alu_mem_b
+		FORWARD_ALU_MEM_DATA_B => mux_sel_alu_mem_b,
+		FORWARD_JUMP_OTHER => mux_sel_jump_other
 	);
 	
 	ControlHazard : ControlHazardUnit port map(
@@ -614,13 +623,13 @@ architecture Behavioral of cpu is
 						  mem_dados when mux_sel_alu_mem_a = '1' or mux_sel_const_mem = '1' else
 						  a_v;
 						  
-	entrada_alu_b <= Alu_S when mux_alu_b = '1' or mux_sel_mem_alu_d = '1' else
-						  consts when mux_sel_alu_const_b = '1' or mux_sel_mem_const_d='1' else
-						  mem_dados when mux_sel_alu_mem_b = '1' else
+	entrada_alu_b <= Alu_S when mux_alu_b = '1' or mux_sel_mem_alu_d = '1' or mux_sel_jump_other = '1' else
+						  consts when mux_sel_alu_const_b = '1' or mux_sel_mem_const_d='1' or mux_sel_jump_other = '1' else
+						  mem_dados when mux_sel_alu_mem_b = '1' or mux_sel_jump_other = '1' else
 						  b_v;
 						  
 	tmp <= format_out_2 & da1_2 & opcde_2;
-	tmp_2 <= instr(15 downto 14) & da1 & opcde;
+	tmp_2 <= instr_2(15 downto 14) & da1 & opcde;
 	
 	
 end Behavioral;

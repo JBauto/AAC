@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="G:/IST/AAC/2604 - 19h38/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/alunos/Desktop/AAC_L/AAC_L/cpu_teste_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -16,7 +16,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="50" />
+   <WVObjectSize size="54" />
    <wvobject fp_name="/cpu_teste/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -47,7 +47,7 @@
    <wvobject fp_name="/cpu_teste/uut/RAM/dout_dados" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">dout_dados[15:0]</obj_property>
       <obj_property name="ObjectShortName">dout_dados[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/RAM/dout_instr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">dout_instr[15:0]</obj_property>
@@ -86,6 +86,7 @@
       <wvobject fp_name="/cpu_teste/uut/ControlHazard/opcode" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">opcode[15:0]</obj_property>
          <obj_property name="ObjectShortName">opcode[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/ControlHazard/jump_en" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">jump_en</obj_property>
@@ -222,7 +223,7 @@
       <wvobject fp_name="/cpu_teste/uut/RegFile/r6" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">r6[15:0]</obj_property>
          <obj_property name="ObjectShortName">r6[15:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/RegFile/r7" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">r7[15:0]</obj_property>
@@ -397,6 +398,22 @@
    <wvobject fp_name="/cpu_teste/uut/DataHazard/format_exmem" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">format_exmem[1:0]</obj_property>
       <obj_property name="ObjectShortName">format_exmem[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/opcode" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode[9:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/opcode_exmem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_exmem[9:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_exmem[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/Decoder_Inst/opcode" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode[4:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/Decoder_Inst/da" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">da[2:0]</obj_property>
+      <obj_property name="ObjectShortName">da[2:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/DataHazard/op" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">op[4:0]</obj_property>
