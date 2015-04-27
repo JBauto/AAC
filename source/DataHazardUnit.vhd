@@ -106,17 +106,22 @@ begin
 	validade_format_WB <= format_WB(1) and not(format_WB(0));
 	
 	
-	validade_op_ID <= ((not(OP(3)) and not(OP(1))) or 
-							(not(OP(3)) and not(OP(0))) or 
-							 not(OP(2)) OR OP(4)) and
+	validade_op_ID <= ((not(OP(3)) and not(OP(2))) or 
+							(not(OP(3)) and not(OP(1))) or 
+							(not(OP(3)) and not(OP(0))) or
+							(not(OP(2)) and not(OP(1))) or 
+							 OP(4)) and
 							 validade_format;
 							 
-	validade_op_EX <= ((not(OP_EXMEM(3)) and not(OP_EXMEM(1))) or 
-							(not(OP_EXMEM(3)) and not(OP_EXMEM(0))) or 
-							 not(OP_EXMEM(2)) OR OP_EXMEM(4)) and
+	validade_op_EX <= ((not(OP_EXMEM(3)) and not(OP_EXMEM(2))) or 
+							(not(OP_EXMEM(3)) and not(OP_EXMEM(1))) or 
+							(not(OP_EXMEM(3)) and not(OP_EXMEM(0))) or
+							(not(OP_EXMEM(2)) and not(OP_EXMEM(1))) or 
+							 OP_EXMEM(4)) and
 							 validade_format_EXMEM;
 							 
 	igual_op <= validade_op_ID and validade_op_EX; -- alu alu
+	
 	val_form_alu_const <= validade_op_ID and form_const_EX; -- alu const
 	
 	igual_dest_a <= '1' when AA = DA_EXMEM1 else
@@ -170,7 +175,7 @@ begin
 	
 	--FORWARD MEMORIA-CONSTANTE ADDRESS/DATA
 	
-	val_form_mem_const <= '1' when OP(3 downto 0) = "0101"  and format_EXMEM(0) = '1' else
+	val_form_mem_const <= '1' when OP(4 downto 1) = "0101"  and format_EXMEM(0) = '1' else
 								 '0';
 								 
 	val_address <= '1' when DA_EXMEM1 = AA else
@@ -184,7 +189,7 @@ begin
 	
 	--FORWARD MEMORIA-ALU ADDRESS/DATA
 	
-	val_alu_address <= '1' when OP(3 downto 0) = "0101" else
+	val_alu_address <= '1' when OP(4 downto 1) = "0101" else
 							 '0';
 	
 	FORWARD_MEM_ALU_ADDRESS <= validade_op_EX and val_alu_address and val_address;
@@ -192,7 +197,7 @@ begin
 	
 	--FORWARD ALU-MEMORIA DATA
 	
-	val_alu_mem <= '1' when OP_EXMEM = "01011" and validade_op_EX = '1' else
+	val_alu_mem <= '1' when OP_EXMEM = "01010" and validade_op_ID = '1' else
 						'0';
 						
 	val_reg_a <= igual_dest_a and val_alu_mem;

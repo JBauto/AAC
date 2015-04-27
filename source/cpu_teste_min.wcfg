@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/public.SCDEEC.000/Desktop/LAB/AAC/cpu_teste_isim_beh1.wdb" id="1" type="auto">
+      <db_ref path="G:/IST/AAC/2604 - 19h38/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -16,37 +16,28 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="41" />
+   <WVObjectSize size="50" />
    <wvobject fp_name="/cpu_teste/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/test1" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">test1</obj_property>
-      <obj_property name="ObjectShortName">test1</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cpu_teste/test" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">test[15:0]</obj_property>
-      <obj_property name="ObjectShortName">test[15:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/RAM/print" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">print</obj_property>
-      <obj_property name="ObjectShortName">print</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/FSM/curr_state" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">curr_state</obj_property>
       <obj_property name="ObjectShortName">curr_state</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/Decoder_Inst/instruction" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
-      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/cpu_teste/uut/PC/pc" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">pc[15:0]</obj_property>
       <obj_property name="ObjectShortName">pc[15:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/IF_Registers/opcode_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">opcode_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/Decoder_Inst/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/Decoder_Inst/opcode" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">opcode[4:0]</obj_property>
@@ -76,6 +67,41 @@
    <wvobject fp_name="group92" type="group">
       <obj_property name="label">Jumps</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="divider105" type="divider">
+         <obj_property name="label">ControlHazard</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="BkColor">128 128 255</obj_property>
+         <obj_property name="TextColor">230 230 230</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/ControlHazard/pc" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pc[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pc[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/ControlHazard/pcm1" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pcm1[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pcm1[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/ControlHazard/opcode" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">opcode[15:0]</obj_property>
+         <obj_property name="ObjectShortName">opcode[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/ControlHazard/jump_en" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jump_en</obj_property>
+         <obj_property name="ObjectShortName">jump_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/ControlHazard/jump_dest" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">jump_dest[15:0]</obj_property>
+         <obj_property name="ObjectShortName">jump_dest[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="divider106" type="divider">
+         <obj_property name="label">Flags</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="BkColor">128 128 255</obj_property>
+         <obj_property name="TextColor">230 230 230</obj_property>
+      </wvobject>
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/flags" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">flags[3:0]</obj_property>
          <obj_property name="ObjectShortName">flags[3:0]</obj_property>
@@ -98,7 +124,7 @@
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/pcm1" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">pcm1[15:0]</obj_property>
          <obj_property name="ObjectShortName">pcm1[15:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/rb" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">rb[15:0]</obj_property>
@@ -108,12 +134,16 @@
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/output_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">output_address[15:0]</obj_property>
          <obj_property name="ObjectShortName">output_address[15:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/jump_override" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">jump_override</obj_property>
+         <obj_property name="ObjectShortName">jump_override</obj_property>
       </wvobject>
       <wvobject fp_name="/cpu_teste/uut/Flags_Jumps/offset" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">offset[15:0]</obj_property>
          <obj_property name="ObjectShortName">offset[15:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group93" type="group">
@@ -251,6 +281,67 @@
       <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/ID_RF_Registers/current_inst_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_inst_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">current_inst_out[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="group75" type="group">
+      <obj_property name="label">Muxes_Sel</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/mux_alu_a" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mux_alu_a</obj_property>
+         <obj_property name="ObjectShortName">mux_alu_a</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/mux_alu_b" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">mux_alu_b</obj_property>
+         <obj_property name="ObjectShortName">mux_alu_b</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_const</obj_property>
+         <obj_property name="ObjectShortName">forward_const</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const_alu" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_const_alu</obj_property>
+         <obj_property name="ObjectShortName">forward_const_alu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_const_a" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_alu_const_a</obj_property>
+         <obj_property name="ObjectShortName">forward_alu_const_a</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_const_b" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_alu_const_b</obj_property>
+         <obj_property name="ObjectShortName">forward_alu_const_b</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const_mem" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_const_mem</obj_property>
+         <obj_property name="ObjectShortName">forward_const_mem</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_const_address" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_mem_const_address</obj_property>
+         <obj_property name="ObjectShortName">forward_mem_const_address</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_const_data" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_mem_const_data</obj_property>
+         <obj_property name="ObjectShortName">forward_mem_const_data</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_alu_address" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_mem_alu_address</obj_property>
+         <obj_property name="ObjectShortName">forward_mem_alu_address</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_alu_data" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_mem_alu_data</obj_property>
+         <obj_property name="ObjectShortName">forward_mem_alu_data</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_mem_data_a" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_alu_mem_data_a</obj_property>
+         <obj_property name="ObjectShortName">forward_alu_mem_data_a</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_mem_data_b" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_alu_mem_data_b</obj_property>
+         <obj_property name="ObjectShortName">forward_alu_mem_data_b</obj_property>
+      </wvobject>
+   </wvobject>
    <wvobject fp_name="/cpu_teste/uut/ALU_OP/a" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">a[15:0]</obj_property>
       <obj_property name="ObjectShortName">a[15:0]</obj_property>
@@ -261,15 +352,55 @@
       <obj_property name="ObjectShortName">b[15:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/entrada_alu_a" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">entrada_alu_a[15:0]</obj_property>
-      <obj_property name="ObjectShortName">entrada_alu_a[15:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="divider88" type="divider">
+      <obj_property name="label">Resto</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/entrada_alu_b" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">entrada_alu_b[15:0]</obj_property>
-      <obj_property name="ObjectShortName">entrada_alu_b[15:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/igual_dest_a" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">igual_dest_a</obj_property>
+      <obj_property name="ObjectShortName">igual_dest_a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/igual_dest_b" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">igual_dest_b</obj_property>
+      <obj_property name="ObjectShortName">igual_dest_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/igual_op" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">igual_op</obj_property>
+      <obj_property name="ObjectShortName">igual_op</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/validade_op_ex" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">validade_op_ex</obj_property>
+      <obj_property name="ObjectShortName">validade_op_ex</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/validade_op_id" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">validade_op_id</obj_property>
+      <obj_property name="ObjectShortName">validade_op_id</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/val_form_alu_const" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">val_form_alu_const</obj_property>
+      <obj_property name="ObjectShortName">val_form_alu_const</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/form_const_ex" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">form_const_ex</obj_property>
+      <obj_property name="ObjectShortName">form_const_ex</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/form_const" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">form_const</obj_property>
+      <obj_property name="ObjectShortName">form_const</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/val_form_mem_const" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">val_form_mem_const</obj_property>
+      <obj_property name="ObjectShortName">val_form_mem_const</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/format_exmem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">format_exmem[1:0]</obj_property>
+      <obj_property name="ObjectShortName">format_exmem[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/op" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op[4:0]</obj_property>
+      <obj_property name="ObjectShortName">op[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/ba1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ba1[2:0]</obj_property>
@@ -286,56 +417,67 @@
       <obj_property name="ObjectShortName">da1_2[2:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/mux_alu_a" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">mux_alu_a</obj_property>
-      <obj_property name="ObjectShortName">mux_alu_a</obj_property>
+   <wvobject fp_name="divider81" type="divider">
+      <obj_property name="label">MUX_A</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/mux_alu_b" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">mux_alu_b</obj_property>
-      <obj_property name="ObjectShortName">mux_alu_b</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/entrada_alu_a" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">entrada_alu_a[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entrada_alu_a[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_const</obj_property>
-      <obj_property name="ObjectShortName">forward_const</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/alu_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_s[15:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_s[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const_alu" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_const_alu</obj_property>
-      <obj_property name="ObjectShortName">forward_const_alu</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/a_v" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">a_v[15:0]</obj_property>
+      <obj_property name="ObjectShortName">a_v[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_const_a" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_alu_const_a</obj_property>
-      <obj_property name="ObjectShortName">forward_alu_const_a</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/consts" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">consts[15:0]</obj_property>
+      <obj_property name="ObjectShortName">consts[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_const_b" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_alu_const_b</obj_property>
-      <obj_property name="ObjectShortName">forward_alu_const_b</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/mem_dados" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_dados[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_dados[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_const_mem" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_const_mem</obj_property>
-      <obj_property name="ObjectShortName">forward_const_mem</obj_property>
+   <wvobject fp_name="divider82" type="divider">
+      <obj_property name="label">MUX_B</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_const_address" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_mem_const_address</obj_property>
-      <obj_property name="ObjectShortName">forward_mem_const_address</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/entrada_alu_b" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">entrada_alu_b[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entrada_alu_b[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_const_data" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_mem_const_data</obj_property>
-      <obj_property name="ObjectShortName">forward_mem_const_data</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/alu_s" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_s[15:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_s[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_alu_address" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_mem_alu_address</obj_property>
-      <obj_property name="ObjectShortName">forward_mem_alu_address</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/consts" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">consts[15:0]</obj_property>
+      <obj_property name="ObjectShortName">consts[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_mem_alu_data" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_mem_alu_data</obj_property>
-      <obj_property name="ObjectShortName">forward_mem_alu_data</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/mem_dados" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_dados[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_dados[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_mem_data_a" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_alu_mem_data_a</obj_property>
-      <obj_property name="ObjectShortName">forward_alu_mem_data_a</obj_property>
-   </wvobject>
-   <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_alu_mem_data_b" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">forward_alu_mem_data_b</obj_property>
-      <obj_property name="ObjectShortName">forward_alu_mem_data_b</obj_property>
+   <wvobject fp_name="/cpu_teste/uut/b_v" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">b_v[15:0]</obj_property>
+      <obj_property name="ObjectShortName">b_v[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

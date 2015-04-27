@@ -23,20 +23,8 @@ architecture Behavioral of targetbuff is
 	signal data : STD_LOGIC_VECTOR(33-btb_bits downto 0);
 	signal pred_bits : STD_LOGIC_VECTOR (1 downto 0);
 begin
-	---------------Read----------------
-	data <= BTB(conv_integer(LSB));
-	TAG <= data(33-btb_bits downto 18);
-	jump_addr <= data(17 downto 2);
-	pred_bits <= data(1 downto 0);
-	--00	strong	!taken
-	--01	weak		!taken
-	--10	weak		taken
-	--11	strong	taken
-	branch_pred <= pred_bits;
-	
-	
 	---------------Write----------------------
-	process (clk, we1)
+	process (clk, we1, we2)
    begin
       if rising_edge(clk) then
 			if we1='1' then
@@ -48,6 +36,16 @@ begin
       end if;
    end process;
 	
-
+	---------------Read----------------
+	data <= BTB(conv_integer(LSB));
+	TAG <= data(33-btb_bits downto 18);
+	jump_addr <= data(17 downto 2);
+	pred_bits <= data(1 downto 0);
+	--00	strong	!taken
+	--01	weak		!taken
+	--10	weak		taken
+	--11	strong	taken
+	branch_pred <= pred_bits;
+	
 end Behavioral;
 

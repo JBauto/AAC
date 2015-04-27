@@ -8,8 +8,8 @@ entity IF_Regs is
 			Current_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 			Next_PC_in : in  STD_LOGIC_VECTOR (15 downto 0);
 			Next_PC_out : out  STD_LOGIC_VECTOR (15 downto 0); 
---			OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
---			OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
+			OPCODE_in : in  STD_LOGIC_VECTOR (15 downto 0);
+			OPCODE_out : out  STD_LOGIC_VECTOR (15 downto 0); 
 			clk : in  STD_LOGIC;
 			enable : in STD_LOGIC
 			);
@@ -26,7 +26,7 @@ begin
 		if enable = '1' then
 			Current_PC_out <= Current_PC_in;
 			Next_PC_out <= Next_PC_in;
-			--OPCODE_out <= OPCODE_in;
+			OPCODE_out <= OPCODE_in;
 		end if;
    end if;
 	end process;

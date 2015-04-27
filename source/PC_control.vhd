@@ -63,7 +63,7 @@ begin
 	taken <= tken;
 	
 	jump_override <= '0' when OP(1)='1' else
-						  '1' when tken/=predbits(1) else
+						  '1' when enable_jump='1' and tken/=predbits(1) else
 						  '0';
 	
 	output_address <= address;
