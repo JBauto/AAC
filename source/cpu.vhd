@@ -254,7 +254,6 @@ architecture Behavioral of cpu is
 			 flag_taken : in STD_LOGIC;
 			 flag_write : in STD_LOGIC;
 			 flag_predbits : in STD_LOGIC_VECTOR(1 downto 0);
-			 flag_true_jumpaddr : in  STD_LOGIC_VECTOR (15 downto 0);
 			 bits : out STD_LOGIC_VECTOR(1 downto 0)
 			 );
 	end component ControlHazardUnit;
@@ -605,7 +604,6 @@ architecture Behavioral of cpu is
 		flag_taken => cnt_flag_taken,
 		flag_write => flagoverride,
 		flag_predbits => cnt_bits2,
-		flag_true_jumpaddr => addr_from_flag,
 		bits => cnt_bits
 	);
 	

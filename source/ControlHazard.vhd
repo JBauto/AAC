@@ -18,7 +18,6 @@ entity ControlHazardUnit is
 			  flag_taken : in STD_LOGIC;
 			  flag_write : in STD_LOGIC;
 			  flag_predbits : in STD_LOGIC_VECTOR(1 downto 0);
-			  flag_true_jumpaddr : in  STD_LOGIC_VECTOR (15 downto 0);
 			  bits : out STD_LOGIC_VECTOR(1 downto 0));
 end ControlHazardUnit;
 
@@ -27,13 +26,12 @@ architecture Behavioral of ControlHazardUnit is
 		Port ( clk : in STD_LOGIC;
 				 LSB : in  STD_LOGIC_VECTOR (btb_bits-1 downto 0);
 				 TAG : out  STD_LOGIC_VECTOR (15-btb_bits downto 0);
-				 jump_addr : out  STD_LOGIC_VECTOR (15 downto 0);
 				 branch_pred : out  STD_LOGIC_VECTOR (1 downto 0);
 				 we1 : in STD_LOGIC;
-				 data1 : in STD_LOGIC_VECTOR(33-btb_bits downto 0);
+				 data1 : in STD_LOGIC_VECTOR(17-btb_bits downto 0);
 				 we2 : in STD_LOGIC;
 				 addr2 : in STD_LOGIC_VECTOR (btb_bits-1 downto 0);
-				 data2 : in STD_LOGIC_VECTOR(33-btb_bits downto 0));
+				 data2 : in STD_LOGIC_VECTOR(17-btb_bits downto 0));
 	end component targetbuff;
 	
 	component predbuff is
@@ -47,14 +45,13 @@ architecture Behavioral of ControlHazardUnit is
 	signal prediction, we_notfound : STD_LOGIC;
 	signal MSB, TAG : STD_LOGIC_VECTOR (15-btb_bits downto 0);
 	signal LSB, flagLSB : STD_LOGIC_VECTOR (btb_bits-1 downto 0);
-	signal newjumpInfo, flagcorrection : STD_LOGIC_VECTOR(33-btb_bits downto 0);
+	signal newjumpInfo, flagcorrection : STD_LOGIC_VECTOR(17-btb_bits downto 0);
 begin
 
 	BTB: targetbuff port map(
 		clk => clk,
 		LSB => LSB,
 		TAG => TAG,
-		jump_addr => BTB_jump_address,
 		branch_pred => current_bits,
 		we1 => we_notfound,
 		data1 => newjumpInfo,
@@ -78,27 +75,26 @@ begin
 	flagLSB <= flag_addr(btb_bits-1 downto 0);
 	destino <= Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11) & Opcode(11 downto 0) when OP="10" else
 				  Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & Opcode(7) & 
-			Opcode(7) & Opcode(7 downto 0);
+						Opcode(7) & Opcode(7 downto 0);
 	prediction <= current_bits(1);
 	
-	--what happens when destino/=BTB_jump_address?????
 	jump_en <= '0' when formato/="00" else			--not a jump, never taken
 				  '1' when OP(1)='1' else				--inconditional jump, always taken
 				  prediction when MSB=TAG else		--conditional jump, check BTB
 				  '0';										--Not Taken
 	jump_dest <= PCm1+destino when OP="10" else	--inconditional jump
 					 RB when OP="11" else				--jump to register value
-					 BTB_jump_address;					--jump to BTB value
+					 PCm1+destino;							--conditional jump
 	bits <= current_bits when MSB=TAG else
 			  "01";
 	
 	---------------Update BTB if not found----------------
 	we_notfound <= '1' when formato="00" and MSB/=TAG else
 						'0';
-	newjumpInfo <= MSB & PCm1 & "01";
+	newjumpInfo <= MSB & "01";
 	
 	---------------Correction from Flags------------------
-	flagcorrection <= flag_addr(15 downto btb_bits) & flag_true_jumpaddr & update_bits;
+	flagcorrection <= flag_addr(15 downto btb_bits) & update_bits;
 	
 end Behavioral;
 

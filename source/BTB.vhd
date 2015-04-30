@@ -7,20 +7,19 @@ entity targetbuff is
 	 Port ( clk : in STD_LOGIC;
            LSB : in  STD_LOGIC_VECTOR (btb_bits-1 downto 0);
            TAG : out  STD_LOGIC_VECTOR (15-btb_bits downto 0);
-           jump_addr : out  STD_LOGIC_VECTOR (15 downto 0);
            branch_pred : out  STD_LOGIC_VECTOR (1 downto 0);
 			  we1 : in STD_LOGIC;
-			  data1 : in STD_LOGIC_VECTOR(33-btb_bits downto 0);
+			  data1 : in STD_LOGIC_VECTOR(17-btb_bits downto 0);
 			  we2 : in STD_LOGIC;
 			  addr2 : in STD_LOGIC_VECTOR (btb_bits-1 downto 0);
-			  data2 : in STD_LOGIC_VECTOR(33-btb_bits downto 0));
+			  data2 : in STD_LOGIC_VECTOR(17-btb_bits downto 0));
 end targetbuff;
 
 architecture Behavioral of targetbuff is
-																						--15-btb_bits + 16 + 2
-	type ram_type is array(0 to (2**btb_bits)-1) of STD_LOGIC_VECTOR(33-btb_bits downto 0);
+																						--15-btb_bits + 2
+	type ram_type is array(0 to (2**btb_bits)-1) of STD_LOGIC_VECTOR(17-btb_bits downto 0);
 	signal BTB : ram_type := (others => (others => '0'));
-	signal data : STD_LOGIC_VECTOR(33-btb_bits downto 0);
+	signal data : STD_LOGIC_VECTOR(17-btb_bits downto 0);
 	signal pred_bits : STD_LOGIC_VECTOR (1 downto 0);
 begin
 	---------------Write----------------------
@@ -38,8 +37,7 @@ begin
 	
 	---------------Read----------------
 	data <= BTB(conv_integer(LSB));
-	TAG <= data(33-btb_bits downto 18);
-	jump_addr <= data(17 downto 2);
+	TAG <= data(17-btb_bits downto 2);
 	pred_bits <= data(1 downto 0);
 	--00	strong	!taken
 	--01	weak		!taken
