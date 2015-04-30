@@ -219,7 +219,7 @@ begin
 	
 	--FORWARD JUMP AND LINK / JUMP REGISTER - OTHER
 	
-	val_jump_id <= '1' when format = "00" and OP(4 downto 2) = "11" else
+	val_jump_id <= '1' when format = "00" and OP(4 downto 3) = "11" else
 						'0';
 	
 	val_mem_exmem <= '1' when format_EXMEM = "10" and OP_EXMEM(4 downto 1) = "0101" else
@@ -234,7 +234,7 @@ begin
 	
 	-- FORWARD OTHER - JUMP AND LINK 
 	
-	val_jump_exmem <= '1' when format_EXMEM = "00" and OP_EXMEM(4 downto 1) = "110" else
+	val_jump_exmem <= '1' when format_EXMEM = "00" and OP_EXMEM(4 downto 2) = "110" else
 						   '0';
 	
 	val_mem_id <= '1' when format = "10" and OP(4 downto 1) = "0101" else

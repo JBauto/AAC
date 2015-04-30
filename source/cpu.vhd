@@ -237,7 +237,7 @@ architecture Behavioral of cpu is
 			FORWARD_ALU_MEM_DATA_A : out STD_LOGIC;
 			FORWARD_ALU_MEM_DATA_B : out STD_LOGIC;
 			FORWARD_JUMP_OTHER : out STD_LOGIC;
-			FORWARD_OTHER_JUMP : out STD_LOGIC;
+			FORWARD_OTHER_JUMP : out STD_LOGIC
 			);
 	end component DataHazardUnit;
 	

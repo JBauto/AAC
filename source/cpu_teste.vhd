@@ -26,7 +26,11 @@
 -- simulation model.
 --------------------------------------------------------------------------------
 LIBRARY ieee;
-USE ieee.std_logic_1164.ALL;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_SIGNED.ALL;
+
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -51,7 +55,7 @@ ARCHITECTURE behavior OF cpu_teste IS
    --Inputs
    signal CLK : std_logic := '0';
    signal TEST1 : std_logic := '0';
-
+	signal counter : std_logic_vector(63 downto 0) := (others=>'0');
  	--Outputs
    signal TEST : std_logic_vector(15 downto 0);
 
@@ -88,9 +92,18 @@ BEGIN
       -- insert stimulus here 
 
 		TEST1 <= '1' after 10ns;
-
+	
 
       wait;
    end process;
+	
+	process(clk)
+	begin
+		if TEST1 = '1' then
+			if rising_edge(clk) then
+				counter <= counter + 1;
+			end if;
+		end if;
+	end process;
 
 END;

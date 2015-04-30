@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/alunos/Desktop/AAC_L/AAC_L/cpu_teste_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/PSD/Desktop/AAC/AAC/cpu_teste_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -16,7 +16,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="54" />
+   <WVObjectSize size="55" />
    <wvobject fp_name="/cpu_teste/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -24,6 +24,11 @@
    <wvobject fp_name="/cpu_teste/uut/FSM/curr_state" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">curr_state</obj_property>
       <obj_property name="ObjectShortName">curr_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/counter" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">counter[63:0]</obj_property>
+      <obj_property name="ObjectShortName">counter[63:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/PC/pc" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">pc[15:0]</obj_property>
