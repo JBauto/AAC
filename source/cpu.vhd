@@ -308,6 +308,7 @@ architecture Behavioral of cpu is
 	signal en_lvl2 : STD_LOGIC;
 	signal en_lvl3 : STD_LOGIC;
 	signal en_pc : STD_LOGIC;
+	signal FSM_en_pc : STD_LOGIC;
 	signal ram_print : STD_LOGIC;
 	--forward alu-alu
 	signal MUX_ALU_A : STD_LOGIC;
@@ -564,7 +565,7 @@ architecture Behavioral of cpu is
 		ENABLE_IF => en_lvl1,
 		ENABLE_IF_RF => en_lvl2,
 		ENABLE_EX_MEM => en_lvl3,
-		ENABLE_PC => en_pc,
+		ENABLE_PC => FSM_en_pc,
 		CLK => CLK
 	);
 	
@@ -609,12 +610,15 @@ architecture Behavioral of cpu is
 	
 	TEST <= writedata;
 	
-	-------------
+	----------------
 	-- PC next value
 	addr <= addr_from_flag when flagoverride='1' else
 			  cntjump_dest when cntjump_en='1' else
 			  PCm1;
-	---------------
+	--PC enable
+	en_pc <= '0' when instr=x"2fff" else
+				FSM_en_pc;
+	----------------
 	
 	entrada_alu_a <= Alu_S when mux_alu_a = '1' or mux_sel_mem_alu_a = '1' or mux_sel_const_alu = '1' else
 						  consts when mux_sel_alu_const_a = '1' or mux_sel_mem_const_a = '1' or mux_sel_const ='1' else
