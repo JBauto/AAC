@@ -443,7 +443,7 @@ architecture Behavioral of cpu is
 		enable_jump => jpen_2,
 		jump_info => jump_opc_2,
 		PCm1 => PCm1_3,
-		RB => b_v,
+		RB => b_v_2,
 		output_address => addr_from_flag,
 		predbits => cnt_bits2,
 		jump_override => flagoverride,

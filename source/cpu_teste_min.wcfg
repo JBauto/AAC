@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/PSD/Desktop/AAC/AAC/cpu_teste_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/AAC/AAC_L2/Lab2/cpu_teste_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="cpu_teste" />
             <top_module name="numeric_std" />
@@ -16,7 +16,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="55" />
+   <WVObjectSize size="59" />
    <wvobject fp_name="/cpu_teste/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -347,6 +347,14 @@
          <obj_property name="ElementShortName">forward_alu_mem_data_b</obj_property>
          <obj_property name="ObjectShortName">forward_alu_mem_data_b</obj_property>
       </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_jump_other" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_jump_other</obj_property>
+         <obj_property name="ObjectShortName">forward_jump_other</obj_property>
+      </wvobject>
+      <wvobject fp_name="/cpu_teste/uut/DataHazard/forward_other_jump" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">forward_other_jump</obj_property>
+         <obj_property name="ObjectShortName">forward_other_jump</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/ALU_OP/a" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">a[15:0]</obj_property>
@@ -399,6 +407,22 @@
    <wvobject fp_name="/cpu_teste/uut/DataHazard/val_form_mem_const" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">val_form_mem_const</obj_property>
       <obj_property name="ObjectShortName">val_form_mem_const</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/val_op_exmem" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">val_op_exmem</obj_property>
+      <obj_property name="ObjectShortName">val_op_exmem</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/val_jump_id" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">val_jump_id</obj_property>
+      <obj_property name="ObjectShortName">val_jump_id</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/forw_jump_other" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forw_jump_other</obj_property>
+      <obj_property name="ObjectShortName">forw_jump_other</obj_property>
+   </wvobject>
+   <wvobject fp_name="/cpu_teste/uut/DataHazard/forw_other_jump" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">forw_other_jump</obj_property>
+      <obj_property name="ObjectShortName">forw_other_jump</obj_property>
    </wvobject>
    <wvobject fp_name="/cpu_teste/uut/DataHazard/format_exmem" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">format_exmem[1:0]</obj_property>

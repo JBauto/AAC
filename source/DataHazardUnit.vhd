@@ -97,6 +97,9 @@ architecture Behavioral of DataHazardUnit is
 	signal forw_jump_other : STD_LOGIC;
 	signal forw_other_jump : STD_LOGIC;
 	signal val_jump_exmem : STD_LOGIC;
+	signal opcode_jump : STD_LOGIC_VECTOR(2 downto 0);
+	signal opcode_jump_exmem : STD_LOGIC_VECTOR(2 downto 0);
+	
 begin
 
 	format <= OPCODE(9 downto 8);
@@ -108,7 +111,8 @@ begin
 	OP <= OPCODE(4 downto 0);
 	OP_EXMEM <= OPCODE_EXMEM(4 downto 0);
 	OP_WB <= OPCODE_WB(4 downto 0);
-	
+	opcode_jump <= OPCODE(7 downto 5);
+	opcode_jump_exmem <= OPCODE_EXMEM(7 downto 5);
 	
 	-- FORWARDING ALU-ALU / ALU-CONST
 	
@@ -219,7 +223,7 @@ begin
 	
 	--FORWARD JUMP AND LINK / JUMP REGISTER - OTHER
 	
-	val_jump_id <= '1' when format = "00" and OP(4 downto 3) = "11" else
+	val_jump_id <= '1' when format = "00" and opcode_jump(2 downto 1) = "11" else
 						'0';
 	
 	val_mem_exmem <= '1' when format_EXMEM = "10" and OP_EXMEM(4 downto 1) = "0101" else
