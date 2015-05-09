@@ -1,0 +1,119 @@
+\chapter{Unidade lógico-aritmética (ALU)}
+\textsc{Breve descrição da \textbf{ALU}: } Desenhou-se a \textbf{ALU} com três unidades a funcionarem em paralelo, abaixo descritas com maior~detalhe.\par
+O resultado produzido por estas unidades é introduzido num ``multiplexer'' que escolhe de acordo com sinais provenientes da unidade de descodificação qual o resultado e ``Flags'' a colocar à saída da~\textbf{ALU}.
+
+\section{Unidade Aritmética}
+A unidade Aritmética é responsável pelas operações apresentadas na tabela~\ref{tabela:arith}.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		00000 & \mbox{$C=A+B$}    & add c, a, b    & S,C,Z,V   \\ \hline
+		00001 & \mbox{$C=A+B+1$}  & addinc c, a, b & S,C,Z,V   \\ \hline
+		00011 & \mbox{$C=A+1$}    & inca c, a      & S,C,Z,V   \\ \hline
+		00100 & \mbox{$C=A-B-1$}  & subdec c, a, b & S,C,Z,V   \\ \hline
+		00101 & \mbox{$C=A-B$}    & sub c, a, b    & S,C,Z,V   \\ \hline
+		00110 & \mbox{$C=A-1$}    & deca c, a      & S,C,Z,V   \\ \hline
+	\end{tabular}
+	\caption{Operações Aritméticas}
+	\label{tabela:arith}
+\end{table}
+
+A unidade aritmética começa por analisar qual a operação a executar de acordo com os dados vindos da unidade de descodificação e em seguida começa por calcular o segundo membro da operação \mbox{$C=A+operB$} em que 
+\[ operB=\left\{
+	\begin{array}{lr}
+	B & : OP=00000\\
+	B+1 & : OP=00001\\
+	1 & : OP=00011\\
+	-B-1 & : OP=00100\\
+	-B & : OP=00101\\
+	-1 & : OP=00110
+	\end{array}
+	\right.\]\par
+De seguida calcula \mbox{$C=A+operB$} e as ``Flags'' correspondentes com base na análise do resultado e dos operandos.
+
+\section{Unidade Lógica}
+A unidade Lógica é responsável pelas operações apresentadas na tabela~\ref{tabela:logic}.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		10000 & \mbox{$C=0$}    & zeros c   &   \\ \hline
+		10001 & \mbox{$C=A\&B$}  & and c, a, b & S,Z   \\ \hline
+		10010 & \mbox{$C=!A\&B$}  & andnota c, a, b & S,Z   \\ \hline
+		10011 & \mbox{$C=B$}  & passb c, b &    \\ \hline
+		10100 & \mbox{$C=A\&!B$}  & andnotb c, a, b & S,Z   \\ \hline
+		10101 & \mbox{$C=A$}  & passa c, a & S,Z   \\ \hline
+		10110 & \mbox{$C=A \oplus B$}  & xor c, a, b & S,Z   \\ \hline
+		10111 & \mbox{$C=A|B$}  & or c, a, b & S,Z   \\ \hline
+		11000 & \mbox{$C=!A\&!B$}  & nor c, a, b & S,Z   \\ \hline
+		11001 & \mbox{$C=!(A \oplus B)$}  & xnor c, a, b & S,Z   \\ \hline
+		11010 & \mbox{$C=!A$}  & passnota c, a & S,Z   \\ \hline
+		11011 & \mbox{$C=!A|B$}  & ornota c, a, b & S,Z   \\ \hline
+		11100 & \mbox{$C=!B$}  & passnotb c, b & S,Z   \\ \hline
+		11101 & \mbox{$C=!A|!B$}  & nand c, a, b & S,Z   \\ \hline
+		11111 & \mbox{$C=1$}  & ones c &    \\ \hline
+	\end{tabular}
+	\caption{Operações Lógicas}
+	\label{tabela:logic}
+\end{table}
+
+\section{Unidade de Deslocamentos}
+A unidade de Deslocamentos é responsável pelas operações apresentadas na tabela~\ref{tabela:shift}.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		OP    & Operação & Mnemónica & Flags actualizadas \\ \hline
+		01000 & \mbox{$C=Shift\ L\acute{o}gico\ Esq.(A)$}    & lsl c, a   & S,C,Z   \\ \hline
+		01001 & \mbox{$C=Shift\ Aritm\acute{e}tico\ Dir.(A)$}  & asr c, a & S,C,Z   \\ \hline
+	\end{tabular}
+	\caption{Operações de Deslocamento}
+	\label{tabela:shift}
+\end{table}
+
+No caso do ``shift'' lógico a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do ``bit0'' com 0.\par
+No caso do ``shift'' aritmético a saída resulta do deslocamento do sinal de entrada uma posição e preenchimento do ``bit15'' com o ``bit15'' da entrada (extensão de sinal).
+
+\section{Cálculo das flags}
+Para o cálculo das \textit{flags} seguimos uma técnica semelhante nas 3 sub-unidades dentro da \textbf{ALU}.
+
+\subsection{Flag de Sinal (S)}
+A \textit{flag} de sinal é calculada em todas as sub-unidades e é feita sempre do mesmo modo, avaliando o ``bit15'' do resultado. Ou seja, \mbox{$S=Resultado(15)$}.\par
+Isto pode se fazer deste modo por estarmos a utiliza números com sinal em complemento para 2.
+
+\subsection{Flag de Carry (C)}
+A \textit{flag} de \textit{Carry} é apenas calculada nas sub-unidades Aritmética e de Deslocamentos, na unidade lógica é passado o valor zero(0) e depois ignorado na \textbf{Unidade de Controlo de Saltos e Flags}.\par
+No caso da unidade \textbf{Aritmética}, as operações são feitas com 1 \textit{bit} extra, ou seja, o resultado é gerado com 17 bits de onde são utilizados os 16 menos significativos para o verdadeiro resultado e 17º bit para calcular a \textit{flag} de \textit{Carry}.\par
+Resultado é internamente representado com 17 bits, \mbox{$bit(16\ downto\ 0)$}.
+\[\begin{array}{rcl}
+flagC & = & bit(16)\\
+Resultado & = & bit(15\ downto\ 0)\\
+\end{array}
+\]\par
+No caso da unidade de \textbf{Deslocamentos} a \textit{flag} de \textit{Carry} é o bit mais significativo do valor de entrada no caso da operação \mbox{$lsl\ c,\ a$} e zero no caso da operação \mbox{$asr\ c,\ a$}.
+\[ flagC=\left\{
+\begin{array}{rcl}
+a(15) & : & lsl\ c,\ a\\
+0 & : & asr\ c,\ a
+\end{array}
+\right.\]\par
+
+\subsection{Flag de Zero (Z)}
+A \textit{flag} de zero é calculada em todas as sub-unidades e é feita sempre do mesmo modo, é efetuado a operação de \textbf{nor} com todos os bits do resultado.
+\[Resultado = c\]
+\begin{align*}
+	flagZ = \overline{(c15+c14+c13+c12+c11+c10+c9+c8+c7+c6+c5+c4+c3+}&\\
+		\overline{+c2+c1+c0)}&
+\end{align*}
+
+\subsection{Flag de Overflow (V)}
+A \textit{flag} de \textit{Overflow} é apenas calculada na sub-unidade \textbf{aritmética}, nas restantes é passado o valor zero(0) e depois ignorado na \textbf{Unidade de Controlo de Saltos e Flags}.\par
+Para calcular se existe \textit{Overflow} analisam-se os bits de sinal dos operandos e o do resultado, ou seja, numa operação de adição ou subtração se os 2 operandos tiverem o mesmo bit de sinal então o resultado terá que preservar esse mesmo bit de sinal.
+\[\begin{array}{rcl}
+Resultado=c&=&a+b\\
+flagV&=&\overline{(a15 \oplus b15)} \cdot (a15 \oplus c15)
+\end{array}
+\]

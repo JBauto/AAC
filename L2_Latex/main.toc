@@ -1,0 +1,6 @@
+\select@language {portuguese}
+\contentsline {chapter}{\numberline {1}Conflitos de Controlo}{2}
+\contentsline {section}{\numberline {1.1}Formato I}{2}
+\contentsline {section}{\numberline {1.2}Formato II e III}{2}
+\contentsline {section}{\numberline {1.3}BTB}{3}
+\contentsline {section}{\numberline {1.4}BPB}{3}
