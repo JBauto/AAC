@@ -1,6 +1,9 @@
 \select@language {portuguese}
-\contentsline {chapter}{\numberline {1}Conflitos de Controlo}{2}
-\contentsline {section}{\numberline {1.1}Formato I}{2}
-\contentsline {section}{\numberline {1.2}Formato II e III}{2}
-\contentsline {section}{\numberline {1.3}BTB}{3}
-\contentsline {section}{\numberline {1.4}BPB}{3}
+\contentsline {chapter}{\numberline {1}Decis\IeC {\~o}es de Projecto}{2}
+\contentsline {chapter}{\numberline {2}Conflitos de Dados}{3}
+\contentsline {chapter}{\numberline {3}Conflitos de Controlo}{5}
+\contentsline {section}{\numberline {3.1}Formato I}{5}
+\contentsline {section}{\numberline {3.2}Formato II e III}{5}
+\contentsline {section}{\numberline {3.3}BTB}{6}
+\contentsline {section}{\numberline {3.4}BPB}{6}
+\contentsline {chapter}{\numberline {4}Estat\IeC {\'\i }sticas e Resultados}{7}

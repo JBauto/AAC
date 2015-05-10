@@ -3,7 +3,7 @@
 
 % Corrigir margens e paragrafos
 \usepackage{fullpage}
-\usepackage[top=1cm,bottom=1cm]{geometry}
+\usepackage[top=2cm,bottom=1cm]{geometry}
 \usepackage{parskip}
 \usepackage{mathtools}
 \usepackage{amsfonts}
@@ -13,6 +13,8 @@
 \usepackage{pdfpages}
 \pdfoptionpdfminorversion 6
 \usepackage{wrapfig}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \usepackage{rotating}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -105,7 +107,9 @@
 	\tableofcontents
 
     \newpage
+	\include{tex/dados}
 	\include{tex/controlo}
+	\include{tex/resultados}
    %\include{tex/corpo_texto}
    %\include{tex/conclusao}
    %\include{tex/codigo}
