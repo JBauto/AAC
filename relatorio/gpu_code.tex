@@ -1,0 +1,10 @@
+\chapter{Código para o GPU}
+Para optimizar a aceleração do algoritmo de ``smoothing'' no \textbf{GPU} começámos por analisar as diversas chamadas ao \textbf{GPU} e concluímos que as que consomem mais tempo são a inicialização e as transferências de dados entre o \textbf{Host} e o \textbf{GPU} e entre o \textbf{GPU} e o \textbf{Host}, sendo que a execução do \textbf{Kernel} em si consome uma porção quase negligenciável.\\
+
+Com estas informações e tendo em conta que as chamadas de inicialização são constantes e não se podem alterar procurámos primeiro otimizar as transferências de dados e só depois otimizar o \textbf{Kernel}.
+
+\section{Transferências de Dados}
+
+
+\section{Kernel}
+

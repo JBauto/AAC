@@ -1,9 +1,0 @@
-\chapter{Introdução}
-Com este trabalho, propusemo-nos a desenhar a arquitectura de um processador \mbox{$\mu RISC$} com funcionamento multi-ciclo. Dividimos a arquitectura em unidades funcionais de modo a simplificar a implementação do processador.\par
-O processador \mbox{$\mu RISC$} consiste num processador com um número reduzido de instruções simples, nosso caso 42 instruções, distribuídas entre operações de salto, aritméticas, lógicas, deslocamento, \textit{load}/\textit{store} e uso de constantes.\par
-
-Um processador do RISC, \textit{Reduced Instruction Set Computer}, é o predecessor do mais aclamado CISC, \textit{Complex Instruction Set Computer}, no qual uma instrução pode executar diversas operações de baixo nível como \textit{ADD}, \textit{LOAD} e \textit{STORE}. 
-
-A reduzida complexidade do RISC garante-lhe uma grande vantagem relativamente ao CISC ao nível de \textit{hardware} uma vez que um \textit{instruction set} de menor complexidade requer menos lógica na descodificação. Outra vantagem é que o RISC mantém o valor nos registos enquanto que o CISC após o término de uma instrução faz \textit{reset} aos registos.
-
-O CISC uma vez que tem um instruction set mais complexo necessita de menos instruções de alto nível e como tal isto reflecte-se na memória ocupada para guardar as instruções. Parte do trabalho é transferido para o compilador uma vez que necessita de computação adicional a converter linguagem de alto nível para instruções que o processador compreenda.

@@ -1,0 +1,23 @@
+\chapter{Introdução}
+O objetivo deste terceiro trabalho de laboratório é a aceleração de um algoritmo de ``smoothing'' utilizando as propriedades de computação paralela em GPUs.\\
+
+Para tal recorreu-se à plataforma \textbf{CUDA} que tira proveito das unidades de processamento gráfico (GPUs) da \textbf{NVIDIA}.\\
+
+Procura-se tirar proveito da arquitetura dos GPUs para maximizar o desempenho de um algoritmo de ``smoothing'' recorrendo ao Paralelismo de Dados.\\
+
+\section{Algoritmo}
+O algoritmo que pretendemos paralelizar consiste em:
+\[ \hat{y}_i=\frac{\sum_{k=0}^{N-1} K_{b}(x_i,x_k)y_k}{\sum_{k=0}^{N-1} K_{b}(x_i,x_k)} \]
+com
+\[ K_b(x,x_k)=exp\left ( -\frac{\left ( x-x_k \right )^2}{2b^2} \right ) \]
+onde
+\begin{description}
+	\item[x] \hfill \\
+	Domínio do sinal a ser filtrado
+	\item[y] \hfill \\
+	Sinal observado e que contém ruído e do qual pretendemos obter a versão sem ruído
+	\item[$\hat{y}$] \hfill \\
+	Sinal obtido pela passagem do sinal \textbf{y} pela função de ``smoothing''
+	\item[b] \hfill \\
+	Parâmetro de ``smothing'', no nosso caso foi utilizado o valor 4 para este parâmetro
+\end{description}
