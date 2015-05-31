@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.23)  31 MAY 2015 12:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.23)  31 MAY 2015 22:04
 entering extended mode
 **main.tex
-(D:\IST\Mestrado\AAC\AAC\relatorio\main.tex
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\main.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -561,14 +561,14 @@ File: lstlang1.sty 2014/09/06 1.5e listings language file
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 )
-(D:\IST\Mestrado\AAC\AAC\relatorio\main.aux
-(D:\IST\Mestrado\AAC\AAC\relatorio\capa.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\introdution.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\c_code.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\results.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\attachments.aux))
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\main.aux"
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\capa.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\introdution.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\c_code.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\gpu_code.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\results.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\conclusions.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\attachments.aux"))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
 LaTeX Font Info:    ... okay on input line 49.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
@@ -632,7 +632,7 @@ LaTeX Font Info:    ... okay on input line 49.
 \everyMPtoPDFconversion=\toks28
 )
 \c@lstlisting=\count145
- (D:\IST\Mestrado\AAC\AAC\relatorio\capa.tex
+ ("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\capa.tex"
 <IST_LOGO.pdf, id=1, 845.0471pt x 597.51233pt>
 File: IST_LOGO.pdf Graphic file (type pdf)
  <use IST_LOGO.pdf>
@@ -650,16 +650,103 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <D:/IST/Mestrado/AAC/AAC/r
-elatorio/IST_LOGO.pdf>]) (D:\IST\Mestrado\AAC\AAC\relatorio\main.toc)
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/João Severino/D
+esktop/AAC-LAB3_Latex/relatorio/IST_LOGO.pdf>])
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\main.toc")
 \tf@toc=\write3
  [1
 
 
 
 ]
-(D:\IST\Mestrado\AAC\AAC\relatorio\introdution.tex
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\introdution.tex"
 Cap\'{\i }tulo 1.
+[2
+
+
+]) [3] ("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\c_code.tex"
+Cap\'{\i }tulo 2.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 4.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\main.c" [4
+
+
+
+] [5])
+<output.pdf, id=58, 596.2275pt x 538.01pt>
+File: output.pdf Graphic file (type pdf)
+ <use output.pdf>
+Package pdftex.def Info: output.pdf used on input line 10.
+(pdftex.def)             Requested size: 418.25368pt x 377.41716pt.
+)
+Overfull \hbox (18.0pt too wide) in paragraph at lines 10--56
+[][] 
+ []
+
+[6] [7 <C:/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/output.pdf>]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\gpu_code.tex"
+Cap\'{\i }tulo 3.
+[8
+
+
+
+] [9]) [10]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\results.tex"
+Cap\'{\i }tulo 4.
+<tabela.png, id=76, 161.11392pt x 54.05795pt>
+File: tabela.png Graphic file (type png)
+ <use tabela.png>
+Package pdftex.def Info: tabela.png used on input line 7.
+(pdftex.def)             Requested size: 563.89734pt x 189.2023pt.
+
+<tabela1.png, id=79, 161.11392pt x 19.36836pt>
+File: tabela1.png Graphic file (type png)
+ <use tabela1.png>
+Package pdftex.def Info: tabela1.png used on input line 15.
+(pdftex.def)             Requested size: 563.89734pt x 67.78905pt.
+
+<tabela2.png, id=81, 161.11392pt x 19.36836pt>
+File: tabela2.png Graphic file (type png)
+ <use tabela2.png>
+Package pdftex.def Info: tabela2.png used on input line 23.
+(pdftex.def)             Requested size: 563.89734pt x 67.78905pt.
+ [11
+
+
+
+ <C:/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/tabela.png> <C:/User
+s/João Severino/Desktop/AAC-LAB3_Latex/relatorio/tabela1.png>]
+<cpu.png, id=90, 172.9662pt x 56.56332pt>
+File: cpu.png Graphic file (type png)
+ <use cpu.png>
+Package pdftex.def Info: cpu.png used on input line 33.
+(pdftex.def)             Requested size: 432.41443pt x 141.40793pt.
+
+<gpu.png, id=92, 155.23596pt x 57.91235pt>
+File: gpu.png Graphic file (type png)
+ <use gpu.png>
+Package pdftex.def Info: gpu.png used on input line 41.
+(pdftex.def)             Requested size: 388.08894pt x 144.7805pt.
+
+<kernel.png, id=94, 173.15892pt x 62.1522pt>
+File: kernel.png Graphic file (type png)
+ <use kernel.png>
+Package pdftex.def Info: kernel.png used on input line 49.
+(pdftex.def)             Requested size: 432.89622pt x 155.3801pt.
+ [12 <C:/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/tabela2.png> <C:
+/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/cpu.png> <C:/Users/João
+ Severino/Desktop/AAC-LAB3_Latex/relatorio/gpu.png>]
+<speedup.png, id=106, 170.17175pt x 50.39629pt>
+File: speedup.png Graphic file (type png)
+ <use speedup.png>
+Package pdftex.def Info: speedup.png used on input line 57.
+(pdftex.def)             Requested size: 425.42831pt x 125.99037pt.
+) [13 <C:/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/kernel.png> <C:
+/Users/João Severino/Desktop/AAC-LAB3_Latex/relatorio/speedup.png>]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\conclusions.tex"
+Cap\'{\i }tulo 5.
 
 Underfull \hbox (badness 10000) in paragraph at lines 2--3
 
@@ -675,87 +762,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
 
-) [2
-
-
-] (D:\IST\Mestrado\AAC\AAC\relatorio\c_code.tex
-Cap\'{\i }tulo 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--3
-
- []
-
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 4.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-(D:\IST\Mestrado\AAC\AAC\relatorio\main.c [3
-
-
-
-] [4])
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
-
- []
-
-<output.pdf, id=53, 596.2275pt x 538.01pt>
-File: output.pdf Graphic file (type pdf)
- <use output.pdf>
-Package pdftex.def Info: output.pdf used on input line 11.
-(pdftex.def)             Requested size: 418.25368pt x 377.41716pt.
-)
-Overfull \hbox (18.0pt too wide) in paragraph at lines 11--56
-[][] 
- []
-
-[5 <D:/IST/Mestrado/AAC/AAC/relatorio/output.pdf>]
-(D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.tex
-Cap\'{\i }tulo 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 2--3
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 11--12
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
-
- []
-
-[6
-
-
-
-]) [7] (D:\IST\Mestrado\AAC\AAC\relatorio\results.tex
-Cap\'{\i }tulo 4.
-) [8
-
-
-
-] (D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.tex
-Cap\'{\i }tulo 5.
-) [9
-
-
-
-] (D:\IST\Mestrado\AAC\AAC\relatorio\attachments.tex
-Cap\'{\i }tulo A.
-(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu) [10
+) [14
 
 
 
 ]
-(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu) [11]
-(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu [12] [13] [14]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\attachments.tex"
+Cap\'{\i }tulo A.
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\kernel.cu") [15
+
+
+
+]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\kernel.cu") [16]
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\Kernel_Final.cu"
+[17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
+Overfull \hbox (151.74443pt too wide) in paragraph at lines 303--305
+[][][][] 
+ []
+
+[27]) ("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\kernel.cu"
+[28] [29] [30] [31]
 Overfull \hbox (138.16423pt too wide) in paragraph at lines 143--144
 [][][][] 
  []
 
-[15] [16] [17]
+[32] [33] [34] [35] [36]
 Overfull \hbox (138.16423pt too wide) in paragraph at lines 247--248
 [][][][] 
  []
@@ -765,47 +797,49 @@ Overfull \hbox (138.16423pt too wide) in paragraph at lines 249--251
 [][][][] 
  []
 
-[18])) [19] (D:\IST\Mestrado\AAC\AAC\relatorio\main.aux
-(D:\IST\Mestrado\AAC\AAC\relatorio\capa.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\introdution.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\c_code.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\results.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\attachments.aux)) ) 
+[37])) [38] ("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\main.aux
+" ("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\capa.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\introdution.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\c_code.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\gpu_code.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\results.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\conclusions.aux")
+("C:\Users\João Severino\Desktop\AAC-LAB3_Latex\relatorio\attachments.aux")) )
+ 
 Here is how much of TeX's memory you used:
- 6799 strings out of 493921
- 91958 string characters out of 3144848
- 382636 words of memory out of 3000000
- 9893 multiletter control sequences out of 15000+200000
- 22468 words of font info for 61 fonts, out of 3000000 for 9000
+ 6988 strings out of 493921
+ 95984 string characters out of 3144848
+ 363639 words of memory out of 3000000
+ 10070 multiletter control sequences out of 15000+200000
+ 24685 words of font info for 64 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 34i,10n,49p,459b,1668s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\João Severino
-\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk> <C:\U
+ 34i,10n,49p,522b,1666s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\
+dpi600\ectt1095.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\
+ljfour\jknappen\ec\dpi600\ecrm0800.pk> <C:\Users\João Severino\AppData\Local\M
+iKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1095.pk> <C:\Users\João Sever
+ino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C
+:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi
+600\ecrm1095.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljf
+our\jknappen\ec\dpi600\ecbx1095.pk> <C:\Users\João Severino\AppData\Local\MiKT
+eX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\João Severino
+\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0800.pk> <C:\U
 sers\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600
-\ecbx1440.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
-\jknappen\ec\dpi600\ecrm1095.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\
-2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1095.pk> <C:\Users\João Severino\Ap
-pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\User
+\ecbx1200.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
+\jknappen\ec\dpi600\ecbx2074.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\
+2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecxc2074.pk> <C:\Users\João Severino\Ap
+pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk> <C:\User
 s\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ec
-bx0800.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jk
-nappen\ec\dpi600\ecbx1200.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9
-\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx2074.pk> <C:\Users\João Severino\AppDa
-ta\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecxc2074.pk> <C:\Users\J
-oão Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1
-200.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknap
-pen\ec\dpi600\eccc1728.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-msy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
-y8.pfb>
-Output written on main.pdf (20 pages, 440049 bytes).
+cc1728.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cme
+x10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.p
+fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
+Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on main.pdf (39 pages, 949330 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
+ 646 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 88 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,18 +1,51 @@
 \chapter{Código para o GPU}
-Para optimizar a aceleração do algoritmo de ``smoothing'' no \textbf{GPU} começámos por analisar as diversas chamadas ao \textbf{GPU} e concluímos que as que consomem mais tempo são a inicialização e as transferências de dados entre o \textbf{Host} e o \textbf{GPU} e entre o \textbf{GPU} e o \textbf{Host}, sendo que a execução do \textbf{Kernel} em si consome uma porção quase negligenciável.\\
 
-Com estas informações e tendo em conta que as chamadas de inicialização são constantes e não se podem alterar procurámos primeiro otimizar as transferências de dados e só depois otimizar o \textbf{Kernel}.
+Para optimizar a aceleração do algoritmo de \textit{smoothing} no \textit{GPU} foram implementadas três diferentes versões cada uma explorando a arquitectura do \textit{GPU} de forma diferente.
+
+%Para optimizar a aceleração do algoritmo de \textit{smoothing} no \textit{GPU} começámos por analisar as diversas chamadas ao GPU e concluímos que as que consomem mais tempo são a inicialização e as transferências de dados entre o \textit{Host} e o \textit{GPU} e entre o \textit{GPU} e o \textit{Host}, sendo que a execução do \textit{Kernel} em si consome uma porção quase negligenciável.
+%
+%Com estas informações e tendo em conta que as chamadas de inicialização são constantes e não se podem alterar procurámos primeiro optimizar as transferências de dados e só depois optimizar o \textit{Kernel}.
 
 \section{Kernel}
+\subsection{Versão A}
+
+Numa primeira abordagem ao algoritmo, foi implementado um \textit{Kernel} que executava o \textit{for loop} interior do algoritmo em que cada \textit{thread} computava uma iteração do \textit{for loop} exterior. Desta forma eram necessárias N threads sendo N o número de iterações de cada \textit{loop}.
+Esta implementação consegue tirar partido do conceito básico por trás dos \textit{GPUs} contudo não o faça da forma óptima e apresenta maus resultados ao nível da transferência de dados quando N é elevado. 
+%\label{sec:kernel}
+%O código do \textit{Kernel} a executar no \textit{GPU} pode ser visto na Secção~\ref{secA:kernel}, e este é chamado várias vezes de modo a calcular uma parte do vetor de resultados.
+\subsection{Versão B}
+
+Uma segunda versão permitia obter o máximo de paralelismo possível do \textit{GPU} criando uma \textit{grid} com as seguintes dimensões,
+
+\[grid.x = \sqrt{\frac{N\cdot N}{maxThreadsPerBlock}} + 1\]
+\[grid.y = \sqrt{\frac{N\cdot N}{maxThreadsPerBlock}} + 1\]
+
+e dimensões de bloco,
+
+\[block.x = \sqrt{maxThreadsPerBlock}\]
+\[block.y = \sqrt{maxThreadsPerBlock}\]
+
+Desta forma é garantido que existem threads suficientes para o cálculo do algoritmo em que cada thread executa o cálculo de uma exponencial e por fim N threads para o cálculo da soma de cada A e B e da divisão final.
+
+Esta versão apresenta limitações ao nível da memória existente para alocar recursos uma vez que era necessário a alocação de um vector de N $\cdot$ N $\cdot$ 2 e uma vez que o \textit{GPU} apenas tem 2GB de memória disponível apenas é possível aplicar o algoritmo para, 
+
+\[N = \sqrt{\frac{2048\cdot 1024\cdot 1024}{2\cdot 4}} = 16384\]
+
+O principal factor que inviabilizou esta versão foi o tempo de tranferência dos dados do \textit{GPU} para \textit{Host} que para N igual a 10000 era de aproximadamente 0.25 segundos. Uma hipótese é que o tempo de transferência de dados não depende somente do tamanho do vector a tranferir mas também do total de dados alocados no \textit{GPU} em que para N igual 10000 correspondiam a cerca de 800 MB.
+
+\subsection{Versão C}
 \label{sec:kernel}
-O código do \textbf{Kernel} a executar no \textbf{GPU} pode ser visto na Secção~\ref{secA:kernel}, e este é chamado várias vezes de modo a calcular uma parte do vetor de resultados.
+Esta última versão segue o mesmo príncipio que a versão A contudo é definido um valor máximo para o tamanho dos vectores de saída, ou seja, se N for igual a 50000 o tamanho máximo do vector \textit{Yest} é 10000 e o \textit{Kernel} é executado 5 vezes. Esta versão afasta-se um pouco do conceito de paralelismo tentando minimizar o tempo de transferência de dados, tempo que se apresentou ser o de maior impacto.
+
+Comparando a versão A e C relativamente à última afirmação, tem-se um tempo de 0.361632 segundos para transferir 80000 elementos para A enquanto que para C tem-se 0,070261 segundos. Esta alteração permite reduzir o tempo de transferência em 5.15 vezes.
+
 
 \section{Transferências de Dados}
-Inicialmente são transferidos os vetores de ``entrada'' \mbox{$(X\ e\ Y)$} necessários para os cálculos dos resultados, em seguida e como descrito na Secção~\ref{sec:kernel} o \textbf{Kernel} é executado várias vezes para calcular uma porção dos resultados e após cada chamada ao \textbf{Kernel} é transferido para o \textbf{Host} os resultados estimados~(\textbf{Yest}) acabados de calcular.\\
+Inicialmente são transferidos os vectores de "entrada" \mbox{$(X\ e\ Y)$} necessários para os cálculos dos resultados, em seguida e como descrito na Secção~\ref{sec:kernel} o \textit{Kernel} é executado várias vezes para calcular uma porção dos resultados e após cada chamada ao \textit{Kernel} é transferido para o \textit{Host} os resultados estimados~(Yest) acabados de calcular.
 
-Escolhemos fazer deste modo para permitir minimizar o impacto da transferência de informação do \textbf{GPU} para o \textbf{Host} pois era essa comunicação que ditava o desempenho do programa.
+Escolhemos fazer deste modo para permitir minimizar o impacto da transferência de informação do \textit{GPU} para o \textit{Host} pois era essa comunicação que ditava o desempenho do programa.
 
 \section{Critério de aceitação de resultados}
-Os resultados provenientes do \textbf{GPU} são considerados como corretos se diferirem dos resultados obtidos no \textbf{CPU} menos do que \mbox{$1\times10^{-6}$}.\\
+Os resultados provenientes do \textit{GPU} são considerados como correctos se diferirem dos resultados obtidos no \textit{CPU} menos do que \mbox{$1\times10^{-6}$}.
 
 Existe sempre uma ligeira diferença nos resultados devido ao facto de se tratarem de unidades aritméticas diferentes sem precisão infinita.

@@ -1,1 +1,8 @@
 \chapter{Conclusão}
+Com este trabalho compreendemos melhor as vantagens da utilização de \textbf{GPUs} para executar algoritmos que permitam um elevado paralelismo de dados. Descobrimos também que uma das maiores dificuldades em otimizar algoritmos para serem executados em \textbf{GPUs} é lidar com as limitações causadas na comunicação entre o \textbf{Host} e o \textbf{GPU}, limitações essas que nós verificámos serem o aspeto crítico no desempenho de um algoritmo.\\
+
+Devido às limitações encontradas na transferência de dados, focámos-nos reduzir ao máximo o tempo de comunicação.\\
+
+Pela análise dos resultados obtidos feita no Capítulo~\ref{chap:res} vemos que a execução no \textbf{GPU} é limitada sempre pela transferência dos resultados para o \textbf{Host} mas que mesmo assim se consegue \textbf{Speed-Ups} elevados quando comparado com a execução em \textbf{CPU}. Existe no entanto o caso em que a quantidade de dados a processar (quantidade N no nosso algoritmo) é muito baixa, neste caso não compensa a utilização do \textbf{GPU}.\\
+
+No geral, consideramos que desenvolvemos um algoritmo eficiente que é focado em minimizar o tempo de comunicação bem como otimizar um pouco o \textbf{Kernel} da função de ``Smoothing''.
