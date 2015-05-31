@@ -49,10 +49,14 @@
 \begin{document}
 	
 	\include{capa}
+	\renewcommand{\contentsname}{Índice}
+	\tableofcontents
+	\addtocontents{toc}{\hfill\textbf{Página}\par}
 	\include{introdution}
 	\include{c_code}
 	\include{gpu_code}
 	\include{results}
 	\include{conclusions}
+	\include{attachments}
 	
 \end{document}

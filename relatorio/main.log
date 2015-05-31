@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.23)  30 MAY 2015 18:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.10.23)  31 MAY 2015 12:24
 entering extended mode
 **main.tex
 (D:\IST\Mestrado\AAC\AAC\relatorio\main.tex
@@ -567,7 +567,8 @@ File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 (D:\IST\Mestrado\AAC\AAC\relatorio\c_code.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\results.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux))
+(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux)
+(D:\IST\Mestrado\AAC\AAC\relatorio\attachments.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
 LaTeX Font Info:    ... okay on input line 49.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
@@ -650,7 +651,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <D:/IST/Mestrado/AAC/AAC/r
-elatorio/IST_LOGO.pdf>]) (D:\IST\Mestrado\AAC\AAC\relatorio\introdution.tex
+elatorio/IST_LOGO.pdf>]) (D:\IST\Mestrado\AAC\AAC\relatorio\main.toc)
+\tf@toc=\write3
+ [1
+
+
+
+]
+(D:\IST\Mestrado\AAC\AAC\relatorio\introdution.tex
 Cap\'{\i }tulo 1.
 
 Underfull \hbox (badness 10000) in paragraph at lines 2--3
@@ -667,9 +675,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
 
-) [1
-
-
+) [2
 
 
 ] (D:\IST\Mestrado\AAC\AAC\relatorio\c_code.tex
@@ -683,26 +689,26 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 4.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-(D:\IST\Mestrado\AAC\AAC\relatorio\main.c [2
+(D:\IST\Mestrado\AAC\AAC\relatorio\main.c [3
 
 
 
-] [3])
+] [4])
 Underfull \hbox (badness 10000) in paragraph at lines 8--10
 
  []
 
-<output.pdf, id=50, 596.2275pt x 538.01pt>
+<output.pdf, id=53, 596.2275pt x 538.01pt>
 File: output.pdf Graphic file (type pdf)
  <use output.pdf>
 Package pdftex.def Info: output.pdf used on input line 11.
 (pdftex.def)             Requested size: 418.25368pt x 377.41716pt.
 )
-Overfull \hbox (18.0pt too wide) in paragraph at lines 11--53
+Overfull \hbox (18.0pt too wide) in paragraph at lines 11--56
 [][] 
  []
 
-[4 <D:/IST/Mestrado/AAC/AAC/relatorio/output.pdf>]
+[5 <D:/IST/Mestrado/AAC/AAC/relatorio/output.pdf>]
 (D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.tex
 Cap\'{\i }tulo 3.
 
@@ -710,44 +716,78 @@ Underfull \hbox (badness 10000) in paragraph at lines 2--3
 
  []
 
-) [5
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+
+ []
+
+[6
 
 
 
-] (D:\IST\Mestrado\AAC\AAC\relatorio\results.tex
+]) [7] (D:\IST\Mestrado\AAC\AAC\relatorio\results.tex
 Cap\'{\i }tulo 4.
-) [6
+) [8
 
 
 
 ] (D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.tex
 Cap\'{\i }tulo 5.
-) [7
+) [9
 
 
 
-] (D:\IST\Mestrado\AAC\AAC\relatorio\main.aux
+] (D:\IST\Mestrado\AAC\AAC\relatorio\attachments.tex
+Cap\'{\i }tulo A.
+(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu) [10
+
+
+
+]
+(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu) [11]
+(D:\IST\Mestrado\AAC\AAC\relatorio\kernel.cu [12] [13] [14]
+Overfull \hbox (138.16423pt too wide) in paragraph at lines 143--144
+[][][][] 
+ []
+
+[15] [16] [17]
+Overfull \hbox (138.16423pt too wide) in paragraph at lines 247--248
+[][][][] 
+ []
+
+
+Overfull \hbox (138.16423pt too wide) in paragraph at lines 249--251
+[][][][] 
+ []
+
+[18])) [19] (D:\IST\Mestrado\AAC\AAC\relatorio\main.aux
 (D:\IST\Mestrado\AAC\AAC\relatorio\capa.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\introdution.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\c_code.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\gpu_code.aux)
 (D:\IST\Mestrado\AAC\AAC\relatorio\results.aux)
-(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux)) ) 
+(D:\IST\Mestrado\AAC\AAC\relatorio\conclusions.aux)
+(D:\IST\Mestrado\AAC\AAC\relatorio\attachments.aux)) ) 
 Here is how much of TeX's memory you used:
- 6676 strings out of 493921
- 90056 string characters out of 3144848
- 314636 words of memory out of 3000000
- 9788 multiletter control sequences out of 15000+200000
+ 6799 strings out of 493921
+ 91958 string characters out of 3144848
+ 382636 words of memory out of 3000000
+ 9893 multiletter control sequences out of 15000+200000
  22468 words of font info for 61 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  34i,10n,49p,459b,1668s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\João Severino
 \AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk> <C:\U
 sers\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600
-\ecbx1095.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
+\ecbx1440.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
 \jknappen\ec\dpi600\ecrm1095.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\
-2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\João Severino\Ap
-pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\User
+2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1095.pk> <C:\Users\João Severino\Ap
+pData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\User
 s\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ec
 bx0800.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jk
 nappen\ec\dpi600\ecbx1200.pk> <C:\Users\João Severino\AppData\Local\MiKTeX\2.9
@@ -763,9 +803,9 @@ ts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
 msy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
 y8.pfb>
-Output written on main.pdf (8 pages, 392705 bytes).
+Output written on main.pdf (20 pages, 440049 bytes).
 PDF statistics:
- 427 PDF objects out of 1000 (max. 8388607)
+ 509 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

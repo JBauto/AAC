@@ -3,8 +3,16 @@ Para optimizar a aceleração do algoritmo de ``smoothing'' no \textbf{GPU} come
 
 Com estas informações e tendo em conta que as chamadas de inicialização são constantes e não se podem alterar procurámos primeiro otimizar as transferências de dados e só depois otimizar o \textbf{Kernel}.
 
-\section{Transferências de Dados}
-
-
 \section{Kernel}
+\label{sec:kernel}
+O código do \textbf{Kernel} a executar no \textbf{GPU} pode ser visto na Secção~\ref{secA:kernel}, e este é chamado várias vezes de modo a calcular uma parte do vetor de resultados.
 
+\section{Transferências de Dados}
+Inicialmente são transferidos os vetores de ``entrada'' \mbox{$(X\ e\ Y)$} necessários para os cálculos dos resultados, em seguida e como descrito na Secção~\ref{sec:kernel} o \textbf{Kernel} é executado várias vezes para calcular uma porção dos resultados e após cada chamada ao \textbf{Kernel} é transferido para o \textbf{Host} os resultados estimados~(\textbf{Yest}) acabados de calcular.\\
+
+Escolhemos fazer deste modo para permitir minimizar o impacto da transferência de informação do \textbf{GPU} para o \textbf{Host} pois era essa comunicação que ditava o desempenho do programa.
+
+\section{Critério de aceitação de resultados}
+Os resultados provenientes do \textbf{GPU} são considerados como corretos se diferirem dos resultados obtidos no \textbf{CPU} menos do que \mbox{$1\times10^{-6}$}.\\
+
+Existe sempre uma ligeira diferença nos resultados devido ao facto de se tratarem de unidades aritméticas diferentes sem precisão infinita.

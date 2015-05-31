@@ -12,9 +12,6 @@
 /**
  * CUDA Kernel Device code
  */
-/**
- * Kernel 0
- */
 __global__ void calcy(float *X, float *Y, float *Yest,int indice) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	int j;

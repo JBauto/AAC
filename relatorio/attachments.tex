@@ -1,0 +1,15 @@
+\renewcommand{\thechapter}{\Alph{chapter}}
+\renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}
+\setcounter{chapter}{0}
+\chapter{Anexos}
+\section{CPU}
+\lstinputlisting[frame=single, firstline=125, lastline=141]{kernel.cu}
+\newpage
+
+\section{Kernel GPU}
+\label{secA:kernel}
+\lstinputlisting[frame=single, firstline=12, lastline=30]{kernel.cu}
+\newpage
+
+\section{Código final}
+\lstinputlisting[frame=single]{kernel.cu}
