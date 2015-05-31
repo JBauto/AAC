@@ -1,11 +1,16 @@
 \chapter{Introdução}
-O objetivo deste terceiro trabalho de laboratório é a aceleração de um algoritmo de ``smoothing'' utilizando as propriedades de computação paralela em GPUs.\\
+O objectivo deste terceiro trabalho de laboratório é a aceleração de um algoritmo de \textit{smoothing} utilizando as propriedades de computação paralela em GPUs.
 
-Para tal recorreu-se à plataforma \textbf{CUDA} que tira proveito das unidades de processamento gráfico (GPUs) da \textbf{NVIDIA}.\\
+Para tal recorreu-se à plataforma CUDA\texttrademark  que tira proveito das unidades de processamento gráfico (GPUs) da NVIDIA\texttrademark.
 
-Procura-se tirar proveito da arquitetura dos GPUs para maximizar o desempenho de um algoritmo de ``smoothing'' recorrendo ao Paralelismo de Dados.\\
+Procura-se tirar proveito da arquitectura dos GPUs para maximizar o desempenho de um algoritmo de \textit{smoothing} recorrendo ao Paralelismo de Dados.
 
 \section{Algoritmo}
+
+O algoritmo de \textit{smoothing} é um algoritmo bastante utilizado no processamento de imagem bem como análise estatística com o objectivo de criar uma função aproximada dos dados de entrada mantendo pontos importantes nos dados enquanto que reduz qualquer tipo de ruído associado aos dados. 
+
+Para modelar os dados o algoritmo observa um ponto individual bem como os imediatamente adjacentes e caso o ponto a observar seja maior em valor que os seus adjacentes é suavizado diminuindo o seu valor. Se o valor for menor que os seus adjacentes é entre elevado o seu valor em relação à sua volta. Isto assume que estas elevações bruscas de valores deve-se a ruído no sinal.
+
 O algoritmo que pretendemos paralelizar consiste em:
 \[ \hat{y}_i=\frac{\sum_{k=0}^{N-1} K_{b}(x_i,x_k)y_k}{\sum_{k=0}^{N-1} K_{b}(x_i,x_k)} \]
 com
@@ -17,7 +22,7 @@ onde
 	\item[y] \hfill \\
 	Sinal observado e que contém ruído e do qual pretendemos obter a versão sem ruído
 	\item[$\hat{y}$] \hfill \\
-	Sinal obtido pela passagem do sinal \textbf{y} pela função de ``smoothing''
+	Sinal obtido pela passagem do sinal y pela função de \textit{smoothing}
 	\item[b] \hfill \\
-	Parâmetro de ``smothing'', no nosso caso foi utilizado o valor 4 para este parâmetro
+	Parâmetro de \textit{smoothing}, no nosso caso foi utilizado o valor 4 para este parâmetro
 \end{description}
